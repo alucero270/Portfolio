@@ -681,7 +681,7 @@ section {
 }
 
 /*--------------------------------------------------------------
-# My Skills
+# Skills
 --------------------------------------------------------------*/
 
 .skills .icon-box {
@@ -710,7 +710,7 @@ section {
 .skills .icon i {
   font-size: 36px;
   line-height: 1;
-  color: #ffb727;
+  color: var(--dark-moss-green);
 }
 
 .skills .title {
@@ -739,41 +739,61 @@ section {
 }
 
 /*--------------------------------------------------------------
-# My Tools
+# Tools
 --------------------------------------------------------------*/
+.tools .col {
+  /* width: fit-content;
+  height: fit-content; */
+	/* max-width: 20em; */
+	margin: 0.15em auto;
+	text-align: center;
+  align-content: center;
+}
+
+/* .tools .card {
+  border: none; 
+  background-color: transparent;
+  align-items: stretch;  
+  margin-bottom: 5em auto;
+} */
+
 .tools .icon-box {
-  padding: 30px;
-  position: relative;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
-  transition: all 0.3s ease-in-out;
-  text-align: center;
-  border: 1px solid #fff;
-  height: 100%;
+  /* align-items: stretch;
+  justify-content: stretch; */
+  background-color: var(--vanilla);
+  /* margin: 1.5em 3em; */
+	width: 6.4em;
+	height: 6.4em;
+	border-radius: 20%;
+	display: inline-block;
+	/* top: 0; */
+	transition: all 0.2s ease;
+  box-shadow: 8px 10px 12px 3px rgba(0, 0, 0, 0.43);
 }
 
 .tools .icon {
-  margin: 0 auto 20px auto;
-  padding-top: 17px;
-  display: inline-block;
-  text-align: center;
-  border-radius: 50%;
-  width: 72px;
-  height: 72px;
-  background: #fff4df;
+  width: 70px;
+	height: 70px;
+  background: white;
+  position: absolute;
+  margin: 15px 16px auto;
+  /* z-index: 10; */
+	border-radius: 30%;
+  box-shadow: 8px 8px 8px 2px rgba(0, 0, 0, 0.23);
+ 
 }
 
 .tools .icon i {
-  font-size: 36px;
-  line-height: 1;
-  color: #ffb727;
+  font-size: 2.6em;
+		margin-top: 16px;
+  color: var(--background-color-alt-light);
 }
 
 .tools .title {
   font-weight: 700;
   margin-bottom: 15px;
   font-size: 18px;
+  /* justify-content: end; */
 }
 
 .tools .title a {
@@ -906,7 +926,7 @@ section {
 }
 
 /*--------------------------------------------------------------
-# My Portfolio
+# Portfolio
 --------------------------------------------------------------*/
 .portfolio #portfolio-flters {
   list-style: none;
@@ -1064,7 +1084,7 @@ section {
 }
 
 /*--------------------------------------------------------------
-# My Resume
+# Resume
 --------------------------------------------------------------*/
 
 .resume .resume-title {
