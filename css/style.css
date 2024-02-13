@@ -341,8 +341,10 @@ h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("../img/hero-bg.jpg") top right;
+  background: url("../img/hero-tech-bg.jpg") top right;
   background-size: cover;
+  border: var(--white-color) solid 0.65rem;
+  border-radius: 10px;
   position: relative;
 }
 
@@ -354,6 +356,23 @@ h6 {
   top: 0;
   left: 0;
   right: 0;
+}
+
+#hero .hero-title {
+  justify-content: left;
+  align-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#hero .title-box .title {
+  border: var(--white-color) solid 0.25rem;
+  text-wrap: wrap;
+  text-align: end;
+background-color: var(--white-color);
+width: fit-content;
+height: 100%;
 }
 
 #hero .hero-container {
@@ -372,8 +391,9 @@ h6 {
 #hero h1 {
   margin: 0 0 10px 0;
   font-size: 64px;
-  font-family: "Satisfy", serif;
+  font-family: "Sixtyfour", serif;
   color: #fff;
+  text-align: center;
 }
 
 #hero h2 {
@@ -1445,8 +1465,9 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: url("../img/footer-bg.jpg") top center no-repeat;
+  background: url("../img/laptop-footer.jpg") top center no-repeat;
   background-size: cover;
+  background-position: center;
   color: #fff;
   font-size: 14px;
   text-align: center;
