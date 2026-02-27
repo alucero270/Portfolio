@@ -27,6 +27,24 @@ npm run format:check
 - `content/resume.mdx`: Resume page content
 - `content/projects/*.mdx`: Project detail pages with frontmatter
 
+## Resume Frontmatter
+
+`content/resume.mdx` frontmatter drives resume and contact data:
+
+- `title`
+- `description`
+- `subtitle`
+- `pdfPath`
+- `email`
+- `linkedin`
+- `github`
+
+Notes:
+
+- Contact page reads `email`, `linkedin`, and `github` from `content/resume.mdx`.
+- Resume page PDF button uses `pdfPath` from `content/resume.mdx`.
+- Keep a single frontmatter block at the top of each MDX file.
+
 Required project sections in each file:
 
 - `Overview`

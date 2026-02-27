@@ -1,6 +1,7 @@
 import { Box, Card, CardContent, Link, Stack, Typography } from "@mui/material";
 import type { Metadata } from "next";
 
+import { getResume } from "@/lib/content";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -14,7 +15,12 @@ function isExternalLink(value: string): boolean {
   return value.startsWith("http://") || value.startsWith("https://");
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const resume = await getResume();
+  const email = resume.frontmatter.email ?? siteConfig.email;
+  const linkedin = resume.frontmatter.linkedin ?? siteConfig.linkedin;
+  const github = resume.frontmatter.github ?? siteConfig.github;
+
   return (
     <Stack spacing={3.5}>
       <Typography component="h1" variant="h1">
@@ -32,30 +38,30 @@ export default function ContactPage() {
               <Box component="span" sx={{ fontWeight: 700 }}>
                 Email:{" "}
               </Box>
-              {siteConfig.email}
+              {email}
             </Typography>
             <Typography component="p">
               <Box component="span" sx={{ fontWeight: 700 }}>
                 LinkedIn:{" "}
               </Box>
-              {isExternalLink(siteConfig.linkedin) ? (
-                <Link href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer">
-                  {siteConfig.linkedin}
+              {isExternalLink(linkedin) ? (
+                <Link href={linkedin} target="_blank" rel="noopener noreferrer">
+                  {linkedin}
                 </Link>
               ) : (
-                siteConfig.linkedin
+                linkedin
               )}
             </Typography>
             <Typography component="p">
               <Box component="span" sx={{ fontWeight: 700 }}>
                 GitHub:{" "}
               </Box>
-              {isExternalLink(siteConfig.github) ? (
-                <Link href={siteConfig.github} target="_blank" rel="noopener noreferrer">
-                  {siteConfig.github}
+              {isExternalLink(github) ? (
+                <Link href={github} target="_blank" rel="noopener noreferrer">
+                  {github}
                 </Link>
               ) : (
-                siteConfig.github
+                github
               )}
             </Typography>
           </Stack>

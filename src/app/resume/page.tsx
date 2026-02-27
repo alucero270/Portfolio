@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 
 export default async function ResumePage() {
   const resume = await getResume();
+  const pdfPath = resume.frontmatter.pdfPath ?? "/resume/Alex_Lucero_Resume.pdf";
 
   return (
     <Stack spacing={3}>
@@ -20,7 +21,7 @@ export default async function ResumePage() {
         <Typography component="h1" variant="h1" gutterBottom>
           {resume.frontmatter.title ?? "Resume"}
         </Typography>
-        <Button href="/resume/Alex_Lucero_Resume.pdf" variant="contained" component="a" download>
+        <Button href={pdfPath} variant="contained" component="a" download>
           Download PDF
         </Button>
       </Box>

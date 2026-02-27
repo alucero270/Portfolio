@@ -1,60 +1,44 @@
 ---
 title: "VTCN (BeagleBone Black)"
 slug: "vtcn"
-summary: "TODO: Add exact summary for VTCN."
+summary: "Telemetry project to receive sensor signals for data logging."
 featured: true
-status: "TODO: Add current status"
+status: "Phase 1"
 updated: "2026-02-27"
 ---
 
 ## Overview
 
-TODO: Add exact project overview.
+VTCN is a production-style embedded Linux platform project built on a BeagleBone Black. The goal is to gain demonstrable experience with embedded Linux workflows: hardware interface validation, cross-compilation, service reliability, and system debugging.
 
 ## Why it matters
 
-TODO: Add why this project matters.
+This is my "embedded proof-of-work" project: GPIO/I2C/SPI/UART + daemon/service design + testable interfaces + documentation.
 
-## Architecture
+## Architecture (initial)
 
-TODO: Add architecture details.
-
-![Architecture diagram placeholder](/images/placeholders/diagram-placeholder.svg)
-
-TODO: Replace with your real architecture diagram.
+- User-space service (C/C++) that reads sensors and emits framed telemetry (CRC, timestamps)
+- Local persistence (SQLite) for buffered offline operation
+- Network transport (TCP/UDP) to a collector
+- Bring-up + validation checklists per interface
 
 ## Tech
 
-TODO: Add exact hardware, firmware, and software stack.
+- BeagleBone Black (ARM Cortex-A8)
+- C/C++, Linux tooling, systemd
+- SQLite, sockets, structured logging
 
 ## Current status
 
-TODO: Add current status.
+- Phase 1 platform foundation and repo structure in progress
 
 ## Next steps
 
-TODO: Add next engineering steps.
+- Hardware bring-up checklist (GPIO + I2C)
+- First end-to-end frame generator + loopback tests
+- Add a simulator mode to develop without hardware
 
-## Evidence (links)
+## Evidence
 
-- TODO: Add repository link.
-- TODO: Add demo link.
-- TODO: Add documentation link.
-
-![Screenshot placeholder](/images/placeholders/screenshot-placeholder.svg)
-
-TODO: Replace with project screenshots.
-
-## Engineering Notes
-
-### Validation
-
-TODO: Add validation strategy.
-
-### Testing
-
-TODO: Add testing approach and outcomes.
-
-### Debugging Approach
-
-TODO: Add debugging workflow and tooling.
+- Repo: https://github.com/alucero270/Vehicle-Telemetry-and-Control-Node-VTCN-
+- Diagrams/screens: TODO
