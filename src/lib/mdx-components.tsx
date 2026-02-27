@@ -1,6 +1,8 @@
 import { Box, Link as MuiLink, Typography } from "@mui/material";
 import type { MDXComponents } from "mdx/types";
 
+import { toInternalHref } from "@/lib/routing";
+
 export const mdxComponents: MDXComponents = {
   h1: (props) => <Typography variant="h2" component="h1" gutterBottom {...props} />,
   h2: (props) => <Typography variant="h3" component="h2" sx={{ mt: 5, mb: 2 }} {...props} />,
@@ -32,9 +34,10 @@ export const mdxComponents: MDXComponents = {
   ),
   a: ({ href = "", children, ...props }) => {
     const isInternal = href.startsWith("/");
+    const resolvedHref = isInternal ? toInternalHref(href) : href;
     return (
       <MuiLink
-        href={href}
+        href={resolvedHref}
         target={isInternal ? undefined : "_blank"}
         rel={isInternal ? undefined : "noopener noreferrer"}
         {...props}

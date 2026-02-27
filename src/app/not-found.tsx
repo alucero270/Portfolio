@@ -1,5 +1,7 @@
 import { Button, Stack, Typography } from "@mui/material";
 
+import { toInternalHref } from "@/lib/routing";
+
 export default function NotFoundPage() {
   return (
     <Stack spacing={2.5}>
@@ -7,7 +9,7 @@ export default function NotFoundPage() {
         Not Found
       </Typography>
       <Typography color="text.secondary">The page you requested does not exist.</Typography>
-      <Button href="/" variant="contained">
+      <Button href={toInternalHref("/")} variant="contained">
         Back to home
       </Button>
     </Stack>
