@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 import { MdxContent } from "@/components/mdx-content";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/content";
+import { toInternalHref } from "@/lib/routing";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -53,7 +54,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <Stack spacing={3.5}>
       <Box component="header">
-        <Button href="/projects" variant="text" startIcon={<ArrowBack />} sx={{ mb: 1.5 }}>
+        <Button
+          href={toInternalHref("/projects")}
+          variant="text"
+          startIcon={<ArrowBack />}
+          sx={{ mb: 1.5 }}
+        >
           Back to projects
         </Button>
         <Typography component="h1" variant="h1" gutterBottom>

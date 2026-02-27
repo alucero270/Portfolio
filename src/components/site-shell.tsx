@@ -1,6 +1,7 @@
 import { Box, Button, Container, Stack, Toolbar, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 
+import { toInternalHref } from "@/lib/routing";
 import { siteConfig } from "@/lib/site";
 
 const navigationLinks = [
@@ -29,7 +30,7 @@ export function SiteShell({ children }: SiteShellProps) {
           <Toolbar disableGutters sx={{ gap: 2, py: 1.5, flexWrap: "wrap" }}>
             <Typography
               component="a"
-              href="/"
+              href={toInternalHref("/")}
               variant="h6"
               sx={{ color: "text.primary", textDecoration: "none" }}
             >
@@ -43,7 +44,12 @@ export function SiteShell({ children }: SiteShellProps) {
               sx={{ marginLeft: "auto", flexWrap: "wrap" }}
             >
               {navigationLinks.map((link) => (
-                <Button key={link.href} href={link.href} color="inherit" sx={{ px: 1.5 }}>
+                <Button
+                  key={link.href}
+                  href={toInternalHref(link.href)}
+                  color="inherit"
+                  sx={{ px: 1.5 }}
+                >
                   {link.label}
                 </Button>
               ))}

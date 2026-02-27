@@ -12,6 +12,7 @@ import {
 import type { Metadata } from "next";
 
 import { getAllProjects } from "@/lib/content";
+import { toInternalHref } from "@/lib/routing";
 
 export const dynamic = "force-static";
 
@@ -50,7 +51,11 @@ export default async function ProjectsPage() {
                 </Stack>
               </CardContent>
               <CardActions>
-                <Button href={`/projects/${project.slug}`} size="small" endIcon={<ArrowForward />}>
+                <Button
+                  href={toInternalHref(`/projects/${project.slug}`)}
+                  size="small"
+                  endIcon={<ArrowForward />}
+                >
                   Open project
                 </Button>
               </CardActions>

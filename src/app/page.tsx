@@ -15,6 +15,7 @@ import type { Metadata } from "next";
 
 import { MdxContent } from "@/components/mdx-content";
 import { getBio, getFeaturedProjects } from "@/lib/content";
+import { toInternalHref } from "@/lib/routing";
 
 export const dynamic = "force-static";
 
@@ -42,7 +43,7 @@ export default async function HomePage() {
           <Typography id="featured-projects-heading" component="h2" variant="h2">
             Featured Projects
           </Typography>
-          <Button href="/projects" variant="text" endIcon={<ArrowForward />}>
+          <Button href={toInternalHref("/projects")} variant="text" endIcon={<ArrowForward />}>
             All projects
           </Button>
         </Stack>
@@ -61,7 +62,7 @@ export default async function HomePage() {
                 </CardContent>
                 <CardActions>
                   <Button
-                    href={`/projects/${project.slug}`}
+                    href={toInternalHref(`/projects/${project.slug}`)}
                     size="small"
                     endIcon={<ArrowForward />}
                   >
