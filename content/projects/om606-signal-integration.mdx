@@ -1,60 +1,35 @@
 ---
 title: "OM606 Signal Integration"
 slug: "om606-signal-integration"
-summary: "TODO: Add exact summary for OM606 signal integration."
+summary: "A motor swap experiment."
 featured: false
 status: "TODO: Add current status"
 updated: "2026-02-27"
 ---
 
 ## Overview
-
-TODO: Add exact project overview.
+A hands-on systems integration project adapting a mechanically injected OM606 diesel engine into a modern vehicle platform, requiring signal emulation/validation to interface with factory ECUs and transmission controllers.
 
 ## Why it matters
+It's real-world embedded-style debugging: timing, fault states, signal integrity, and iterative validation with live feedback.
 
-TODO: Add why this project matters.
+## What I did
+- Reverse-engineered and emulated sensor signals (crank, cam, throttle position) to interface with factory ECUs/controllers
+- Iteratively validated signals using live system feedback to eliminate fault conditions and stabilize ECU/trans behavior under real-time constraints
+- Documented system architecture, signal flows, and validation steps for repeatability
 
-## Architecture
-
-TODO: Add architecture details.
-
-![Architecture diagram placeholder](/images/placeholders/diagram-placeholder.svg)
-
-TODO: Replace with your real architecture diagram.
-
-## Tech
-
-TODO: Add exact hardware, firmware, and software stack.
+## Architecture notes (high level)
+- Sensors/signals as contracts
+- Validation loops: change -> test -> observe -> refine
+- Fault-state driven debugging
 
 ## Current status
-
-TODO: Add current status.
+- Ongoing; the approach continues to evolve as I refine the long-term controller strategy
 
 ## Next steps
+- Publish a clear signal map diagram
+- Add a bench-test emulator mode and test plan
 
-TODO: Add next engineering steps.
-
-## Evidence (links)
-
-- TODO: Add repository link.
-- TODO: Add demo link.
-- TODO: Add documentation link.
-
-![Screenshot placeholder](/images/placeholders/screenshot-placeholder.svg)
-
-TODO: Replace with project screenshots.
-
-## Engineering Notes
-
-### Validation
-
-TODO: Add validation strategy.
-
-### Testing
-
-TODO: Add testing approach and outcomes.
-
-### Debugging Approach
-
-TODO: Add debugging workflow and tooling.
+## Evidence
+- Repo: https://github.com/alucero270/Vehicle-Telemetry-and-Control-Node-VTCN-
+- Photos/diagrams: TODO

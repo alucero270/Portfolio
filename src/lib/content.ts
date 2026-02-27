@@ -23,6 +23,9 @@ export type ResumeFrontmatter = {
   title?: string;
   description?: string;
   pdfPath?: string;
+  email?: string;
+  linkedin?: string;
+  github?: string;
 };
 
 export type ProjectFrontmatter = {

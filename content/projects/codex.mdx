@@ -1,60 +1,38 @@
 ---
 title: "Codex"
 slug: "codex"
-summary: "TODO: Add exact summary for Codex."
+summary: "Indexing and retrieval tool for LLM's"
 featured: true
-status: "TODO: Add current status"
+status: "Phase 1: Complete"
 updated: "2026-02-27"
 ---
 
 ## Overview
-
-TODO: Add exact project overview.
+Codex is a personal knowledge-search and engineering assistant system designed to index and retrieve my project documentation, procedures, and decisions quickly and reliably.
 
 ## Why it matters
+As projects scale, success depends on documentation quality and retrieval speed. Codex is my attempt to treat personal engineering documentation like a real org would: structured, searchable, and maintained.
 
-TODO: Add why this project matters.
-
-## Architecture
-
-TODO: Add architecture details.
-
-![Architecture diagram placeholder](/images/placeholders/diagram-placeholder.svg)
-
-TODO: Replace with your real architecture diagram.
+## Architecture (target)
+- Document ingestion (markdown + repo content)
+- Search (FTS / vector as needed)
+- Query interface that supports "engineering workflows" (procedures, ADRs, decisions)
+- Integration with local AI tooling for guided assistance
 
 ## Tech
-
-TODO: Add exact hardware, firmware, and software stack.
+- Linux + Docker
+- C#/.Net/React
+- Search layer (FTS / vector; implementation evolves)
+- Strong docs-first repo practices (templates, ADRs, procedures)
 
 ## Current status
-
-TODO: Add current status.
+- Iterating on system prompts, retrieval flow, and service structure
 
 ## Next steps
+- Establish stable ingestion + retrieval MVP
+- Add regression tests for retrieval quality ("known question -> expected docs")
+- Publish a "How I use Codex" workflow guide on the site
 
-TODO: Add next engineering steps.
-
-## Evidence (links)
-
-- TODO: Add repository link.
-- TODO: Add demo link.
-- TODO: Add documentation link.
-
-![Screenshot placeholder](/images/placeholders/screenshot-placeholder.svg)
-
-TODO: Replace with project screenshots.
-
-## Engineering Notes
-
-### Validation
-
-TODO: Add validation strategy.
-
-### Testing
-
-TODO: Add testing approach and outcomes.
-
-### Debugging Approach
-
-TODO: Add debugging workflow and tooling.
+## Evidence
+- Repo: https://github.com/alucero270/codex
+- Screenshots: TODO
