@@ -8,30 +8,37 @@ updated: "2026-02-27"
 ---
 
 ## Overview
+
 VTCN is a production-style embedded Linux platform project built on a BeagleBone Black. The goal is to gain demonstrable experience with embedded Linux workflows: hardware interface validation, cross-compilation, service reliability, and system debugging.
 
 ## Why it matters
+
 This is my "embedded proof-of-work" project: GPIO/I2C/SPI/UART + daemon/service design + testable interfaces + documentation.
 
 ## Architecture (initial)
+
 - User-space service (C/C++) that reads sensors and emits framed telemetry (CRC, timestamps)
 - Local persistence (SQLite) for buffered offline operation
 - Network transport (TCP/UDP) to a collector
 - Bring-up + validation checklists per interface
 
 ## Tech
+
 - BeagleBone Black (ARM Cortex-A8)
 - C/C++, Linux tooling, systemd
 - SQLite, sockets, structured logging
 
 ## Current status
+
 - Phase 1 platform foundation and repo structure in progress
 
 ## Next steps
+
 - Hardware bring-up checklist (GPIO + I2C)
 - First end-to-end frame generator + loopback tests
 - Add a simulator mode to develop without hardware
 
 ## Evidence
+
 - Repo: https://github.com/alucero270/Vehicle-Telemetry-and-Control-Node-VTCN-
 - Diagrams/screens: TODO

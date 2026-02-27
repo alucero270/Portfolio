@@ -8,31 +8,38 @@ updated: "2026-02-27"
 ---
 
 ## Overview
+
 Codex is a personal knowledge-search and engineering assistant system designed to index and retrieve my project documentation, procedures, and decisions quickly and reliably.
 
 ## Why it matters
+
 As projects scale, success depends on documentation quality and retrieval speed. Codex is my attempt to treat personal engineering documentation like a real org would: structured, searchable, and maintained.
 
 ## Architecture (target)
+
 - Document ingestion (markdown + repo content)
 - Search (FTS / vector as needed)
 - Query interface that supports "engineering workflows" (procedures, ADRs, decisions)
 - Integration with local AI tooling for guided assistance
 
 ## Tech
+
 - Linux + Docker
 - C#/.Net/React
 - Search layer (FTS / vector; implementation evolves)
 - Strong docs-first repo practices (templates, ADRs, procedures)
 
 ## Current status
+
 - Iterating on system prompts, retrieval flow, and service structure
 
 ## Next steps
+
 - Establish stable ingestion + retrieval MVP
 - Add regression tests for retrieval quality ("known question -> expected docs")
 - Publish a "How I use Codex" workflow guide on the site
 
 ## Evidence
+
 - Repo: https://github.com/alucero270/codex
 - Screenshots: TODO

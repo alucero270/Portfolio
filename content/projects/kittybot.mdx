@@ -8,30 +8,37 @@ updated: "2026-02-27"
 ---
 
 ## Overview
+
 KittyBot is a companion robot project focused on system integration: compute node + sensors + actuator control + a repeatable software stack. The intention is to develop robotics-adjacent skills (interfaces, control surfaces, reliability, and operational workflows).
 
 ## Why it matters
+
 Robotics roles reward engineers who can ship across boundaries: software, hardware interfaces, debugging, and repeatable system behavior. KittyBot is built to make those skills visible.
 
 ## Architecture (target)
+
 - High-level compute (Linux) for orchestration and behavior
 - A microcontroller layer for deterministic servo/actuator control (timing-sensitive)
 - Clear IPC boundary: telemetry + command messages
 - Reproducible dev environment using containers
 
 ## Tech
+
 - Linux, containers, structured services
 - MCU integration (planned): STM32/Arduino-class controller (as appropriate)
 - Sensor/actuator integration patterns, validation-first bring-up
 
 ## Current status
+
 - Phase 1 planning + repo scaffolding; architecture and interface contracts being defined
 
 ## Next steps
+
 - Define actuator/sensor MVP set
 - Bring-up and validate control loop timing and safety constraints
 - Add "sim mode" for behavior development without hardware
 
 ## Evidence
+
 - Repo: https://github.com/alucero270/kittybot
 - Diagrams/screens: TODO
