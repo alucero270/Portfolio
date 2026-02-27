@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(98, 156, 226, 0.2), transparent 36%),
+    radial-gradient(circle at 92% 4%, rgba(232, 157, 102, 0.18), transparent 34%), #f6f8fb;
+  color: #16202b;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid #005a9c;
+  outline-offset: 2px;
+}
+
+.mdx-content > *:first-child {
+  margin-top: 0;
+}
+
+.mdx-content > *:last-child {
+  margin-bottom: 0;
+}
