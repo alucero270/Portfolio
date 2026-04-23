@@ -87,6 +87,7 @@ export default async function HomePage() {
   const [bio, featuredProjects] = await Promise.all([getBio(), getFeaturedProjects()]);
   const featuredProjectItems = featuredProjects.map((project) => ({
     actionLabel: "View details",
+    evidenceCount: project.evidence?.length,
     href: toInternalHref(`/projects/${project.slug}`),
     status: project.status,
     summary: project.summary,

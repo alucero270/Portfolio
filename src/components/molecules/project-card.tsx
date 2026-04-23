@@ -1,11 +1,14 @@
 import { ArrowForward } from "@mui/icons-material";
-import { Card, CardActions, CardContent, Typography } from "@mui/material";
+import { Card, CardActions, CardContent, Stack, Typography } from "@mui/material";
+
+import { MonoLabel } from "@/components/atoms";
 
 import { CTAGroup } from "./cta-group";
 import { ProjectMetaRow } from "./project-meta-row";
 
 export type ProjectCardData = {
   actionLabel?: string;
+  evidenceCount?: number;
   href: string;
   status?: string;
   summary: string;
@@ -19,6 +22,7 @@ type ProjectCardProps = ProjectCardData & {
 
 export function ProjectCard({
   actionLabel = "Open project",
+  evidenceCount,
   headingComponent = "h2",
   href,
   status,
@@ -26,6 +30,9 @@ export function ProjectCard({
   title,
   updated,
 }: ProjectCardProps) {
+  const evidenceLabel =
+    evidenceCount && evidenceCount > 1 ? `${evidenceCount} evidence links` : "1 evidence link";
+
   return (
     <Card component="article">
       <CardContent>
@@ -39,7 +46,10 @@ export function ProjectCard({
         <Typography color="text.secondary" sx={{ mb: 2 }}>
           {summary}
         </Typography>
-        <ProjectMetaRow status={status} updated={updated} />
+        <Stack spacing={1}>
+          <ProjectMetaRow status={status} updated={updated} />
+          {evidenceCount ? <MonoLabel>{evidenceLabel}</MonoLabel> : null}
+        </Stack>
       </CardContent>
       <CardActions>
         <CTAGroup

@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 export default async function ProjectsPage() {
   const projects = await getAllProjects();
   const projectItems = projects.map((project) => ({
+    evidenceCount: project.evidence?.length,
     href: toInternalHref(`/projects/${project.slug}`),
     status: project.status,
     summary: project.summary,

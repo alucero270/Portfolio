@@ -6,6 +6,7 @@ export type EvidenceLink = {
   description?: string;
   href: string;
   label: string;
+  type?: string;
 };
 
 type EvidenceLinkListProps = {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { MdxContent } from "@/components/mdx-content";
-import { ProjectDetailHeader } from "@/components/organisms";
+import { EngineeringEvidenceSection, ProjectDetailHeader } from "@/components/organisms";
 import { ProjectDetailTemplate } from "@/components/templates";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
@@ -62,6 +62,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         />
       }
     >
+      <EngineeringEvidenceSection
+        headingId="project-evidence-heading"
+        links={project.frontmatter.evidence}
+        title="Evidence"
+      />
       <MdxContent>{project.content}</MdxContent>
     </ProjectDetailTemplate>
   );

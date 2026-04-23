@@ -37,7 +37,7 @@ export type ProjectEvidence = {
   description?: string;
   href: string;
   label: string;
-  type?: "repo" | "diagram" | "screenshot" | "adr" | "validation" | "note";
+  type?: "repo" | "diagram" | "screenshot" | "adr" | "validation" | "note" | "pr" | "issue";
 };
 
 export type ProjectFrontmatter = {
