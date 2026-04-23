@@ -1,6 +1,7 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import type { Metadata } from "next";
 
+import { SectionHeading } from "@/components/atoms";
 import { MdxContent } from "@/components/mdx-content";
 import { getResume } from "@/lib/content";
 
@@ -18,9 +19,9 @@ export default async function ResumePage() {
   return (
     <Stack spacing={3}>
       <Box component="header">
-        <Typography component="h1" variant="h1" gutterBottom>
+        <SectionHeading component="h1" variant="h1" gutterBottom>
           {resume.frontmatter.title ?? "Resume"}
-        </Typography>
+        </SectionHeading>
         <Button href={pdfPath} variant="contained" component="a" download>
           Download PDF
         </Button>

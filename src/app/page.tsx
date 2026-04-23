@@ -5,7 +5,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  Chip,
   Divider,
   Grid,
   Stack,
@@ -13,6 +12,7 @@ import {
 } from "@mui/material";
 import type { Metadata } from "next";
 
+import { SectionEyebrow, SectionHeading, StatusChip, TechTag } from "@/components/atoms";
 import { MdxContent } from "@/components/mdx-content";
 import { getBio, getFeaturedProjects } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
@@ -30,19 +30,22 @@ export default async function HomePage() {
   return (
     <Stack spacing={7}>
       <Box component="section" aria-labelledby="home-bio-heading">
-        <Typography id="home-bio-heading" component="h1" variant="h1" gutterBottom>
+        <SectionHeading id="home-bio-heading" component="h1" variant="h1" gutterBottom>
           {bio.frontmatter.title ?? "Alex Lucero"}
-        </Typography>
+        </SectionHeading>
         <MdxContent>{bio.content}</MdxContent>
+        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={{ mt: 2 }}>
+          {["Next.js", "TypeScript", "MUI", "MDX"].map((tag) => (
+            <TechTag key={tag} label={tag} />
+          ))}
+        </Stack>
       </Box>
 
       <Divider />
 
       <Box component="section" aria-labelledby="featured-projects-heading">
         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2.5 }}>
-          <Typography id="featured-projects-heading" component="h2" variant="h2">
-            Featured Projects
-          </Typography>
+          <SectionHeading id="featured-projects-heading">Featured Projects</SectionHeading>
           <Button href={toInternalHref("/projects")} variant="text" endIcon={<ArrowForward />}>
             All projects
           </Button>
@@ -58,7 +61,7 @@ export default async function HomePage() {
                   <Typography color="text.secondary" sx={{ mb: 2 }}>
                     {project.summary}
                   </Typography>
-                  {project.status ? <Chip size="small" label={project.status} /> : null}
+                  {project.status ? <StatusChip label={project.status} /> : null}
                 </CardContent>
                 <CardActions>
                   <Button
@@ -78,12 +81,10 @@ export default async function HomePage() {
       <Divider />
 
       <Box component="section" aria-labelledby="working-now-heading">
-        <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1.5 }}>
-          <Chip size="small" label="Now" color="primary" />
-          <Typography id="working-now-heading" component="h2" variant="h2">
-            What I&apos;m Working On
-          </Typography>
-        </Stack>
+        <SectionEyebrow>Now</SectionEyebrow>
+        <SectionHeading id="working-now-heading" sx={{ mb: 1.5 }}>
+          What I&apos;m Working On
+        </SectionHeading>
         <Typography component="p" color="text.secondary">
           {bio.frontmatter.now ??
             "TODO: Add current work focus in /content/bio.mdx frontmatter `now`."}

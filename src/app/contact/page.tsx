@@ -1,6 +1,7 @@
-import { Box, Card, CardContent, Link, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
 import type { Metadata } from "next";
 
+import { ExternalLink, SectionHeading } from "@/components/atoms";
 import { getResume } from "@/lib/content";
 import { siteConfig } from "@/lib/site";
 
@@ -23,15 +24,15 @@ export default async function ContactPage() {
 
   return (
     <Stack spacing={3.5}>
-      <Typography component="h1" variant="h1">
+      <SectionHeading component="h1" variant="h1">
         Contact
-      </Typography>
+      </SectionHeading>
 
       <Card component="section" aria-labelledby="contact-links-heading">
         <CardContent>
-          <Typography id="contact-links-heading" component="h2" variant="h2" sx={{ mb: 2 }}>
+          <SectionHeading id="contact-links-heading" sx={{ mb: 2 }}>
             Reach Out
-          </Typography>
+          </SectionHeading>
 
           <Stack spacing={1.25}>
             <Typography component="p">
@@ -44,25 +45,13 @@ export default async function ContactPage() {
               <Box component="span" sx={{ fontWeight: 700 }}>
                 LinkedIn:{" "}
               </Box>
-              {isExternalLink(linkedin) ? (
-                <Link href={linkedin} target="_blank" rel="noopener noreferrer">
-                  {linkedin}
-                </Link>
-              ) : (
-                linkedin
-              )}
+              {isExternalLink(linkedin) ? <ExternalLink href={linkedin} /> : linkedin}
             </Typography>
             <Typography component="p">
               <Box component="span" sx={{ fontWeight: 700 }}>
                 GitHub:{" "}
               </Box>
-              {isExternalLink(github) ? (
-                <Link href={github} target="_blank" rel="noopener noreferrer">
-                  {github}
-                </Link>
-              ) : (
-                github
-              )}
+              {isExternalLink(github) ? <ExternalLink href={github} /> : github}
             </Typography>
           </Stack>
         </CardContent>
