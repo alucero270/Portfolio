@@ -33,6 +33,13 @@ export type ResumeFrontmatter = {
   github?: string;
 };
 
+export type ProjectEvidence = {
+  description?: string;
+  href: string;
+  label: string;
+  type?: "repo" | "diagram" | "screenshot" | "adr" | "validation" | "note";
+};
+
 export type ProjectFrontmatter = {
   title?: string;
   description?: string;
@@ -41,6 +48,14 @@ export type ProjectFrontmatter = {
   featured?: boolean;
   status?: string;
   updated?: string;
+  role?: string;
+  outcome?: string;
+  tech?: string[];
+  evidence?: ProjectEvidence[];
+  repoOwner?: string;
+  repoName?: string;
+  repoPath?: string;
+  repoPrimary?: boolean;
 };
 
 export type RenderedMdx<TFrontmatter> = {
