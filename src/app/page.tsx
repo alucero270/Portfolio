@@ -3,12 +3,16 @@ import type { Metadata } from "next";
 import { MdxContent } from "@/components/mdx-content";
 import {
   AuthorityHero,
+  BuildPhilosophySection,
+  type BuildPrinciple,
+  EngineeringEvidenceSection,
   SelectedWorkSection,
   WhatWeDoSection,
   type WhatWeDoItem,
   WorkingNowCard,
 } from "@/components/organisms";
 import { HomeTemplate } from "@/components/templates";
+import type { EvidenceLink } from "@/components/molecules";
 import { getBio, getFeaturedProjects } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
 import { siteConfig } from "@/lib/site";
@@ -38,6 +42,24 @@ const whatWeDoItems: WhatWeDoItem[] = [
   },
 ];
 
+const buildPrinciples: BuildPrinciple[] = [
+  {
+    title: "Define the boundary",
+    description:
+      "Name the interfaces, ownership, failure modes, and data shapes before the implementation gets too clever.",
+  },
+  {
+    title: "Validate the risky part",
+    description:
+      "Prototype around the unknowns first, then keep the validation steps close enough that future changes can be checked.",
+  },
+  {
+    title: "Leave a trail",
+    description:
+      "Prefer docs, decisions, run notes, and small tests over invisible heroics. The next pass should be easier to reason about.",
+  },
+];
+
 export default async function HomePage() {
   const [bio, featuredProjects] = await Promise.all([getBio(), getFeaturedProjects()]);
   const featuredProjectItems = featuredProjects.map((project) => ({
@@ -47,6 +69,24 @@ export default async function HomePage() {
     summary: project.summary,
     title: project.title,
   }));
+  const evidenceLinks: EvidenceLink[] = [
+    {
+      description: "Authored project pages with summaries, status, and implementation context.",
+      href: toInternalHref("/projects"),
+      label: "Project evidence index",
+    },
+    {
+      description: "Embedded Linux and telemetry work where interfaces and validation matter.",
+      href: toInternalHref("/projects/vtcn"),
+      label: "Embedded systems proof surface",
+    },
+    {
+      description:
+        "Homelab infrastructure work for repeatable operations and supportable services.",
+      href: toInternalHref("/projects/pantheon"),
+      label: "Infrastructure proof surface",
+    },
+  ];
 
   return (
     <HomeTemplate
@@ -79,6 +119,18 @@ export default async function HomePage() {
           allProjectsHref={toInternalHref("/projects")}
           headingId="featured-projects-heading"
           projects={featuredProjectItems}
+        />,
+        <BuildPhilosophySection
+          key="build-philosophy"
+          headingId="build-philosophy-heading"
+          principles={buildPrinciples}
+          title="How I Work"
+        />,
+        <EngineeringEvidenceSection
+          key="engineering-evidence"
+          headingId="engineering-evidence-heading"
+          links={evidenceLinks}
+          title="Proof of Work"
         />,
         <WorkingNowCard
           key="working-now"

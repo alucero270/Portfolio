@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemText } from "@mui/material";
+import { Link, List, ListItem, ListItemText } from "@mui/material";
 
 import { ExternalLink } from "@/components/atoms";
 
@@ -22,7 +22,13 @@ export function EvidenceLinkList({ links = [] }: EvidenceLinkListProps) {
       {links.map((link) => (
         <ListItem key={link.href} disableGutters>
           <ListItemText
-            primary={<ExternalLink href={link.href}>{link.label}</ExternalLink>}
+            primary={
+              link.href.startsWith("http") ? (
+                <ExternalLink href={link.href}>{link.label}</ExternalLink>
+              ) : (
+                <Link href={link.href}>{link.label}</Link>
+              )
+            }
             secondary={link.description}
           />
         </ListItem>
