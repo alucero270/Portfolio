@@ -1,21 +1,28 @@
-import { ArrowForward } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Chip,
-  Divider,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
 import type { Metadata } from "next";
 
 import { MdxContent } from "@/components/mdx-content";
+import {
+  AboutPreviewSection,
+  AuthorityHero,
+  BuildPhilosophySection,
+  type BuildPrinciple,
+  ContactCTASection,
+  EngineeringEvidenceSection,
+  SelectedWorkSection,
+  WhatWeDoSection,
+  type WhatWeDoItem,
+  WorkingNowCard,
+} from "@/components/organisms";
+import { HomeTemplate } from "@/components/templates";
+import type { ActivityItemData, EvidenceLink } from "@/components/molecules";
 import { getBio, getFeaturedProjects } from "@/lib/content";
+import {
+  fetchAllowlistedGitHubRepos,
+  getFilteredGitHubActivity,
+  type GitHubActivityItem,
+} from "@/lib/github";
 import { toInternalHref } from "@/lib/routing";
+import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
 
@@ -24,71 +31,188 @@ export const metadata: Metadata = {
   description: "Alex Lucero portfolio home with bio, featured projects, and current work focus.",
 };
 
+const whatWeDoItems: WhatWeDoItem[] = [
+  {
+    title: "Systems structuring",
+    description:
+      "Turn ambiguous technical work into explicit boundaries, data shapes, implementation paths, and validation steps.",
+  },
+  {
+    title: "AI integration",
+    description:
+      "Use LLMs where they improve retrieval, automation, and operator flow without making live AI the source of truth.",
+  },
+  {
+    title: "Supportable prototypes",
+    description:
+      "Build small, inspectable slices with enough documentation, tests, and tradeoff notes to keep moving after the demo.",
+  },
+];
+
+const buildPrinciples: BuildPrinciple[] = [
+  {
+    title: "Define the boundary",
+    description:
+      "Name the interfaces, ownership, failure modes, and data shapes before the implementation gets too clever.",
+  },
+  {
+    title: "Validate the risky part",
+    description:
+      "Prototype around the unknowns first, then keep the validation steps close enough that future changes can be checked.",
+  },
+  {
+    title: "Leave a trail",
+    description:
+      "Prefer docs, decisions, run notes, and small tests over invisible heroics. The next pass should be easier to reason about.",
+  },
+];
+
+const workingNowFallbackItems: ActivityItemData[] = [
+  {
+    label: "Current focus",
+    summary:
+      "Personal retrieval and documentation workflows for project decisions, procedures, and engineering notes.",
+    title: "Codex",
+  },
+  {
+    label: "Systems integration",
+    summary:
+      "Companion robot planning, service boundaries, and hardware/software interface contracts.",
+    title: "KittyBot",
+  },
+  {
+    label: "Embedded Linux",
+    summary:
+      "Telemetry platform work around sensor input, framing, persistence, and validation loops.",
+    title: "VTCN",
+  },
+];
+
+function toWorkingNowActivityItem(activityItem: GitHubActivityItem): ActivityItemData {
+  return {
+    href: activityItem.url,
+    label: activityItem.label,
+    summary: activityItem.summary,
+    title: activityItem.title,
+  };
+}
+
+async function getWorkingNowItems(): Promise<ActivityItemData[]> {
+  if (process.env.STATIC_EXPORT === "true") {
+    return workingNowFallbackItems;
+  }
+
+  try {
+    const repos = await fetchAllowlistedGitHubRepos(undefined, { commitLimit: 8 });
+    const activityItems = getFilteredGitHubActivity(repos, { limit: 3 }).map(
+      toWorkingNowActivityItem,
+    );
+
+    return activityItems.length > 0 ? activityItems : workingNowFallbackItems;
+  } catch {
+    return workingNowFallbackItems;
+  }
+}
+
 export default async function HomePage() {
-  const [bio, featuredProjects] = await Promise.all([getBio(), getFeaturedProjects()]);
+  const [bio, featuredProjects, workingNowItems] = await Promise.all([
+    getBio(),
+    getFeaturedProjects(),
+    getWorkingNowItems(),
+  ]);
+  const featuredProjectItems = featuredProjects.map((project) => ({
+    actionLabel: "View details",
+    evidenceCount: project.evidence?.length,
+    href: toInternalHref(`/projects/${project.slug}`),
+    status: project.status,
+    summary: project.summary,
+    title: project.title,
+  }));
+  const evidenceLinks: EvidenceLink[] = [
+    {
+      description: "Authored project pages with summaries, status, and implementation context.",
+      href: toInternalHref("/projects"),
+      label: "Project evidence index",
+    },
+    {
+      description: "Embedded Linux and telemetry work where interfaces and validation matter.",
+      href: toInternalHref("/projects/vtcn"),
+      label: "Embedded systems proof surface",
+    },
+    {
+      description:
+        "Homelab infrastructure work for repeatable operations and supportable services.",
+      href: toInternalHref("/projects/pantheon"),
+      label: "Infrastructure proof surface",
+    },
+  ];
 
   return (
-    <Stack spacing={7}>
-      <Box component="section" aria-labelledby="home-bio-heading">
-        <Typography id="home-bio-heading" component="h1" variant="h1" gutterBottom>
-          {bio.frontmatter.title ?? "Alex Lucero"}
-        </Typography>
-        <MdxContent>{bio.content}</MdxContent>
-      </Box>
-
-      <Divider />
-
-      <Box component="section" aria-labelledby="featured-projects-heading">
-        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2.5 }}>
-          <Typography id="featured-projects-heading" component="h2" variant="h2">
-            Featured Projects
-          </Typography>
-          <Button href={toInternalHref("/projects")} variant="text" endIcon={<ArrowForward />}>
-            All projects
-          </Button>
-        </Stack>
-        <Grid container spacing={2.5}>
-          {featuredProjects.map((project) => (
-            <Grid key={project.slug} size={{ xs: 12, md: 6, lg: 4 }}>
-              <Card component="article">
-                <CardContent>
-                  <Typography component="h3" variant="h3" sx={{ fontSize: "1.35rem", mb: 1 }}>
-                    {project.title}
-                  </Typography>
-                  <Typography color="text.secondary" sx={{ mb: 2 }}>
-                    {project.summary}
-                  </Typography>
-                  {project.status ? <Chip size="small" label={project.status} /> : null}
-                </CardContent>
-                <CardActions>
-                  <Button
-                    href={toInternalHref(`/projects/${project.slug}`)}
-                    size="small"
-                    endIcon={<ArrowForward />}
-                  >
-                    View details
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-
-      <Divider />
-
-      <Box component="section" aria-labelledby="working-now-heading">
-        <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1.5 }}>
-          <Chip size="small" label="Now" color="primary" />
-          <Typography id="working-now-heading" component="h2" variant="h2">
-            What I&apos;m Working On
-          </Typography>
-        </Stack>
-        <Typography component="p" color="text.secondary">
-          {bio.frontmatter.now ??
-            "TODO: Add current work focus in /content/bio.mdx frontmatter `now`."}
-        </Typography>
-      </Box>
-    </Stack>
+    <HomeTemplate
+      sections={[
+        <AuthorityHero
+          key="hero"
+          ctas={[
+            {
+              href: "#featured-projects-heading",
+              label: "Selected work",
+              variant: "contained",
+            },
+            {
+              href: toInternalHref("/contact"),
+              label: "Contact",
+              variant: "outlined",
+            },
+          ]}
+          eyebrow={`${siteConfig.ownerName} / ${siteConfig.studioName}`}
+          headingId="home-bio-heading"
+          summary="I build practical software, automation, and systems-integration projects with an emphasis on reliability, documentation, and proof you can inspect."
+          techTags={["Next.js", "TypeScript", "MUI", "MDX"]}
+          title={bio.frontmatter.title ?? "Alex Lucero"}
+        >
+          <MdxContent>{bio.content}</MdxContent>
+        </AuthorityHero>,
+        <WhatWeDoSection key="what-we-do" headingId="what-we-do-heading" items={whatWeDoItems} />,
+        <SelectedWorkSection
+          key="selected-work"
+          allProjectsHref={toInternalHref("/projects")}
+          headingId="featured-projects-heading"
+          projects={featuredProjectItems}
+        />,
+        <BuildPhilosophySection
+          key="build-philosophy"
+          headingId="build-philosophy-heading"
+          principles={buildPrinciples}
+          title="How I Work"
+        />,
+        <EngineeringEvidenceSection
+          key="engineering-evidence"
+          headingId="engineering-evidence-heading"
+          links={evidenceLinks}
+          title="Proof of Work"
+        />,
+        <WorkingNowCard
+          key="working-now"
+          headingId="working-now-heading"
+          items={workingNowItems}
+          summary={
+            bio.frontmatter.now ??
+            "TODO: Add current work focus in /content/bio.mdx frontmatter `now`."
+          }
+        />,
+        <AboutPreviewSection
+          key="about-preview"
+          aboutHref={toInternalHref("/about")}
+          headingId="about-preview-heading"
+          summary="The site is centered on Alex Lucero: a software engineer using Loose Arrow Labs as the studio identity for hands-on technical work, systems experiments, and selected builds."
+        />,
+        <ContactCTASection
+          key="contact-cta"
+          contactHref={toInternalHref("/contact")}
+          headingId="contact-cta-heading"
+          summary="Send the project, system, or workflow constraint. The useful first step is usually clarifying boundaries, risks, and what would count as proof."
+        />,
+      ]}
+    />
   );
 }

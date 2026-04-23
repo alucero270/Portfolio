@@ -1,17 +1,9 @@
-import { ArrowForward } from "@mui/icons-material";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Chip,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
 import type { Metadata } from "next";
 
+import { ProjectGrid } from "@/components/organisms";
+import { ProjectIndexTemplate } from "@/components/templates";
 import { getAllProjects } from "@/lib/content";
+import { fetchGitHubFreshnessByProjectSlug } from "@/lib/github";
 import { toInternalHref } from "@/lib/routing";
 
 export const dynamic = "force-static";
@@ -23,46 +15,33 @@ export const metadata: Metadata = {
 };
 
 export default async function ProjectsPage() {
-  const projects = await getAllProjects();
+  const [projects, repoFreshnessBySlug] = await Promise.all([
+    getAllProjects(),
+    fetchGitHubFreshnessByProjectSlug(),
+  ]);
+  const projectItems = projects.map((project) => ({
+    evidenceCount: project.evidence?.length,
+    href: toInternalHref(`/projects/${project.slug}`),
+    outcome: project.outcome,
+    repoLabel:
+      project.repoOwner && project.repoName
+        ? `${project.repoOwner}/${project.repoName}`
+        : undefined,
+    repoFreshness: repoFreshnessBySlug.get(project.slug),
+    role: project.role,
+    status: project.status,
+    summary: project.summary,
+    tech: project.tech,
+    title: project.title,
+    updated: project.updated,
+  }));
 
   return (
-    <Stack spacing={3.5}>
-      <Typography component="h1" variant="h1">
-        Projects
-      </Typography>
-      <Grid container spacing={2.5}>
-        {projects.map((project) => (
-          <Grid key={project.slug} size={{ xs: 12, md: 6 }}>
-            <Card component="article">
-              <CardContent>
-                <Typography component="h2" variant="h3" sx={{ fontSize: "1.45rem", mb: 1 }}>
-                  {project.title}
-                </Typography>
-                <Typography color="text.secondary" sx={{ mb: 2 }}>
-                  {project.summary}
-                </Typography>
-                <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
-                  {project.status ? (
-                    <Chip size="small" label={project.status} color="primary" />
-                  ) : null}
-                  {project.updated ? (
-                    <Chip size="small" label={`Updated ${project.updated}`} />
-                  ) : null}
-                </Stack>
-              </CardContent>
-              <CardActions>
-                <Button
-                  href={toInternalHref(`/projects/${project.slug}`)}
-                  size="small"
-                  endIcon={<ArrowForward />}
-                >
-                  Open project
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Stack>
+    <ProjectIndexTemplate
+      description="Project pages are treated as proof surfaces: authored context first, with metadata and evidence links where they are available."
+      title="Projects"
+    >
+      <ProjectGrid projects={projectItems} />
+    </ProjectIndexTemplate>
   );
 }

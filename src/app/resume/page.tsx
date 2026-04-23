@@ -1,7 +1,8 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import type { Metadata } from "next";
 
 import { MdxContent } from "@/components/mdx-content";
+import { ContentPageTemplate } from "@/components/templates";
 import { getResume } from "@/lib/content";
 
 export const dynamic = "force-static";
@@ -16,17 +17,15 @@ export default async function ResumePage() {
   const pdfPath = resume.frontmatter.pdfPath ?? "/resume/Alex_Lucero_Resume.pdf";
 
   return (
-    <Stack spacing={3}>
-      <Box component="header">
-        <Typography component="h1" variant="h1" gutterBottom>
-          {resume.frontmatter.title ?? "Resume"}
-        </Typography>
+    <ContentPageTemplate
+      actions={
         <Button href={pdfPath} variant="contained" component="a" download>
           Download PDF
         </Button>
-      </Box>
-
+      }
+      title={resume.frontmatter.title ?? "Resume"}
+    >
       <MdxContent>{resume.content}</MdxContent>
-    </Stack>
+    </ContentPageTemplate>
   );
 }

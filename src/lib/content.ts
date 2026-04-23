@@ -19,6 +19,11 @@ export type BioFrontmatter = {
   now?: string;
 };
 
+export type AboutFrontmatter = {
+  title?: string;
+  description?: string;
+};
+
 export type ResumeFrontmatter = {
   title?: string;
   description?: string;
@@ -26,6 +31,13 @@ export type ResumeFrontmatter = {
   email?: string;
   linkedin?: string;
   github?: string;
+};
+
+export type ProjectEvidence = {
+  description?: string;
+  href: string;
+  label: string;
+  type?: "repo" | "diagram" | "screenshot" | "adr" | "validation" | "note" | "pr" | "issue";
 };
 
 export type ProjectFrontmatter = {
@@ -36,6 +48,14 @@ export type ProjectFrontmatter = {
   featured?: boolean;
   status?: string;
   updated?: string;
+  role?: string;
+  outcome?: string;
+  tech?: string[];
+  evidence?: ProjectEvidence[];
+  repoOwner?: string;
+  repoName?: string;
+  repoPath?: string;
+  repoPrimary?: boolean;
 };
 
 export type RenderedMdx<TFrontmatter> = {
@@ -103,6 +123,10 @@ async function compileFile<TFrontmatter extends Record<string, unknown>>(
 
 export const getBio = cache(async (): Promise<RenderedMdx<BioFrontmatter>> => {
   return compileFile<BioFrontmatter>(path.join(CONTENT_DIR, "bio.mdx"));
+});
+
+export const getAbout = cache(async (): Promise<RenderedMdx<AboutFrontmatter>> => {
+  return compileFile<AboutFrontmatter>(path.join(CONTENT_DIR, "about.mdx"));
 });
 
 export const getResume = cache(async (): Promise<RenderedMdx<ResumeFrontmatter>> => {

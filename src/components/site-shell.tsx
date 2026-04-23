@@ -6,8 +6,9 @@ import { siteConfig } from "@/lib/site";
 
 const navigationLinks = [
   { href: "/", label: "Home" },
-  { href: "/resume", label: "Resume" },
   { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
+  { href: "/resume", label: "Resume" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -23,19 +24,29 @@ export function SiteShell({ children }: SiteShellProps) {
         sx={{
           borderBottom: "1px solid",
           borderColor: "divider",
-          backgroundColor: "rgba(255,255,255,0.8)",
+          backgroundColor: "rgba(8, 10, 15, 0.88)",
+          backdropFilter: "blur(16px)",
         }}
       >
         <Container maxWidth="lg">
           <Toolbar disableGutters sx={{ gap: 2, py: 1.5, flexWrap: "wrap" }}>
-            <Typography
+            <Stack
               component="a"
               href={toInternalHref("/")}
-              variant="h6"
+              spacing={0.25}
               sx={{ color: "text.primary", textDecoration: "none" }}
             >
-              {siteConfig.ownerName}
-            </Typography>
+              <Typography component="span" variant="h6" sx={{ lineHeight: 1.1 }}>
+                {siteConfig.ownerName}
+              </Typography>
+              <Typography
+                component="span"
+                variant="caption"
+                sx={{ color: "text.secondary", letterSpacing: 0, textTransform: "uppercase" }}
+              >
+                {siteConfig.studioName}
+              </Typography>
+            </Stack>
             <Stack
               component="nav"
               aria-label="Primary navigation"
@@ -64,9 +75,15 @@ export function SiteShell({ children }: SiteShellProps) {
 
       <Box component="footer" sx={{ borderTop: "1px solid", borderColor: "divider", py: 2.5 }}>
         <Container maxWidth="lg">
-          <Typography variant="body2" color="text.secondary">
-            {new Date().getFullYear()} {siteConfig.ownerName}
-          </Typography>
+          <Stack spacing={0.5}>
+            <Typography variant="body2" color="text.primary">
+              {new Date().getFullYear()} {siteConfig.ownerName}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {siteConfig.studioName} is the studio layer for selected software, automation, and AI
+              integration work.
+            </Typography>
+          </Stack>
         </Container>
       </Box>
     </Box>

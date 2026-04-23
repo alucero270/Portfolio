@@ -1,10 +1,11 @@
-import { ArrowBack } from "@mui/icons-material";
-import { Box, Button, Chip, Stack, Typography } from "@mui/material";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { MdxContent } from "@/components/mdx-content";
+import { EngineeringEvidenceSection, ProjectDetailHeader } from "@/components/organisms";
+import { ProjectDetailTemplate } from "@/components/templates";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/content";
+import { fetchProjectGitHubFreshness } from "@/lib/github";
 import { toInternalHref } from "@/lib/routing";
 
 type ProjectPageProps = {
@@ -45,37 +46,44 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const [project, repoFreshness] = await Promise.all([
+    getProjectBySlug(slug),
+    fetchProjectGitHubFreshness(slug),
+  ]);
 
   if (!project) {
     notFound();
   }
 
-  return (
-    <Stack spacing={3.5}>
-      <Box component="header">
-        <Button
-          href={toInternalHref("/projects")}
-          variant="text"
-          startIcon={<ArrowBack />}
-          sx={{ mb: 1.5 }}
-        >
-          Back to projects
-        </Button>
-        <Typography component="h1" variant="h1" gutterBottom>
-          {project.frontmatter.title}
-        </Typography>
-        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
-          {project.frontmatter.status ? (
-            <Chip size="small" label={project.frontmatter.status} color="primary" />
-          ) : null}
-          {project.frontmatter.updated ? (
-            <Chip size="small" label={`Updated ${project.frontmatter.updated}`} />
-          ) : null}
-        </Stack>
-      </Box>
+  const repoLabel =
+    project.frontmatter.repoOwner && project.frontmatter.repoName
+      ? `${project.frontmatter.repoOwner}/${project.frontmatter.repoName}`
+      : undefined;
 
+  return (
+    <ProjectDetailTemplate
+      header={
+        <ProjectDetailHeader
+          backHref={toInternalHref("/projects")}
+          evidenceCount={project.frontmatter.evidence?.length}
+          outcome={project.frontmatter.outcome}
+          repoFreshness={repoFreshness ?? undefined}
+          repoLabel={repoLabel}
+          role={project.frontmatter.role}
+          status={project.frontmatter.status}
+          summary={project.frontmatter.summary ?? project.frontmatter.description}
+          tech={project.frontmatter.tech}
+          title={project.frontmatter.title ?? slug}
+          updated={project.frontmatter.updated}
+        />
+      }
+    >
+      <EngineeringEvidenceSection
+        headingId="project-evidence-heading"
+        links={project.frontmatter.evidence}
+        title="Evidence"
+      />
       <MdxContent>{project.content}</MdxContent>
-    </Stack>
+    </ProjectDetailTemplate>
   );
 }
