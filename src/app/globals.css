@@ -10,12 +10,14 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  color-scheme: dark;
+}
+
 body {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 12% 0%, rgba(98, 156, 226, 0.2), transparent 36%),
-    radial-gradient(circle at 92% 4%, rgba(232, 157, 102, 0.18), transparent 34%), #f6f8fb;
-  color: #16202b;
+  background: #080a0f;
+  color: #f6f7fb;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -25,7 +27,7 @@ a {
 }
 
 :focus-visible {
-  outline: 2px solid #005a9c;
+  outline: 2px solid #9b7cff;
   outline-offset: 2px;
 }
 
