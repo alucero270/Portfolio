@@ -1,8 +1,7 @@
-import { Stack } from "@mui/material";
 import type { Metadata } from "next";
 
-import { SectionHeading } from "@/components/atoms";
 import { ProjectGrid } from "@/components/organisms";
+import { ProjectIndexTemplate } from "@/components/templates";
 import { getAllProjects } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
 
@@ -25,11 +24,8 @@ export default async function ProjectsPage() {
   }));
 
   return (
-    <Stack spacing={3.5}>
-      <SectionHeading component="h1" variant="h1">
-        Projects
-      </SectionHeading>
+    <ProjectIndexTemplate title="Projects">
       <ProjectGrid projects={projectItems} />
-    </Stack>
+    </ProjectIndexTemplate>
   );
 }

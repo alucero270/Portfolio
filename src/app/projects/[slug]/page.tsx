@@ -1,9 +1,9 @@
-import { Stack } from "@mui/material";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { MdxContent } from "@/components/mdx-content";
 import { ProjectDetailHeader } from "@/components/organisms";
+import { ProjectDetailTemplate } from "@/components/templates";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
 
@@ -52,15 +52,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   return (
-    <Stack spacing={3.5}>
-      <ProjectDetailHeader
-        backHref={toInternalHref("/projects")}
-        status={project.frontmatter.status}
-        title={project.frontmatter.title ?? slug}
-        updated={project.frontmatter.updated}
-      />
-
+    <ProjectDetailTemplate
+      header={
+        <ProjectDetailHeader
+          backHref={toInternalHref("/projects")}
+          status={project.frontmatter.status}
+          title={project.frontmatter.title ?? slug}
+          updated={project.frontmatter.updated}
+        />
+      }
+    >
       <MdxContent>{project.content}</MdxContent>
-    </Stack>
+    </ProjectDetailTemplate>
   );
 }
