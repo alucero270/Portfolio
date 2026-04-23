@@ -19,6 +19,11 @@ export type BioFrontmatter = {
   now?: string;
 };
 
+export type AboutFrontmatter = {
+  title?: string;
+  description?: string;
+};
+
 export type ResumeFrontmatter = {
   title?: string;
   description?: string;
@@ -103,6 +108,10 @@ async function compileFile<TFrontmatter extends Record<string, unknown>>(
 
 export const getBio = cache(async (): Promise<RenderedMdx<BioFrontmatter>> => {
   return compileFile<BioFrontmatter>(path.join(CONTENT_DIR, "bio.mdx"));
+});
+
+export const getAbout = cache(async (): Promise<RenderedMdx<AboutFrontmatter>> => {
+  return compileFile<AboutFrontmatter>(path.join(CONTENT_DIR, "about.mdx"));
 });
 
 export const getResume = cache(async (): Promise<RenderedMdx<ResumeFrontmatter>> => {
