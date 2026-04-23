@@ -2,12 +2,18 @@ import { ArrowBack } from "@mui/icons-material";
 import { Box, Stack, Typography } from "@mui/material";
 
 import { MonoLabel, SectionHeading, TechTag } from "@/components/atoms";
-import { CTAGroup, ProjectMetaRow } from "@/components/molecules";
+import {
+  CTAGroup,
+  ProjectMetaRow,
+  RepoFreshnessBadge,
+  type RepoFreshnessData,
+} from "@/components/molecules";
 
 type ProjectDetailHeaderProps = {
   backHref: string;
   evidenceCount?: number;
   outcome?: string;
+  repoFreshness?: RepoFreshnessData;
   repoLabel?: string;
   role?: string;
   status?: string;
@@ -21,6 +27,7 @@ export function ProjectDetailHeader({
   backHref,
   evidenceCount,
   outcome,
+  repoFreshness,
   repoLabel,
   role,
   status,
@@ -65,6 +72,7 @@ export function ProjectDetailHeader({
           </Stack>
         ) : null}
         {repoLabel ? <MonoLabel>{repoLabel}</MonoLabel> : null}
+        <RepoFreshnessBadge freshness={repoFreshness} />
         {evidenceCount ? <MonoLabel>{evidenceLabel}</MonoLabel> : null}
       </Stack>
     </Box>

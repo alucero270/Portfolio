@@ -5,6 +5,7 @@ import { MonoLabel, TechTag } from "@/components/atoms";
 
 import { CTAGroup } from "./cta-group";
 import { ProjectMetaRow } from "./project-meta-row";
+import { RepoFreshnessBadge, type RepoFreshnessData } from "./repo-freshness-badge";
 
 export type ProjectCardData = {
   actionLabel?: string;
@@ -12,6 +13,7 @@ export type ProjectCardData = {
   href: string;
   outcome?: string;
   repoLabel?: string;
+  repoFreshness?: RepoFreshnessData;
   role?: string;
   status?: string;
   summary: string;
@@ -30,6 +32,7 @@ export function ProjectCard({
   headingComponent = "h2",
   href,
   outcome,
+  repoFreshness,
   repoLabel,
   role,
   status,
@@ -66,6 +69,7 @@ export function ProjectCard({
             </Stack>
           ) : null}
           {repoLabel ? <MonoLabel>{repoLabel}</MonoLabel> : null}
+          <RepoFreshnessBadge freshness={repoFreshness} />
           {evidenceCount ? <MonoLabel>{evidenceLabel}</MonoLabel> : null}
         </Stack>
       </CardContent>

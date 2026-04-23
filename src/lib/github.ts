@@ -1,4 +1,5 @@
 import {
+  getGitHubReposForProject,
   githubRepoAllowlist,
   isGitHubRepoAllowed,
   toGitHubRepoKey,
@@ -64,6 +65,15 @@ export type GitHubActivityItem = {
   repoUrl: string;
   summary?: string;
   title: string;
+  url: string;
+};
+
+export type GitHubRepoFreshness = {
+  label: string;
+  occurredAt: string;
+  primaryLanguage?: string;
+  repoName: string;
+  repoOwner: string;
   url: string;
 };
 
@@ -241,6 +251,21 @@ function toDateWeight(value: string | undefined): number {
   return Number.isNaN(parsed) ? Number.NEGATIVE_INFINITY : parsed;
 }
 
+function formatGitHubDate(value: string): string | null {
+  const parsed = new Date(value);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    month: "short",
+    timeZone: "UTC",
+    year: "numeric",
+  }).format(parsed);
+}
+
 function getLatestUsefulCommit(repo: NormalizedGitHubRepo): NormalizedGitHubCommit | null {
   const usefulCommits = repo.latestCommits
     .filter((commit) => isUsefulGitHubCommit(commit))
@@ -287,4 +312,103 @@ export function getFilteredGitHubActivity(
     .filter((item): item is GitHubActivityItem => Boolean(item))
     .sort((a, b) => toDateWeight(b.occurredAt) - toDateWeight(a.occurredAt))
     .slice(0, limit);
+}
+
+export function getGitHubRepoFreshness(repo: NormalizedGitHubRepo): GitHubRepoFreshness | null {
+  const occurredAt = repo.pushedAt ?? repo.updatedAt;
+
+  if (!occurredAt) {
+    return null;
+  }
+
+  const formattedDate = formatGitHubDate(occurredAt);
+
+  if (!formattedDate) {
+    return null;
+  }
+
+  return {
+    label: `${repo.pushedAt ? "Repo pushed" : "Repo updated"} ${formattedDate}`,
+    occurredAt,
+    primaryLanguage: repo.primaryLanguage,
+    repoName: repo.repoName,
+    repoOwner: repo.repoOwner,
+    url: repo.url,
+  };
+}
+
+function selectGitHubRepoFreshness(repos: NormalizedGitHubRepo[]): GitHubRepoFreshness | null {
+  const freshnessCandidates = repos
+    .map((repo) => ({
+      freshness: getGitHubRepoFreshness(repo),
+      repo,
+    }))
+    .filter(
+      (candidate): candidate is { freshness: GitHubRepoFreshness; repo: NormalizedGitHubRepo } =>
+        Boolean(candidate.freshness),
+    )
+    .sort((a, b) => {
+      if (a.repo.repoPrimary !== b.repo.repoPrimary) {
+        return b.repo.repoPrimary ? 1 : -1;
+      }
+
+      return toDateWeight(b.freshness.occurredAt) - toDateWeight(a.freshness.occurredAt);
+    });
+
+  return freshnessCandidates[0]?.freshness ?? null;
+}
+
+export async function fetchProjectGitHubFreshness(
+  projectSlug: string,
+): Promise<GitHubRepoFreshness | null> {
+  if (process.env.STATIC_EXPORT === "true") {
+    return null;
+  }
+
+  const configs = getGitHubReposForProject(projectSlug);
+
+  if (configs.length === 0) {
+    return null;
+  }
+
+  try {
+    const repos = await fetchAllowlistedGitHubRepos(configs, { commitLimit: 1 });
+
+    return selectGitHubRepoFreshness(repos);
+  } catch {
+    return null;
+  }
+}
+
+export async function fetchGitHubFreshnessByProjectSlug(
+  configs: GitHubRepoConfig[] = githubRepoAllowlist,
+): Promise<Map<string, GitHubRepoFreshness>> {
+  const freshnessBySlug = new Map<string, GitHubRepoFreshness>();
+
+  if (process.env.STATIC_EXPORT === "true") {
+    return freshnessBySlug;
+  }
+
+  try {
+    const repos = await fetchAllowlistedGitHubRepos(configs, { commitLimit: 1 });
+    const reposBySlug = new Map<string, NormalizedGitHubRepo[]>();
+
+    for (const repo of repos) {
+      for (const projectSlug of repo.projectSlugs) {
+        reposBySlug.set(projectSlug, [...(reposBySlug.get(projectSlug) ?? []), repo]);
+      }
+    }
+
+    for (const [projectSlug, projectRepos] of reposBySlug.entries()) {
+      const freshness = selectGitHubRepoFreshness(projectRepos);
+
+      if (freshness) {
+        freshnessBySlug.set(projectSlug, freshness);
+      }
+    }
+  } catch {
+    return freshnessBySlug;
+  }
+
+  return freshnessBySlug;
 }

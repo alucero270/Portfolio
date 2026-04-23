@@ -5,6 +5,7 @@ import { MdxContent } from "@/components/mdx-content";
 import { EngineeringEvidenceSection, ProjectDetailHeader } from "@/components/organisms";
 import { ProjectDetailTemplate } from "@/components/templates";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/content";
+import { fetchProjectGitHubFreshness } from "@/lib/github";
 import { toInternalHref } from "@/lib/routing";
 
 type ProjectPageProps = {
@@ -45,7 +46,10 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const [project, repoFreshness] = await Promise.all([
+    getProjectBySlug(slug),
+    fetchProjectGitHubFreshness(slug),
+  ]);
 
   if (!project) {
     notFound();
@@ -63,6 +67,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           backHref={toInternalHref("/projects")}
           evidenceCount={project.frontmatter.evidence?.length}
           outcome={project.frontmatter.outcome}
+          repoFreshness={repoFreshness ?? undefined}
           repoLabel={repoLabel}
           role={project.frontmatter.role}
           status={project.frontmatter.status}

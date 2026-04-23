@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ProjectGrid } from "@/components/organisms";
 import { ProjectIndexTemplate } from "@/components/templates";
 import { getAllProjects } from "@/lib/content";
+import { fetchGitHubFreshnessByProjectSlug } from "@/lib/github";
 import { toInternalHref } from "@/lib/routing";
 
 export const dynamic = "force-static";
@@ -14,7 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ProjectsPage() {
-  const projects = await getAllProjects();
+  const [projects, repoFreshnessBySlug] = await Promise.all([
+    getAllProjects(),
+    fetchGitHubFreshnessByProjectSlug(),
+  ]);
   const projectItems = projects.map((project) => ({
     evidenceCount: project.evidence?.length,
     href: toInternalHref(`/projects/${project.slug}`),
@@ -23,6 +27,7 @@ export default async function ProjectsPage() {
       project.repoOwner && project.repoName
         ? `${project.repoOwner}/${project.repoName}`
         : undefined,
+    repoFreshness: repoFreshnessBySlug.get(project.slug),
     role: project.role,
     status: project.status,
     summary: project.summary,
