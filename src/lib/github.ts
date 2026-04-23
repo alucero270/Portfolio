@@ -7,6 +7,7 @@ import {
 
 const GITHUB_API_BASE = "https://api.github.com";
 const DEFAULT_COMMIT_LIMIT = 5;
+const DEFAULT_ACTIVITY_LIMIT = 4;
 
 type RawGitHubRepo = {
   description?: string | null;
@@ -55,9 +56,33 @@ export type NormalizedGitHubRepo = {
   url: string;
 };
 
+export type GitHubActivityItem = {
+  label: string;
+  occurredAt?: string;
+  repoName: string;
+  repoOwner: string;
+  repoUrl: string;
+  summary?: string;
+  title: string;
+  url: string;
+};
+
 type FetchOptions = {
   commitLimit?: number;
 };
+
+type ActivityFilterOptions = {
+  limit?: number;
+};
+
+const noisyCommitPatterns = [
+  /^merge\b/i,
+  /^bump\b/i,
+  /^update dependenc/i,
+  /^chore\(deps\)/i,
+  /^build\(deps\)/i,
+  /\bdependabot\b/i,
+];
 
 function getGitHubHeaders(): HeadersInit {
   const headers: HeadersInit = {
@@ -190,4 +215,76 @@ export async function fetchAllowlistedGitHubRepos(
   );
 
   return repos.filter((repo): repo is NormalizedGitHubRepo => Boolean(repo));
+}
+
+export function isUsefulGitHubCommit(commit: NormalizedGitHubCommit): boolean {
+  const authorName = commit.authorName?.toLowerCase() ?? "";
+  const message = commit.message.trim();
+
+  if (!message) {
+    return false;
+  }
+
+  if (authorName.includes("bot") || authorName.includes("github-actions")) {
+    return false;
+  }
+
+  return !noisyCommitPatterns.some((pattern) => pattern.test(message));
+}
+
+function toDateWeight(value: string | undefined): number {
+  if (!value) {
+    return Number.NEGATIVE_INFINITY;
+  }
+
+  const parsed = Date.parse(value);
+  return Number.isNaN(parsed) ? Number.NEGATIVE_INFINITY : parsed;
+}
+
+function getLatestUsefulCommit(repo: NormalizedGitHubRepo): NormalizedGitHubCommit | null {
+  const usefulCommits = repo.latestCommits
+    .filter((commit) => isUsefulGitHubCommit(commit))
+    .sort((a, b) => toDateWeight(b.committedAt) - toDateWeight(a.committedAt));
+
+  return usefulCommits[0] ?? null;
+}
+
+export function getFilteredGitHubActivity(
+  repos: NormalizedGitHubRepo[],
+  options: ActivityFilterOptions = {},
+): GitHubActivityItem[] {
+  const limit = options.limit ?? DEFAULT_ACTIVITY_LIMIT;
+
+  const activityItems = repos.map((repo): GitHubActivityItem | null => {
+    const latestCommit = getLatestUsefulCommit(repo);
+
+    if (!latestCommit) {
+      return null;
+    }
+
+    const repoLabel = `${repo.repoOwner}/${repo.repoName}`;
+    const omittedCommitCount =
+      repo.latestCommits.filter((commit) => isUsefulGitHubCommit(commit)).length - 1;
+
+    return {
+      label: repoLabel,
+      occurredAt: latestCommit.committedAt ?? repo.pushedAt ?? repo.updatedAt,
+      repoName: repo.repoName,
+      repoOwner: repo.repoOwner,
+      repoUrl: repo.url,
+      summary:
+        omittedCommitCount > 0
+          ? `${omittedCommitCount} other recent useful commit${
+              omittedCommitCount === 1 ? "" : "s"
+            } in this repository.`
+          : repo.description,
+      title: latestCommit.message,
+      url: latestCommit.url,
+    };
+  });
+
+  return activityItems
+    .filter((item): item is GitHubActivityItem => Boolean(item))
+    .sort((a, b) => toDateWeight(b.occurredAt) - toDateWeight(a.occurredAt))
+    .slice(0, limit);
 }
