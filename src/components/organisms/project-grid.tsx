@@ -1,16 +1,8 @@
-import { ArrowForward } from "@mui/icons-material";
-import { Card, CardActions, CardContent, Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 
-import { CTAGroup, ProjectMetaRow } from "@/components/molecules";
+import { ProjectCard, type ProjectCardData } from "@/components/molecules";
 
-export type ProjectGridItem = {
-  actionLabel?: string;
-  href: string;
-  status?: string;
-  summary: string;
-  title: string;
-  updated?: string;
-};
+export type ProjectGridItem = ProjectCardData;
 
 type ProjectGridProps = {
   headingComponent?: "h2" | "h3";
@@ -26,32 +18,7 @@ export function ProjectGrid({ headingComponent = "h2", projects }: ProjectGridPr
     <Grid container spacing={2.5}>
       {projects.map((project) => (
         <Grid key={project.href} size={{ xs: 12, md: 6 }}>
-          <Card component="article">
-            <CardContent>
-              <Typography
-                component={headingComponent}
-                variant="h3"
-                sx={{ fontSize: headingComponent === "h2" ? "1.45rem" : "1.35rem", mb: 1 }}
-              >
-                {project.title}
-              </Typography>
-              <Typography color="text.secondary" sx={{ mb: 2 }}>
-                {project.summary}
-              </Typography>
-              <ProjectMetaRow status={project.status} updated={project.updated} />
-            </CardContent>
-            <CardActions>
-              <CTAGroup
-                actions={[
-                  {
-                    endIcon: <ArrowForward />,
-                    href: project.href,
-                    label: project.actionLabel ?? "Open project",
-                  },
-                ]}
-              />
-            </CardActions>
-          </Card>
+          <ProjectCard {...project} headingComponent={headingComponent} />
         </Grid>
       ))}
     </Grid>

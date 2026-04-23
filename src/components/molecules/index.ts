@@ -3,4 +3,6 @@ export { ContactLinkList } from "./contact-link-list";
 export { CTAGroup } from "./cta-group";
 export { EvidenceLinkList } from "./evidence-link-list";
 export type { EvidenceLink } from "./evidence-link-list";
+export { ProjectCard } from "./project-card";
+export type { ProjectCardData } from "./project-card";
 export { ProjectMetaRow } from "./project-meta-row";

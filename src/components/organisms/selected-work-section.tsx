@@ -1,5 +1,5 @@
 import { ArrowForward } from "@mui/icons-material";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 import { SectionHeading } from "@/components/atoms";
 import { CTAGroup } from "@/components/molecules";
@@ -7,6 +7,7 @@ import { ProjectGrid, type ProjectGridItem } from "@/components/organisms/projec
 
 type SelectedWorkSectionProps = {
   allProjectsHref: string;
+  description?: string;
   headingId: string;
   projects: ProjectGridItem[];
   title?: string;
@@ -14,14 +15,20 @@ type SelectedWorkSectionProps = {
 
 export function SelectedWorkSection({
   allProjectsHref,
+  description = "Representative projects where the architecture, constraints, and implementation details are part of the evidence.",
   headingId,
   projects,
-  title = "Featured Projects",
+  title = "Selected Work",
 }: SelectedWorkSectionProps) {
   return (
     <Box component="section" aria-labelledby={headingId}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2.5 }}>
-        <SectionHeading id={headingId}>{title}</SectionHeading>
+        <Box>
+          <SectionHeading id={headingId}>{title}</SectionHeading>
+          <Typography color="text.secondary" sx={{ maxWidth: 720 }}>
+            {description}
+          </Typography>
+        </Box>
         <CTAGroup
           actions={[
             {
