@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 
 import { MdxContent } from "@/components/mdx-content";
-import { AuthorityHero, SelectedWorkSection, WorkingNowCard } from "@/components/organisms";
+import {
+  AuthorityHero,
+  SelectedWorkSection,
+  WhatWeDoSection,
+  type WhatWeDoItem,
+  WorkingNowCard,
+} from "@/components/organisms";
 import { HomeTemplate } from "@/components/templates";
 import { getBio, getFeaturedProjects } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
@@ -13,6 +19,24 @@ export const metadata: Metadata = {
   title: "Home",
   description: "Alex Lucero portfolio home with bio, featured projects, and current work focus.",
 };
+
+const whatWeDoItems: WhatWeDoItem[] = [
+  {
+    title: "Systems structuring",
+    description:
+      "Turn ambiguous technical work into explicit boundaries, data shapes, implementation paths, and validation steps.",
+  },
+  {
+    title: "AI integration",
+    description:
+      "Use LLMs where they improve retrieval, automation, and operator flow without making live AI the source of truth.",
+  },
+  {
+    title: "Supportable prototypes",
+    description:
+      "Build small, inspectable slices with enough documentation, tests, and tradeoff notes to keep moving after the demo.",
+  },
+];
 
 export default async function HomePage() {
   const [bio, featuredProjects] = await Promise.all([getBio(), getFeaturedProjects()]);
@@ -49,6 +73,7 @@ export default async function HomePage() {
         >
           <MdxContent>{bio.content}</MdxContent>
         </AuthorityHero>,
+        <WhatWeDoSection key="what-we-do" headingId="what-we-do-heading" items={whatWeDoItems} />,
         <SelectedWorkSection
           key="selected-work"
           allProjectsHref={toInternalHref("/projects")}
