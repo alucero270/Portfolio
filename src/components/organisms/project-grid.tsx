@@ -17,7 +17,7 @@ export function ProjectGrid({ headingComponent = "h2", projects }: ProjectGridPr
   return (
     <Grid container spacing={2.5}>
       {projects.map((project) => (
-        <Grid key={project.href} size={{ xs: 12, md: 6 }}>
+        <Grid key={project.href} size={{ xs: 12, md: 6, lg: 4 }}>
           <ProjectCard {...project} headingComponent={headingComponent} />
         </Grid>
       ))}

@@ -1,7 +1,7 @@
 import { ArrowForward } from "@mui/icons-material";
 import { Card, CardActions, CardContent, Stack, Typography } from "@mui/material";
 
-import { MonoLabel } from "@/components/atoms";
+import { MonoLabel, TechTag } from "@/components/atoms";
 
 import { CTAGroup } from "./cta-group";
 import { ProjectMetaRow } from "./project-meta-row";
@@ -10,8 +10,12 @@ export type ProjectCardData = {
   actionLabel?: string;
   evidenceCount?: number;
   href: string;
+  outcome?: string;
+  repoLabel?: string;
+  role?: string;
   status?: string;
   summary: string;
+  tech?: string[];
   title: string;
   updated?: string;
 };
@@ -25,8 +29,12 @@ export function ProjectCard({
   evidenceCount,
   headingComponent = "h2",
   href,
+  outcome,
+  repoLabel,
+  role,
   status,
   summary,
+  tech = [],
   title,
   updated,
 }: ProjectCardProps) {
@@ -34,8 +42,8 @@ export function ProjectCard({
     evidenceCount && evidenceCount > 1 ? `${evidenceCount} evidence links` : "1 evidence link";
 
   return (
-    <Card component="article">
-      <CardContent>
+    <Card component="article" sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <CardContent sx={{ flexGrow: 1 }}>
         <Typography
           component={headingComponent}
           variant="h3"
@@ -46,8 +54,18 @@ export function ProjectCard({
         <Typography color="text.secondary" sx={{ mb: 2 }}>
           {summary}
         </Typography>
-        <Stack spacing={1}>
+        <Stack spacing={1.25}>
           <ProjectMetaRow status={status} updated={updated} />
+          {role ? <Typography color="text.secondary">Role: {role}</Typography> : null}
+          {outcome ? <Typography color="text.secondary">Outcome: {outcome}</Typography> : null}
+          {tech.length > 0 ? (
+            <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+              {tech.map((tag) => (
+                <TechTag key={tag} label={tag} />
+              ))}
+            </Stack>
+          ) : null}
+          {repoLabel ? <MonoLabel>{repoLabel}</MonoLabel> : null}
           {evidenceCount ? <MonoLabel>{evidenceLabel}</MonoLabel> : null}
         </Stack>
       </CardContent>
