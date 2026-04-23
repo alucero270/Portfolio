@@ -1,16 +1,8 @@
 import { ArrowForward } from "@mui/icons-material";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Chip,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Button, Card, CardActions, CardContent, Grid, Stack, Typography } from "@mui/material";
 import type { Metadata } from "next";
 
+import { MonoLabel, SectionHeading, StatusChip } from "@/components/atoms";
 import { getAllProjects } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
 
@@ -27,9 +19,9 @@ export default async function ProjectsPage() {
 
   return (
     <Stack spacing={3.5}>
-      <Typography component="h1" variant="h1">
+      <SectionHeading component="h1" variant="h1">
         Projects
-      </Typography>
+      </SectionHeading>
       <Grid container spacing={2.5}>
         {projects.map((project) => (
           <Grid key={project.slug} size={{ xs: 12, md: 6 }}>
@@ -42,12 +34,8 @@ export default async function ProjectsPage() {
                   {project.summary}
                 </Typography>
                 <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
-                  {project.status ? (
-                    <Chip size="small" label={project.status} color="primary" />
-                  ) : null}
-                  {project.updated ? (
-                    <Chip size="small" label={`Updated ${project.updated}`} />
-                  ) : null}
+                  {project.status ? <StatusChip label={project.status} /> : null}
+                  {project.updated ? <MonoLabel>Updated {project.updated}</MonoLabel> : null}
                 </Stack>
               </CardContent>
               <CardActions>
