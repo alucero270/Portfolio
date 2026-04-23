@@ -16,6 +16,11 @@ import {
 import { HomeTemplate } from "@/components/templates";
 import type { ActivityItemData, EvidenceLink } from "@/components/molecules";
 import { getBio, getFeaturedProjects } from "@/lib/content";
+import {
+  fetchAllowlistedGitHubRepos,
+  getFilteredGitHubActivity,
+  type GitHubActivityItem,
+} from "@/lib/github";
 import { toInternalHref } from "@/lib/routing";
 import { siteConfig } from "@/lib/site";
 
@@ -83,8 +88,38 @@ const workingNowFallbackItems: ActivityItemData[] = [
   },
 ];
 
+function toWorkingNowActivityItem(activityItem: GitHubActivityItem): ActivityItemData {
+  return {
+    href: activityItem.url,
+    label: activityItem.label,
+    summary: activityItem.summary,
+    title: activityItem.title,
+  };
+}
+
+async function getWorkingNowItems(): Promise<ActivityItemData[]> {
+  if (process.env.STATIC_EXPORT === "true") {
+    return workingNowFallbackItems;
+  }
+
+  try {
+    const repos = await fetchAllowlistedGitHubRepos(undefined, { commitLimit: 8 });
+    const activityItems = getFilteredGitHubActivity(repos, { limit: 3 }).map(
+      toWorkingNowActivityItem,
+    );
+
+    return activityItems.length > 0 ? activityItems : workingNowFallbackItems;
+  } catch {
+    return workingNowFallbackItems;
+  }
+}
+
 export default async function HomePage() {
-  const [bio, featuredProjects] = await Promise.all([getBio(), getFeaturedProjects()]);
+  const [bio, featuredProjects, workingNowItems] = await Promise.all([
+    getBio(),
+    getFeaturedProjects(),
+    getWorkingNowItems(),
+  ]);
   const featuredProjectItems = featuredProjects.map((project) => ({
     actionLabel: "View details",
     evidenceCount: project.evidence?.length,
@@ -159,7 +194,7 @@ export default async function HomePage() {
         <WorkingNowCard
           key="working-now"
           headingId="working-now-heading"
-          items={workingNowFallbackItems}
+          items={workingNowItems}
           summary={
             bio.frontmatter.now ??
             "TODO: Add current work focus in /content/bio.mdx frontmatter `now`."
