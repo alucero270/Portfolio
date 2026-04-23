@@ -5,6 +5,7 @@ import { AuthorityHero, SelectedWorkSection, WorkingNowCard } from "@/components
 import { HomeTemplate } from "@/components/templates";
 import { getBio, getFeaturedProjects } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
+import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
 
@@ -28,7 +29,21 @@ export default async function HomePage() {
       sections={[
         <AuthorityHero
           key="hero"
+          ctas={[
+            {
+              href: "#featured-projects-heading",
+              label: "Selected work",
+              variant: "contained",
+            },
+            {
+              href: toInternalHref("/contact"),
+              label: "Contact",
+              variant: "outlined",
+            },
+          ]}
+          eyebrow={`${siteConfig.ownerName} / ${siteConfig.studioName}`}
           headingId="home-bio-heading"
+          summary="I build practical software, automation, and systems-integration projects with an emphasis on reliability, documentation, and proof you can inspect."
           techTags={["Next.js", "TypeScript", "MUI", "MDX"]}
           title={bio.frontmatter.title ?? "Alex Lucero"}
         >
