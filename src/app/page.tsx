@@ -1,19 +1,8 @@
-import { ArrowForward } from "@mui/icons-material";
-import {
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  Divider,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Divider, Stack } from "@mui/material";
 import type { Metadata } from "next";
 
-import { SectionEyebrow, SectionHeading, TechTag } from "@/components/atoms";
 import { MdxContent } from "@/components/mdx-content";
-import { CTAGroup, ProjectMetaRow } from "@/components/molecules";
+import { AuthorityHero, SelectedWorkSection, WorkingNowCard } from "@/components/organisms";
 import { getBio, getFeaturedProjects } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
 
@@ -26,78 +15,41 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const [bio, featuredProjects] = await Promise.all([getBio(), getFeaturedProjects()]);
+  const featuredProjectItems = featuredProjects.map((project) => ({
+    actionLabel: "View details",
+    href: toInternalHref(`/projects/${project.slug}`),
+    status: project.status,
+    summary: project.summary,
+    title: project.title,
+  }));
 
   return (
     <Stack spacing={7}>
-      <Box component="section" aria-labelledby="home-bio-heading">
-        <SectionHeading id="home-bio-heading" component="h1" variant="h1" gutterBottom>
-          {bio.frontmatter.title ?? "Alex Lucero"}
-        </SectionHeading>
+      <AuthorityHero
+        headingId="home-bio-heading"
+        techTags={["Next.js", "TypeScript", "MUI", "MDX"]}
+        title={bio.frontmatter.title ?? "Alex Lucero"}
+      >
         <MdxContent>{bio.content}</MdxContent>
-        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={{ mt: 2 }}>
-          {["Next.js", "TypeScript", "MUI", "MDX"].map((tag) => (
-            <TechTag key={tag} label={tag} />
-          ))}
-        </Stack>
-      </Box>
+      </AuthorityHero>
 
       <Divider />
 
-      <Box component="section" aria-labelledby="featured-projects-heading">
-        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2.5 }}>
-          <SectionHeading id="featured-projects-heading">Featured Projects</SectionHeading>
-          <CTAGroup
-            actions={[
-              {
-                endIcon: <ArrowForward />,
-                href: toInternalHref("/projects"),
-                label: "All projects",
-              },
-            ]}
-          />
-        </Stack>
-        <Grid container spacing={2.5}>
-          {featuredProjects.map((project) => (
-            <Grid key={project.slug} size={{ xs: 12, md: 6, lg: 4 }}>
-              <Card component="article">
-                <CardContent>
-                  <Typography component="h3" variant="h3" sx={{ fontSize: "1.35rem", mb: 1 }}>
-                    {project.title}
-                  </Typography>
-                  <Typography color="text.secondary" sx={{ mb: 2 }}>
-                    {project.summary}
-                  </Typography>
-                  <ProjectMetaRow status={project.status} />
-                </CardContent>
-                <CardActions>
-                  <CTAGroup
-                    actions={[
-                      {
-                        endIcon: <ArrowForward />,
-                        href: toInternalHref(`/projects/${project.slug}`),
-                        label: "View details",
-                      },
-                    ]}
-                  />
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      <SelectedWorkSection
+        allProjectsHref={toInternalHref("/projects")}
+        headingId="featured-projects-heading"
+        projects={featuredProjectItems}
+      />
 
       <Divider />
 
-      <Box component="section" aria-labelledby="working-now-heading">
-        <SectionEyebrow>Now</SectionEyebrow>
-        <SectionHeading id="working-now-heading" sx={{ mb: 1.5 }}>
-          What I&apos;m Working On
-        </SectionHeading>
-        <Typography component="p" color="text.secondary">
-          {bio.frontmatter.now ??
-            "TODO: Add current work focus in /content/bio.mdx frontmatter `now`."}
-        </Typography>
-      </Box>
+      <WorkingNowCard
+        headingId="working-now-heading"
+        summary={
+          bio.frontmatter.now ??
+          "TODO: Add current work focus in /content/bio.mdx frontmatter `now`."
+        }
+      />
     </Stack>
   );
 }

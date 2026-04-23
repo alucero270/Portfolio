@@ -1,11 +1,9 @@
-import { ArrowBack } from "@mui/icons-material";
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { SectionHeading } from "@/components/atoms";
 import { MdxContent } from "@/components/mdx-content";
-import { CTAGroup, ProjectMetaRow } from "@/components/molecules";
+import { ProjectDetailHeader } from "@/components/organisms";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
 
@@ -55,23 +53,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <Stack spacing={3.5}>
-      <Box component="header">
-        <Box sx={{ mb: 1.5 }}>
-          <CTAGroup
-            actions={[
-              {
-                href: toInternalHref("/projects"),
-                label: "Back to projects",
-                startIcon: <ArrowBack />,
-              },
-            ]}
-          />
-        </Box>
-        <SectionHeading component="h1" variant="h1" gutterBottom>
-          {project.frontmatter.title}
-        </SectionHeading>
-        <ProjectMetaRow status={project.frontmatter.status} updated={project.frontmatter.updated} />
-      </Box>
+      <ProjectDetailHeader
+        backHref={toInternalHref("/projects")}
+        status={project.frontmatter.status}
+        title={project.frontmatter.title ?? slug}
+        updated={project.frontmatter.updated}
+      />
 
       <MdxContent>{project.content}</MdxContent>
     </Stack>
