@@ -51,12 +51,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  const repoLabel =
+    project.frontmatter.repoOwner && project.frontmatter.repoName
+      ? `${project.frontmatter.repoOwner}/${project.frontmatter.repoName}`
+      : undefined;
+
   return (
     <ProjectDetailTemplate
       header={
         <ProjectDetailHeader
           backHref={toInternalHref("/projects")}
+          evidenceCount={project.frontmatter.evidence?.length}
+          outcome={project.frontmatter.outcome}
+          repoLabel={repoLabel}
+          role={project.frontmatter.role}
           status={project.frontmatter.status}
+          summary={project.frontmatter.summary ?? project.frontmatter.description}
+          tech={project.frontmatter.tech}
           title={project.frontmatter.title ?? slug}
           updated={project.frontmatter.updated}
         />
