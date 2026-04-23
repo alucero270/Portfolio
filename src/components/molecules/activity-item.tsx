@@ -2,14 +2,14 @@ import { Stack, Typography } from "@mui/material";
 
 import { ExternalLink, MonoLabel } from "@/components/atoms";
 
-type ActivityItemProps = {
+export type ActivityItemData = {
   href?: string;
   label?: string;
   summary?: string;
   title: string;
 };
 
-export function ActivityItem({ href, label, summary, title }: ActivityItemProps) {
+export function ActivityItem({ href, label, summary, title }: ActivityItemData) {
   return (
     <Stack spacing={0.5}>
       {label ? <MonoLabel>{label}</MonoLabel> : null}

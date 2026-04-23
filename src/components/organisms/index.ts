@@ -1,6 +1,8 @@
+export { AboutPreviewSection } from "./about-preview-section";
 export { AuthorityHero } from "./authority-hero";
 export { BuildPhilosophySection } from "./build-philosophy-section";
 export type { BuildPrinciple } from "./build-philosophy-section";
+export { ContactCTASection } from "./contact-cta-section";
 export { EngineeringEvidenceSection } from "./engineering-evidence-section";
 export { ProjectDetailHeader } from "./project-detail-header";
 export { ProjectGrid } from "./project-grid";

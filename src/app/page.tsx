@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 
 import { MdxContent } from "@/components/mdx-content";
 import {
+  AboutPreviewSection,
   AuthorityHero,
   BuildPhilosophySection,
   type BuildPrinciple,
+  ContactCTASection,
   EngineeringEvidenceSection,
   SelectedWorkSection,
   WhatWeDoSection,
@@ -12,7 +14,7 @@ import {
   WorkingNowCard,
 } from "@/components/organisms";
 import { HomeTemplate } from "@/components/templates";
-import type { EvidenceLink } from "@/components/molecules";
+import type { ActivityItemData, EvidenceLink } from "@/components/molecules";
 import { getBio, getFeaturedProjects } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
 import { siteConfig } from "@/lib/site";
@@ -57,6 +59,27 @@ const buildPrinciples: BuildPrinciple[] = [
     title: "Leave a trail",
     description:
       "Prefer docs, decisions, run notes, and small tests over invisible heroics. The next pass should be easier to reason about.",
+  },
+];
+
+const workingNowFallbackItems: ActivityItemData[] = [
+  {
+    label: "Current focus",
+    summary:
+      "Personal retrieval and documentation workflows for project decisions, procedures, and engineering notes.",
+    title: "Codex",
+  },
+  {
+    label: "Systems integration",
+    summary:
+      "Companion robot planning, service boundaries, and hardware/software interface contracts.",
+    title: "KittyBot",
+  },
+  {
+    label: "Embedded Linux",
+    summary:
+      "Telemetry platform work around sensor input, framing, persistence, and validation loops.",
+    title: "VTCN",
   },
 ];
 
@@ -135,10 +158,23 @@ export default async function HomePage() {
         <WorkingNowCard
           key="working-now"
           headingId="working-now-heading"
+          items={workingNowFallbackItems}
           summary={
             bio.frontmatter.now ??
             "TODO: Add current work focus in /content/bio.mdx frontmatter `now`."
           }
+        />,
+        <AboutPreviewSection
+          key="about-preview"
+          aboutHref={toInternalHref("/about")}
+          headingId="about-preview-heading"
+          summary="The site is centered on Alex Lucero: a software engineer using Loose Arrow Labs as the studio identity for hands-on technical work, systems experiments, and selected builds."
+        />,
+        <ContactCTASection
+          key="contact-cta"
+          contactHref={toInternalHref("/contact")}
+          headingId="contact-cta-heading"
+          summary="Send the project, system, or workflow constraint. The useful first step is usually clarifying boundaries, risks, and what would count as proof."
         />,
       ]}
     />
