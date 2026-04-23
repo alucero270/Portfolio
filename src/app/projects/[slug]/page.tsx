@@ -1,9 +1,11 @@
 import { ArrowBack } from "@mui/icons-material";
-import { Box, Button, Chip, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { SectionHeading } from "@/components/atoms";
 import { MdxContent } from "@/components/mdx-content";
+import { CTAGroup, ProjectMetaRow } from "@/components/molecules";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
 
@@ -54,25 +56,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <Stack spacing={3.5}>
       <Box component="header">
-        <Button
-          href={toInternalHref("/projects")}
-          variant="text"
-          startIcon={<ArrowBack />}
-          sx={{ mb: 1.5 }}
-        >
-          Back to projects
-        </Button>
-        <Typography component="h1" variant="h1" gutterBottom>
+        <Box sx={{ mb: 1.5 }}>
+          <CTAGroup
+            actions={[
+              {
+                href: toInternalHref("/projects"),
+                label: "Back to projects",
+                startIcon: <ArrowBack />,
+              },
+            ]}
+          />
+        </Box>
+        <SectionHeading component="h1" variant="h1" gutterBottom>
           {project.frontmatter.title}
-        </Typography>
-        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
-          {project.frontmatter.status ? (
-            <Chip size="small" label={project.frontmatter.status} color="primary" />
-          ) : null}
-          {project.frontmatter.updated ? (
-            <Chip size="small" label={`Updated ${project.frontmatter.updated}`} />
-          ) : null}
-        </Stack>
+        </SectionHeading>
+        <ProjectMetaRow status={project.frontmatter.status} updated={project.frontmatter.updated} />
       </Box>
 
       <MdxContent>{project.content}</MdxContent>

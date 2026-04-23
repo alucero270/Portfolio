@@ -1,8 +1,9 @@
 import { ArrowForward } from "@mui/icons-material";
-import { Button, Card, CardActions, CardContent, Grid, Stack, Typography } from "@mui/material";
+import { Card, CardActions, CardContent, Grid, Stack, Typography } from "@mui/material";
 import type { Metadata } from "next";
 
-import { MonoLabel, SectionHeading, StatusChip } from "@/components/atoms";
+import { SectionHeading } from "@/components/atoms";
+import { CTAGroup, ProjectMetaRow } from "@/components/molecules";
 import { getAllProjects } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
 
@@ -33,19 +34,18 @@ export default async function ProjectsPage() {
                 <Typography color="text.secondary" sx={{ mb: 2 }}>
                   {project.summary}
                 </Typography>
-                <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
-                  {project.status ? <StatusChip label={project.status} /> : null}
-                  {project.updated ? <MonoLabel>Updated {project.updated}</MonoLabel> : null}
-                </Stack>
+                <ProjectMetaRow status={project.status} updated={project.updated} />
               </CardContent>
               <CardActions>
-                <Button
-                  href={toInternalHref(`/projects/${project.slug}`)}
-                  size="small"
-                  endIcon={<ArrowForward />}
-                >
-                  Open project
-                </Button>
+                <CTAGroup
+                  actions={[
+                    {
+                      endIcon: <ArrowForward />,
+                      href: toInternalHref(`/projects/${project.slug}`),
+                      label: "Open project",
+                    },
+                  ]}
+                />
               </CardActions>
             </Card>
           </Grid>

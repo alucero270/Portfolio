@@ -1,7 +1,6 @@
 import { ArrowForward } from "@mui/icons-material";
 import {
   Box,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -12,8 +11,9 @@ import {
 } from "@mui/material";
 import type { Metadata } from "next";
 
-import { SectionEyebrow, SectionHeading, StatusChip, TechTag } from "@/components/atoms";
+import { SectionEyebrow, SectionHeading, TechTag } from "@/components/atoms";
 import { MdxContent } from "@/components/mdx-content";
+import { CTAGroup, ProjectMetaRow } from "@/components/molecules";
 import { getBio, getFeaturedProjects } from "@/lib/content";
 import { toInternalHref } from "@/lib/routing";
 
@@ -46,9 +46,15 @@ export default async function HomePage() {
       <Box component="section" aria-labelledby="featured-projects-heading">
         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2.5 }}>
           <SectionHeading id="featured-projects-heading">Featured Projects</SectionHeading>
-          <Button href={toInternalHref("/projects")} variant="text" endIcon={<ArrowForward />}>
-            All projects
-          </Button>
+          <CTAGroup
+            actions={[
+              {
+                endIcon: <ArrowForward />,
+                href: toInternalHref("/projects"),
+                label: "All projects",
+              },
+            ]}
+          />
         </Stack>
         <Grid container spacing={2.5}>
           {featuredProjects.map((project) => (
@@ -61,16 +67,18 @@ export default async function HomePage() {
                   <Typography color="text.secondary" sx={{ mb: 2 }}>
                     {project.summary}
                   </Typography>
-                  {project.status ? <StatusChip label={project.status} /> : null}
+                  <ProjectMetaRow status={project.status} />
                 </CardContent>
                 <CardActions>
-                  <Button
-                    href={toInternalHref(`/projects/${project.slug}`)}
-                    size="small"
-                    endIcon={<ArrowForward />}
-                  >
-                    View details
-                  </Button>
+                  <CTAGroup
+                    actions={[
+                      {
+                        endIcon: <ArrowForward />,
+                        href: toInternalHref(`/projects/${project.slug}`),
+                        label: "View details",
+                      },
+                    ]}
+                  />
                 </CardActions>
               </Card>
             </Grid>
