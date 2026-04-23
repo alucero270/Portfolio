@@ -1,12 +1,12 @@
 import {
   getGitHubReposForProject,
-  githubRepoAllowlist,
+  getGitHubRepoAllowlist,
   isGitHubRepoAllowed,
   toGitHubRepoKey,
   type GitHubRepoConfig,
 } from "@/lib/github-config";
 
-const GITHUB_API_BASE = "https://api.github.com";
+const GITHUB_API_BASE = process.env.GITHUB_API_BASE_URL ?? "https://api.github.com";
 const DEFAULT_COMMIT_LIMIT = 5;
 const DEFAULT_ACTIVITY_LIMIT = 4;
 
@@ -217,7 +217,7 @@ export async function fetchGitHubRepo(
 }
 
 export async function fetchAllowlistedGitHubRepos(
-  configs: GitHubRepoConfig[] = githubRepoAllowlist,
+  configs: GitHubRepoConfig[] = getGitHubRepoAllowlist(),
   options: FetchOptions = {},
 ): Promise<NormalizedGitHubRepo[]> {
   const repos = await Promise.all(
@@ -381,7 +381,7 @@ export async function fetchProjectGitHubFreshness(
 }
 
 export async function fetchGitHubFreshnessByProjectSlug(
-  configs: GitHubRepoConfig[] = githubRepoAllowlist,
+  configs: GitHubRepoConfig[] = getGitHubRepoAllowlist(),
 ): Promise<Map<string, GitHubRepoFreshness>> {
   const freshnessBySlug = new Map<string, GitHubRepoFreshness>();
 

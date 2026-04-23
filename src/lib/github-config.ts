@@ -40,17 +40,21 @@ export const githubRepoAllowlist = [
   },
 ] satisfies GitHubRepoConfig[];
 
+export function getGitHubRepoAllowlist(): GitHubRepoConfig[] {
+  return process.env.GITHUB_ALLOWLIST_DISABLED === "true" ? [] : githubRepoAllowlist;
+}
+
 export function toGitHubRepoKey(repoOwner: string, repoName: string): string {
   return `${repoOwner.toLowerCase()}/${repoName.toLowerCase()}`;
 }
 
 export function isGitHubRepoAllowed(repoOwner: string, repoName: string): boolean {
   const repoKey = toGitHubRepoKey(repoOwner, repoName);
-  return githubRepoAllowlist.some(
+  return getGitHubRepoAllowlist().some(
     (repo) => toGitHubRepoKey(repo.repoOwner, repo.repoName) === repoKey,
   );
 }
 
 export function getGitHubReposForProject(projectSlug: string): GitHubRepoConfig[] {
-  return githubRepoAllowlist.filter((repo) => repo.projectSlugs?.includes(projectSlug));
+  return getGitHubRepoAllowlist().filter((repo) => repo.projectSlugs?.includes(projectSlug));
 }

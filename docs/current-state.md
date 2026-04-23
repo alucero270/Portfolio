@@ -28,6 +28,7 @@ Package scripts in `package.json`:
 - `npm run lint`
 - `npm run format`
 - `npm run format:check`
+- `npm run validate:github-fallback`
 
 ### Routes
 
@@ -40,10 +41,6 @@ Implemented routes:
 - `/resume` from `src/app/resume/page.tsx`
 - `/contact` from `src/app/contact/page.tsx`
 
-Not implemented:
-
-- GitHub-backed freshness/activity sections
-
 ### Static Behavior
 
 Existing pages are static-first:
@@ -53,6 +50,8 @@ Existing pages are static-first:
 - project detail paths are generated from MDX project slugs
 
 `next.config.ts` supports static export mode through `STATIC_EXPORT=true`.
+
+GitHub-backed homepage activity and project freshness are disabled in static export mode and fall back to local authored content.
 
 ### Content
 
@@ -103,6 +102,23 @@ Resume frontmatter currently provides contact data and the resume PDF path.
 `src/lib/mdx-components.tsx` owns MDX element rendering with MUI components.
 
 `src/components/mdx-content.tsx` wraps rendered MDX in a `.mdx-content` container.
+
+### GitHub Freshness Layer
+
+`src/lib/github-config.ts` owns the allowlisted repository config and explicit project-to-repo mapping.
+
+`src/lib/github.ts` owns optional GitHub REST fetch, normalization, activity filtering, homepage activity shaping, and project freshness helpers.
+
+Implemented GitHub behavior:
+
+- only allowlisted repositories are fetched
+- GitHub API failures return empty data instead of blocking render
+- homepage Working Now renders filtered activity when available and local fallback activity otherwise
+- project cards and detail headers render compact repo freshness metadata when available
+- project MDX `updated` metadata remains visible as the authored fallback
+- `STATIC_EXPORT=true` disables live GitHub activity/freshness
+- `GITHUB_ALLOWLIST_DISABLED=true` exercises the empty allowlist fallback
+- `GITHUB_API_BASE_URL` can point to an unavailable endpoint for fallback validation
 
 ### Theme, Shell, And Components
 
@@ -167,6 +183,7 @@ The repo now includes lightweight execution and planning docs:
 - `docs/scope.md`
 - `docs/milestones.md`
 - `docs/design-system.md`
+- `docs/github-fallback-validation.md`
 - `AGENTS.md`
 - `CONTRIBUTING.md`
 
@@ -178,7 +195,7 @@ The current site is intentionally simple:
 
 - no CMS
 - no database
-- no live GitHub data
+- no required GitHub data
 - no heavy design system tooling or Pattern Lab app
 - no API routes
 - no dynamic server-side personalization
@@ -191,13 +208,10 @@ These are not bugs by themselves.
 
 The approved refactor plan adds:
 
-- optional GitHub-backed freshness and activity data
-- GitHub-backed working-now activity
-- repo freshness metadata decoration
 - final responsive/accessibility review
 - README/current-state reconciliation after the v1 stack completes
 
-GitHub freshness is still planned and is not implemented in the current checkout. The site renders from local MDX/config without GitHub data.
+The site renders from local MDX/config when GitHub data is unavailable.
 
 ## Where To Look
 
@@ -213,6 +227,7 @@ GitHub freshness is still planned and is not implemented in the current checkout
 - MDX content: `content`
 - Project content: `content/projects`
 - CI: `.github/workflows/lucero-portfolio-ci.yml`
+- GitHub fallback validation: `docs/github-fallback-validation.md`
 - Static export handling: `next.config.ts` and `src/lib/routing.ts`
 
 ## Local Run Notes
@@ -224,6 +239,7 @@ npm run dev
 npm run lint
 npm run format:check
 npm run build
+npm run validate:github-fallback
 ```
 
 For static export behavior:
