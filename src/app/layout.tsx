@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bitter, JetBrains_Mono, Source_Sans_3 } from "next/font/google";
+import { JetBrains_Mono, Source_Sans_3, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 import { SiteShell } from "@/components/site-shell";
@@ -12,7 +12,7 @@ const sourceSans = Source_Sans_3({
   display: "swap",
 });
 
-const bitter = Bitter({
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
@@ -50,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sourceSans.variable} ${bitter.variable} ${jetbrainsMono.variable}`}
+      className={`${sourceSans.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
       <body>
         <ThemeRegistry>
