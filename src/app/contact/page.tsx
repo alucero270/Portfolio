@@ -1,7 +1,8 @@
-import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
+import { Card, CardContent, Stack } from "@mui/material";
 import type { Metadata } from "next";
 
-import { ExternalLink, SectionHeading } from "@/components/atoms";
+import { SectionHeading } from "@/components/atoms";
+import { ContactLinkList } from "@/components/molecules";
 import { getResume } from "@/lib/content";
 import { siteConfig } from "@/lib/site";
 
@@ -11,10 +12,6 @@ export const metadata: Metadata = {
   title: "Contact",
   description: "Contact details for Alex Lucero.",
 };
-
-function isExternalLink(value: string): boolean {
-  return value.startsWith("http://") || value.startsWith("https://");
-}
 
 export default async function ContactPage() {
   const resume = await getResume();
@@ -34,26 +31,13 @@ export default async function ContactPage() {
             Reach Out
           </SectionHeading>
 
-          <Stack spacing={1.25}>
-            <Typography component="p">
-              <Box component="span" sx={{ fontWeight: 700 }}>
-                Email:{" "}
-              </Box>
-              {email}
-            </Typography>
-            <Typography component="p">
-              <Box component="span" sx={{ fontWeight: 700 }}>
-                LinkedIn:{" "}
-              </Box>
-              {isExternalLink(linkedin) ? <ExternalLink href={linkedin} /> : linkedin}
-            </Typography>
-            <Typography component="p">
-              <Box component="span" sx={{ fontWeight: 700 }}>
-                GitHub:{" "}
-              </Box>
-              {isExternalLink(github) ? <ExternalLink href={github} /> : github}
-            </Typography>
-          </Stack>
+          <ContactLinkList
+            links={[
+              { label: "Email", value: email },
+              { label: "LinkedIn", value: linkedin },
+              { label: "GitHub", value: github },
+            ]}
+          />
         </CardContent>
       </Card>
     </Stack>
