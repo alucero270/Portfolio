@@ -9,6 +9,8 @@ import {
   ContactCTASection,
   EngineeringEvidenceSection,
   SelectedWorkSection,
+  SignalStripSection,
+  type SignalStripItem,
   WhatWeDoSection,
   type WhatWeDoItem,
   WorkingNowCard,
@@ -22,7 +24,6 @@ import {
   type GitHubActivityItem,
 } from "@/lib/github";
 import { toInternalHref } from "@/lib/routing";
-import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
 
@@ -33,19 +34,38 @@ export const metadata: Metadata = {
 
 const whatWeDoItems: WhatWeDoItem[] = [
   {
-    title: "Systems structuring",
+    title: "Embedded + systems integration",
     description:
-      "Turn ambiguous technical work into explicit boundaries, data shapes, implementation paths, and validation steps.",
+      "Connect software to physical systems through explicit interfaces, telemetry, and validation steps.",
   },
   {
-    title: "AI integration",
+    title: "Robotics + prototype builds",
     description:
-      "Use LLMs where they improve retrieval, automation, and operator flow without making live AI the source of truth.",
+      "Build and stabilize systems that move, respond, and expose behavior clearly enough to test.",
   },
   {
-    title: "Supportable prototypes",
+    title: "Software + AI-assisted tools",
     description:
-      "Build small, inspectable slices with enough documentation, tests, and tradeoff notes to keep moving after the demo.",
+      "Use practical software and selective AI assistance for diagnostics, workflows, and system understanding.",
+  },
+];
+
+const signalStripItems: SignalStripItem[] = [
+  {
+    label: "Embedded + integration",
+    description: "Sensors, controllers, and software under real constraints.",
+  },
+  {
+    label: "Robotics + automation",
+    description: "Control logic, state behavior, and physical iteration.",
+  },
+  {
+    label: "Software tooling",
+    description: "Diagnostics, data flow, and maintainable internal utilities.",
+  },
+  {
+    label: "Inspectable proof",
+    description: "Repos, notes, diagrams, validation logs, and written tradeoffs.",
   },
 ];
 
@@ -69,19 +89,19 @@ const buildPrinciples: BuildPrinciple[] = [
 
 const workingNowFallbackItems: ActivityItemData[] = [
   {
-    label: "Current focus",
+    label: "Curated focus",
     summary:
       "Personal retrieval and documentation workflows for project decisions, procedures, and engineering notes.",
     title: "Codex",
   },
   {
-    label: "Systems integration",
+    label: "Curated system",
     summary:
       "Companion robot planning, service boundaries, and hardware/software interface contracts.",
     title: "KittyBot",
   },
   {
-    label: "Embedded Linux",
+    label: "Curated system",
     summary:
       "Telemetry platform work around sensor input, framing, persistence, and validation loops.",
     title: "VTCN",
@@ -91,7 +111,7 @@ const workingNowFallbackItems: ActivityItemData[] = [
 function toWorkingNowActivityItem(activityItem: GitHubActivityItem): ActivityItemData {
   return {
     href: activityItem.url,
-    label: activityItem.label,
+    label: `Live signal / ${activityItem.label}`,
     summary: activityItem.summary,
     title: activityItem.title,
   };
@@ -155,23 +175,29 @@ export default async function HomePage() {
           ctas={[
             {
               href: "#featured-projects-heading",
-              label: "Selected work",
+              label: "View current work",
               variant: "contained",
             },
             {
               href: toInternalHref("/contact"),
-              label: "Contact",
+              label: "Start a conversation",
               variant: "outlined",
             },
           ]}
-          eyebrow={`${siteConfig.ownerName} / ${siteConfig.studioName}`}
+          eyebrow="Active systems / prototype builds / engineering in progress"
           headingId="home-bio-heading"
-          summary="I build practical software, automation, and systems-integration projects with an emphasis on reliability, documentation, and proof you can inspect."
-          techTags={["Next.js", "TypeScript", "MUI", "MDX"]}
+          summary="Loose Arrow Labs is the studio identity for hands-on engineering across software, embedded systems, automation, and physical integration."
+          techTags={[
+            "Embedded systems & integration",
+            "Robotics & prototype builds",
+            "Software tooling & diagnostics",
+            "Testable system design",
+          ]}
           title={bio.frontmatter.title ?? "Alex Lucero"}
         >
           <MdxContent>{bio.content}</MdxContent>
         </AuthorityHero>,
+        <SignalStripSection key="signal-strip" items={signalStripItems} />,
         <WhatWeDoSection key="what-we-do" headingId="what-we-do-heading" items={whatWeDoItems} />,
         <SelectedWorkSection
           key="selected-work"
