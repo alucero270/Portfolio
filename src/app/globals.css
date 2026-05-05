@@ -16,7 +16,19 @@ html {
 
 body {
   min-height: 100vh;
-  background: #080a0f;
+  background-color: #080a0f;
+  background-image:
+    radial-gradient(ellipse 80% 48% at 50% -12%, rgba(155, 124, 255, 0.09), transparent 62%),
+    linear-gradient(rgba(166, 176, 195, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(166, 176, 195, 0.055) 1px, transparent 1px);
+  background-position:
+    center top,
+    -1px -1px,
+    -1px -1px;
+  background-size:
+    auto,
+    64px 64px,
+    64px 64px;
   color: #f6f7fb;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
