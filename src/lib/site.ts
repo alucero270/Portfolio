@@ -1,6 +1,7 @@
 export const siteConfig = {
   ownerName: "Alex Lucero",
   studioName: "Loose Arrow Labs",
+  studioRole: "Systems studio",
   siteTitle: "Alex Lucero | Loose Arrow Labs",
   siteDescription:
     "Technical portfolio for Alex Lucero, with Loose Arrow Labs as the studio identity for practical software, embedded systems, automation, and physical integration work.",
