@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Source_Sans_3, Space_Grotesk } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 import { SiteShell } from "@/components/site-shell";
 import { ThemeRegistry } from "@/components/theme-registry";
 import { siteConfig } from "@/lib/site";
 
-const sourceSans = Source_Sans_3({
+const inter = Inter({
   variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
@@ -50,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sourceSans.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
       <body>
         <ThemeRegistry>
