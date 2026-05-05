@@ -17,7 +17,7 @@ type AuthorityHeroProps = {
   headingId: string;
   summary?: string;
   techTags?: string[];
-  title: string;
+  title: ReactNode;
 };
 
 export function AuthorityHero({
@@ -34,14 +34,15 @@ export function AuthorityHero({
       component="section"
       aria-labelledby={headingId}
       sx={{
+        alignItems: "center",
         display: "grid",
         gap: { xs: 4, md: 7 },
         gridTemplateColumns: { xs: "1fr", md: "minmax(0, 1.05fr) minmax(320px, 0.85fr)" },
-        alignItems: "center",
-        py: { xs: 2, md: 3 },
+        minHeight: { md: 560 },
+        py: { xs: 3, md: 6 },
       }}
     >
-      <Stack spacing={2.5}>
+      <Stack spacing={2.75}>
         {eyebrow ? <SectionEyebrow>{eyebrow}</SectionEyebrow> : null}
         <SectionHeading id={headingId} component="h1" variant="h1" sx={{ maxWidth: 860 }}>
           {title}
@@ -63,6 +64,35 @@ export function AuthorityHero({
           </Typography>
         ) : null}
         {ctas.length > 0 ? <CTAGroup actions={ctas} /> : null}
+        <Box
+          sx={{
+            display: "grid",
+            gap: { xs: 1.5, sm: 3 },
+            gridTemplateColumns: { xs: "repeat(2, minmax(0, 1fr))", sm: "repeat(4, auto)" },
+            pt: 2,
+          }}
+        >
+          {[
+            ["software", "systems"],
+            ["embedded", "integration"],
+            ["robotics", "prototypes"],
+            ["proof", "artifacts"],
+          ].map(([value, label]) => (
+            <Box key={value}>
+              <Typography
+                sx={{
+                  color: "text.primary",
+                  fontFamily: "var(--font-code)",
+                  fontSize: "1rem",
+                  fontWeight: 700,
+                }}
+              >
+                {value}
+              </Typography>
+              <MonoLabel>{label}</MonoLabel>
+            </Box>
+          ))}
+        </Box>
       </Stack>
 
       <Stack
@@ -73,7 +103,7 @@ export function AuthorityHero({
           borderRadius: 1,
           backgroundColor: "background.paper",
           backgroundImage:
-            "linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0))",
+            "linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0))",
           p: { xs: 2.5, md: 3 },
         }}
       >

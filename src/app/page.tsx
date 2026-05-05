@@ -1,19 +1,25 @@
+import { Box } from "@mui/material";
 import type { Metadata } from "next";
 
 import { MdxContent } from "@/components/mdx-content";
 import {
-  AboutPreviewSection,
+  ActiveSystemsSection,
+  type ActiveSystemItem,
   AuthorityHero,
   BuildPhilosophySection,
   type BuildPrinciple,
   ContactCTASection,
   EngineeringEvidenceSection,
+  type LabNote,
+  ProjectProcessSection,
+  type ProjectProcessStep,
+  RecentActivitySection,
   SelectedWorkSection,
   SignalStripSection,
   type SignalStripItem,
+  ThinkingOutLoudSection,
   WhatWeDoSection,
   type WhatWeDoItem,
-  WorkingNowCard,
 } from "@/components/organisms";
 import { HomeTemplate } from "@/components/templates";
 import type { ActivityItemData, EvidenceLink } from "@/components/molecules";
@@ -87,6 +93,51 @@ const buildPrinciples: BuildPrinciple[] = [
   },
 ];
 
+const processSteps: ProjectProcessStep[] = [
+  {
+    title: "Define",
+    description:
+      "Clarify the problem, interfaces, constraints, failure modes, and what proof would make the work trustworthy.",
+  },
+  {
+    title: "Build",
+    description:
+      "Work in small reviewable passes with enough structure, notes, and validation that the system can be inspected.",
+  },
+  {
+    title: "Launch",
+    description:
+      "Deploy, monitor, document, and refine the practical edges that only appear once the system is being used.",
+  },
+];
+
+const labNotes: LabNote[] = [
+  {
+    date: "Current",
+    href: toInternalHref("/projects/codex"),
+    summary:
+      "Retrieval and documentation workflows for keeping project decisions, procedures, and notes usable.",
+    tags: ["retrieval", "docs"],
+    title: "Personal knowledge workflows",
+  },
+  {
+    date: "Current",
+    href: toInternalHref("/projects/kittybot"),
+    summary:
+      "Companion robot planning across service boundaries, physical behavior, and local model constraints.",
+    tags: ["robotics", "interfaces"],
+    title: "KittyBot planning notes",
+  },
+  {
+    date: "Current",
+    href: toInternalHref("/projects/vtcn"),
+    summary:
+      "Telemetry platform work around sensor input, framing, persistence, and validation loops.",
+    tags: ["embedded", "telemetry"],
+    title: "Signal validation loops",
+  },
+];
+
 const workingNowFallbackItems: ActivityItemData[] = [
   {
     label: "Curated focus",
@@ -134,6 +185,17 @@ async function getWorkingNowItems(): Promise<ActivityItemData[]> {
   }
 }
 
+function getActivityForRepo(
+  items: ActivityItemData[],
+  repoLabel?: string,
+): ActivityItemData | undefined {
+  if (!repoLabel) {
+    return undefined;
+  }
+
+  return items.find((item) => item.label?.toLowerCase().includes(repoLabel.toLowerCase()));
+}
+
 export default async function HomePage() {
   const [bio, featuredProjects, workingNowItems] = await Promise.all([
     getBio(),
@@ -144,10 +206,39 @@ export default async function HomePage() {
     actionLabel: "View details",
     evidenceCount: project.evidence?.length,
     href: toInternalHref(`/projects/${project.slug}`),
+    outcome: project.outcome,
+    repoLabel:
+      project.repoOwner && project.repoName
+        ? `${project.repoOwner}/${project.repoName}`
+        : undefined,
+    role: project.role,
     status: project.status,
     summary: project.summary,
+    tech: project.tech,
     title: project.title,
+    updated: project.updated,
   }));
+  const activeSystemItems: ActiveSystemItem[] = featuredProjects.map((project) => {
+    const repoLabel =
+      project.repoOwner && project.repoName
+        ? `${project.repoOwner}/${project.repoName}`
+        : undefined;
+
+    return {
+      activity: getActivityForRepo(workingNowItems, repoLabel),
+      context:
+        project.outcome ??
+        "Authored project context keeps the system constraints, role, and evidence visible.",
+      evidenceCount: project.evidence?.length,
+      focus: project.summary,
+      href: toInternalHref(`/projects/${project.slug}`),
+      repoLabel,
+      status: project.status,
+      summary: project.summary,
+      tech: project.tech,
+      title: project.title,
+    };
+  });
   const evidenceLinks: EvidenceLink[] = [
     {
       description: "Authored project pages with summaries, status, and implementation context.",
@@ -174,13 +265,13 @@ export default async function HomePage() {
           key="hero"
           ctas={[
             {
-              href: "#featured-projects-heading",
-              label: "View current work",
+              href: "#active-systems-heading",
+              label: "Start with active systems",
               variant: "contained",
             },
             {
-              href: toInternalHref("/contact"),
-              label: "Start a conversation",
+              href: "#selected-work-heading",
+              label: "View work",
               variant: "outlined",
             },
           ]}
@@ -193,17 +284,41 @@ export default async function HomePage() {
             "Software tooling & diagnostics",
             "Testable system design",
           ]}
-          title={bio.frontmatter.title ?? "Alex Lucero"}
+          title={
+            <>
+              {bio.frontmatter.title ?? "Alex Lucero"} builds{" "}
+              <Box component="span" sx={{ color: "primary.main" }}>
+                software
+              </Box>
+              , embedded systems, and automation tools.
+            </>
+          }
         >
           <MdxContent>{bio.content}</MdxContent>
         </AuthorityHero>,
         <SignalStripSection key="signal-strip" items={signalStripItems} />,
-        <WhatWeDoSection key="what-we-do" headingId="what-we-do-heading" items={whatWeDoItems} />,
+        <RecentActivitySection
+          key="recent-activity"
+          headingId="recent-activity-heading"
+          items={workingNowItems}
+          summary="Pulled from GitHub when available and filtered down to recent useful work. When live data is unavailable, the section falls back to curated local project focus."
+        />,
+        <ActiveSystemsSection
+          key="active-systems"
+          headingId="active-systems-heading"
+          systems={activeSystemItems}
+        />,
         <SelectedWorkSection
           key="selected-work"
           allProjectsHref={toInternalHref("/projects")}
-          headingId="featured-projects-heading"
+          headingId="selected-work-heading"
           projects={featuredProjectItems}
+        />,
+        <WhatWeDoSection key="what-we-do" headingId="what-we-do-heading" items={whatWeDoItems} />,
+        <ProjectProcessSection
+          key="project-process"
+          headingId="project-process-heading"
+          steps={processSteps}
         />,
         <BuildPhilosophySection
           key="build-philosophy"
@@ -215,22 +330,12 @@ export default async function HomePage() {
           key="engineering-evidence"
           headingId="engineering-evidence-heading"
           links={evidenceLinks}
-          title="Proof of Work"
+          title="Show, don't tell"
         />,
-        <WorkingNowCard
-          key="working-now"
-          headingId="working-now-heading"
-          items={workingNowItems}
-          summary={
-            bio.frontmatter.now ??
-            "TODO: Add current work focus in /content/bio.mdx frontmatter `now`."
-          }
-        />,
-        <AboutPreviewSection
-          key="about-preview"
-          aboutHref={toInternalHref("/about")}
-          headingId="about-preview-heading"
-          summary="The site is centered on Alex Lucero: a software engineer using Loose Arrow Labs as the studio identity for hands-on technical work, systems experiments, and selected builds."
+        <ThinkingOutLoudSection
+          key="thinking-out-loud"
+          headingId="thinking-out-loud-heading"
+          notes={labNotes}
         />,
         <ContactCTASection
           key="contact-cta"

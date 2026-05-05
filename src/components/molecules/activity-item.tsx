@@ -18,7 +18,8 @@ export function ActivityItem({ href, label, summary, title }: ActivityItemData) 
         borderColor: "divider",
         borderRadius: 1,
         backgroundColor: "background.paper",
-        p: 2,
+        backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0))",
+        p: { xs: 2, md: 2.25 },
         position: "relative",
       }}
     >
@@ -33,12 +34,12 @@ export function ActivityItem({ href, label, summary, title }: ActivityItemData) 
           height: 6,
           left: 16,
           position: "absolute",
-          top: 17,
+          top: 18,
           width: 6,
         }}
       />
       {label ? <MonoLabel sx={{ pl: 2 }}>{label}</MonoLabel> : null}
-      <Typography component="h3" variant="h3" sx={{ fontSize: "1.1rem" }}>
+      <Typography component="h3" variant="h3" sx={{ fontSize: "1rem", lineHeight: 1.35 }}>
         {href ? <ExternalLink href={href}>{title}</ExternalLink> : title}
       </Typography>
       {summary ? (

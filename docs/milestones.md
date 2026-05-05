@@ -13,6 +13,12 @@ The real v1 refactor is Milestones 1 through 7. Later ideas should not be pulled
 - Proof and freshness: Milestones 5 and 6
 - Release readiness: Milestone 7
 
+## Implementation Status
+
+In this checkout, Milestones 1 through 6 have been implemented and closed in GitHub.
+
+Milestone 7 is the release-readiness closeout. The current Milestone 7 branch covers final validation, responsive/accessibility review, README refresh, and current-state documentation reconciliation.
+
 ## Milestone 1 - Planning And Governance Foundation
 
 ### Goal
