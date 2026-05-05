@@ -32,12 +32,12 @@ The site should communicate technical authority through clear positioning, struc
 
 Route files in `src/app` own routing, metadata, static generation behavior, and high-level page composition.
 
-Current and target routes:
+Implemented routes:
 
 - `/` - homepage authority surface.
 - `/projects` - project index.
 - `/projects/[slug]` - project detail generated from MDX slugs.
-- `/about` - founder-led about page, to be added.
+- `/about` - founder-led about page.
 - `/resume` - resume and experience page.
 - `/contact` - direct contact page.
 
@@ -45,7 +45,7 @@ Route files should not contain large reusable UI patterns or GitHub normalizatio
 
 ### Shell
 
-`src/components/site-shell.tsx` owns the global page frame until the shell is split into smaller header/footer organisms.
+`src/components/site-shell.tsx` owns the global page frame.
 
 The shell must preserve the brand hierarchy:
 
@@ -88,13 +88,13 @@ Authored content lives in:
 - `content/bio.mdx`
 - `content/resume.mdx`
 - `content/projects/*.mdx`
-- `content/about.mdx`, to be added
+- `content/about.mdx`
 
 MDX remains the main source for narrative, project explanation, resume content, and founder context.
 
 ### GitHub Data Layer
 
-A future `src/lib/github.ts` may fetch selected GitHub data for allowlisted repositories only.
+`src/lib/github.ts` fetches selected GitHub data for allowlisted repositories only.
 
 GitHub data is limited to freshness and activity:
 
@@ -103,7 +103,6 @@ GitHub data is limited to freshness and activity:
 - topics
 - selected latest commits
 - commit links
-- optional README excerpt only when explicitly enabled
 
 GitHub data must not replace authored content. If GitHub data fails or is disabled, the site must still render correctly using MDX and local fallback copy.
 
@@ -166,16 +165,16 @@ Live activity must be filtered, small, and useful. It should not become a vanity
 
 Static-first is the default.
 
-Current static behavior includes:
+Static behavior includes:
 
 - `dynamic = "force-static"` on existing pages.
 - generated project detail routes from MDX slugs.
 - optional static export mode through `STATIC_EXPORT=true`.
 
-GitHub data is an optional enhancement. In static export mode, v1 should use a graceful fallback:
+GitHub data is an optional enhancement. In static export mode, the site uses graceful fallback behavior:
 
-- disable live GitHub sections, or
-- render local fallback text from content/config.
+- disables live GitHub fetching
+- renders local fallback text from content/config
 
 Do not add snapshot pipelines, databases, queues, or webhooks in v1 unless explicitly requested later.
 
@@ -194,14 +193,14 @@ The site must:
 
 ## Extension Points
 
-Approved extension points:
+Implemented v1 extension points:
 
-- add `/about`
-- extend project frontmatter with explicit optional fields
-- add small reusable components based on real page needs
-- add a GitHub data module with allowlisted repos and fallback behavior
-- add project screenshots, diagrams, ADR links, and proof artifacts
-- add lightweight docs that keep implementation aligned
+- `/about` founder route
+- extended project frontmatter with explicit optional fields
+- small reusable components based on real page needs
+- GitHub data module with allowlisted repos and fallback behavior
+- project screenshots, diagrams, ADR links, and proof artifacts where available
+- lightweight docs that keep implementation aligned
 
 Changes outside these extension points need an explicit architecture decision.
 

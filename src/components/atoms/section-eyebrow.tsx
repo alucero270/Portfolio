@@ -17,9 +17,12 @@ export function SectionEyebrow({ children, id, sx }: SectionEyebrowProps) {
       sx={{
         color: "primary.main",
         display: "block",
-        fontWeight: 700,
-        letterSpacing: 0,
+        fontFamily: "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace",
+        fontSize: "0.68rem",
+        fontWeight: 600,
+        letterSpacing: "0.08em",
         mb: 1,
+        textTransform: "uppercase",
         ...sx,
       }}
     >

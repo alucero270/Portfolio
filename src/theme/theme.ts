@@ -1,20 +1,21 @@
 import { createTheme } from "@mui/material/styles";
 
 const brandTokens = {
-  background: "#080A0F",
-  surface: "#11151D",
-  surfaceRaised: "#171C26",
-  surfaceHover: "#1D2430",
-  textPrimary: "#F6F7FB",
-  textSecondary: "#A8B0BF",
-  textTertiary: "rgba(246, 247, 251, 0.56)",
-  border: "rgba(166, 176, 195, 0.18)",
-  borderStrong: "rgba(166, 176, 195, 0.28)",
-  violet: "#9B7CFF",
-  violetDark: "#6F55D8",
-  violetSoft: "rgba(155, 124, 255, 0.14)",
-  live: "#7BD88F",
-  liveSoft: "rgba(123, 216, 143, 0.16)",
+  background: "#0A0A0F",
+  surface: "#14141E",
+  surfaceRaised: "#1A1A26",
+  surfaceHover: "#202032",
+  textPrimary: "#F3F3F8",
+  textSecondary: "#C8C8D6",
+  textTertiary: "#8A8AA0",
+  border: "#2A2A39",
+  borderSubtle: "#1F1F2C",
+  borderStrong: "#3A3A4D",
+  violet: "#9A85FF",
+  violetDark: "#6B4CFF",
+  violetSoft: "rgba(107, 76, 255, 0.14)",
+  live: "#3FDB8A",
+  liveSoft: "rgba(63, 219, 138, 0.14)",
   curated: "#D4A040",
   curatedSoft: "rgba(212, 160, 64, 0.13)",
 };
@@ -100,7 +101,7 @@ export const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: 4,
           textTransform: "none",
           fontWeight: 600,
           boxShadow: "none",
@@ -110,14 +111,14 @@ export const theme = createTheme({
         },
         contained: {
           backgroundColor: brandTokens.violet,
-          color: "#080A0F",
+          color: "#FFFFFF",
           "&:hover": {
-            backgroundColor: "#AB94FF",
-            boxShadow: "none",
+            backgroundColor: brandTokens.violetDark,
+            boxShadow: "0 10px 30px -18px rgba(107, 76, 255, 0.9)",
           },
         },
         outlined: {
-          borderColor: brandTokens.border,
+          borderColor: brandTokens.borderStrong,
           "&:hover": {
             borderColor: brandTokens.violet,
             backgroundColor: brandTokens.violetSoft,
@@ -161,7 +162,7 @@ export const theme = createTheme({
           border: `1px solid ${brandTokens.border}`,
           backgroundColor: brandTokens.surface,
           backgroundImage:
-            "linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0))",
+            "linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0))",
           boxShadow: "none",
           transition: "background-color 160ms ease, border-color 160ms ease, transform 160ms ease",
           "&:hover": {
@@ -185,10 +186,10 @@ export const theme = createTheme({
     MuiChip: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: 4,
           borderColor: brandTokens.border,
           backgroundColor: brandTokens.surfaceRaised,
-          color: brandTokens.textSecondary,
+          color: brandTokens.textTertiary,
           fontFamily: "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace",
           fontSize: "0.72rem",
           fontWeight: 600,

@@ -7,9 +7,9 @@ type HomeTemplateProps = {
 
 export function HomeTemplate({ sections }: HomeTemplateProps) {
   return (
-    <Stack spacing={7}>
+    <Stack spacing={{ xs: 6, md: 8 }}>
       {sections.map((section, index) => (
-        <Stack key={index} spacing={7}>
+        <Stack key={index} spacing={{ xs: 6, md: 8 }}>
           {index > 0 ? <Divider /> : null}
           {section}
         </Stack>

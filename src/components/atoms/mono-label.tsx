@@ -15,6 +15,8 @@ export function MonoLabel({ children, sx }: MonoLabelProps) {
       sx={{
         color: "text.secondary",
         fontFamily: "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace",
+        fontSize: "0.68rem",
+        letterSpacing: "0.04em",
         ...sx,
       }}
     >

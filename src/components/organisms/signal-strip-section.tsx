@@ -23,9 +23,10 @@ export function SignalStripSection({ items }: SignalStripSectionProps) {
       sx={{
         borderBlock: "1px solid",
         borderColor: "divider",
+        backgroundColor: "rgba(15, 15, 23, 0.42)",
         mx: { xs: -2, sm: 0 },
-        px: { xs: 2, sm: 0 },
-        py: 2.5,
+        px: { xs: 2.5, sm: 0 },
+        py: { xs: 3.5, md: 2.5 },
       }}
     >
       <Box
@@ -40,10 +41,14 @@ export function SignalStripSection({ items }: SignalStripSectionProps) {
             key={item.label}
             spacing={0.75}
             sx={{
+              borderBottom: {
+                xs: index < items.length - 1 ? "1px solid" : "none",
+                md: "none",
+              },
               borderLeft: { md: index > 0 ? "1px solid" : "none" },
               borderColor: "divider",
               px: { xs: 0, md: 2.5 },
-              py: { xs: 1.5, md: 0.5 },
+              py: { xs: 2.25, md: 0.5 },
             }}
           >
             <Typography component="h2" variant="h4">
