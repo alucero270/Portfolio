@@ -42,9 +42,15 @@ export function SiteShell({ children }: SiteShellProps) {
               <Typography
                 component="span"
                 variant="caption"
-                sx={{ color: "text.secondary", letterSpacing: 0, textTransform: "uppercase" }}
+                sx={{
+                  color: "text.secondary",
+                  fontFamily: "var(--font-code)",
+                  fontSize: "0.72rem",
+                  letterSpacing: 0,
+                  textTransform: "uppercase",
+                }}
               >
-                {siteConfig.studioName}
+                {siteConfig.studioName} / {siteConfig.studioRole}
               </Typography>
             </Stack>
             <Stack
@@ -80,8 +86,8 @@ export function SiteShell({ children }: SiteShellProps) {
               {new Date().getFullYear()} {siteConfig.ownerName}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {siteConfig.studioName} is the studio layer for selected software, automation, and AI
-              integration work.
+              {siteConfig.studioName} is the studio identity for practical software, embedded
+              integration, automation, and tools Alex can inspect and maintain.
             </Typography>
           </Stack>
         </Container>
