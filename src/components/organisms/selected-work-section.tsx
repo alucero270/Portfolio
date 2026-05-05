@@ -22,7 +22,13 @@ export function SelectedWorkSection({
 }: SelectedWorkSectionProps) {
   return (
     <Box component="section" aria-labelledby={headingId}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2.5 }}>
+      <Stack
+        direction={{ xs: "column", md: "row" }}
+        justifyContent="space-between"
+        alignItems={{ xs: "flex-start", md: "center" }}
+        spacing={2}
+        sx={{ mb: 2.5 }}
+      >
         <Box>
           <SectionHeading id={headingId}>{title}</SectionHeading>
           <Typography color="text.secondary" sx={{ maxWidth: 720 }}>

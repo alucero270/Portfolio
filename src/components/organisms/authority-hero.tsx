@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 
-import { SectionEyebrow, SectionHeading, TechTag } from "@/components/atoms";
+import { MonoLabel, SectionEyebrow, SectionHeading, TechTag } from "@/components/atoms";
 import { CTAGroup } from "@/components/molecules";
 
 type HeroCTA = {
@@ -30,27 +30,63 @@ export function AuthorityHero({
   title,
 }: AuthorityHeroProps) {
   return (
-    <Box component="section" aria-labelledby={headingId}>
-      <Stack spacing={2.5} sx={{ maxWidth: 880 }}>
+    <Box
+      component="section"
+      aria-labelledby={headingId}
+      sx={{
+        display: "grid",
+        gap: { xs: 4, md: 7 },
+        gridTemplateColumns: { xs: "1fr", md: "minmax(0, 1.05fr) minmax(320px, 0.85fr)" },
+        alignItems: "center",
+        py: { xs: 2, md: 3 },
+      }}
+    >
+      <Stack spacing={2.5}>
         {eyebrow ? <SectionEyebrow>{eyebrow}</SectionEyebrow> : null}
-        <SectionHeading id={headingId} component="h1" variant="h1">
+        <SectionHeading id={headingId} component="h1" variant="h1" sx={{ maxWidth: 860 }}>
           {title}
         </SectionHeading>
         {summary ? (
-          <Typography component="p" variant="h2" sx={{ color: "text.secondary", maxWidth: 760 }}>
+          <Typography
+            component="p"
+            variant="h2"
+            sx={{
+              color: "text.secondary",
+              fontFamily: "var(--font-body)",
+              fontSize: { xs: "1.25rem", md: "1.45rem" },
+              fontWeight: 400,
+              lineHeight: 1.45,
+              maxWidth: 760,
+            }}
+          >
             {summary}
           </Typography>
         ) : null}
         {ctas.length > 0 ? <CTAGroup actions={ctas} /> : null}
-        <Box sx={{ maxWidth: 760 }}>{children}</Box>
       </Stack>
-      {techTags.length > 0 ? (
-        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={{ mt: 3 }}>
-          {techTags.map((tag) => (
-            <TechTag key={tag} label={tag} />
-          ))}
-        </Stack>
-      ) : null}
+
+      <Stack
+        spacing={2.25}
+        sx={{
+          border: "1px solid",
+          borderColor: "divider",
+          borderRadius: 1,
+          backgroundColor: "background.paper",
+          backgroundImage:
+            "linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0))",
+          p: { xs: 2.5, md: 3 },
+        }}
+      >
+        <MonoLabel sx={{ color: "primary.main" }}>Curated profile signal</MonoLabel>
+        <Box>{children}</Box>
+        {techTags.length > 0 ? (
+          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+            {techTags.map((tag) => (
+              <TechTag key={tag} label={tag} />
+            ))}
+          </Stack>
+        ) : null}
+      </Stack>
     </Box>
   );
 }

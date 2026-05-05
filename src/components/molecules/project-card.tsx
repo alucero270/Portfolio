@@ -1,5 +1,5 @@
 import { ArrowForward } from "@mui/icons-material";
-import { Card, CardActions, CardContent, Stack, Typography } from "@mui/material";
+import { Box, Card, CardActions, CardContent, Stack, Typography } from "@mui/material";
 
 import { MonoLabel, TechTag } from "@/components/atoms";
 
@@ -46,6 +46,19 @@ export function ProjectCard({
 
   return (
     <Card component="article" sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <Box
+        sx={{
+          borderBottom: "1px solid",
+          borderColor: "divider",
+          display: "flex",
+          justifyContent: "space-between",
+          px: 2.5,
+          py: 1.25,
+        }}
+      >
+        <MonoLabel sx={{ color: "primary.main" }}>Curated project</MonoLabel>
+        {status ? <MonoLabel>{status}</MonoLabel> : null}
+      </Box>
       <CardContent sx={{ flexGrow: 1 }}>
         <Typography
           component={headingComponent}
@@ -58,7 +71,7 @@ export function ProjectCard({
           {summary}
         </Typography>
         <Stack spacing={1.25}>
-          <ProjectMetaRow status={status} updated={updated} />
+          <ProjectMetaRow updated={updated} />
           {role ? <Typography color="text.secondary">Role: {role}</Typography> : null}
           {outcome ? <Typography color="text.secondary">Outcome: {outcome}</Typography> : null}
           {tech.length > 0 ? (

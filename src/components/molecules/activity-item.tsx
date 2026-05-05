@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 import { ExternalLink, MonoLabel } from "@/components/atoms";
 
@@ -11,8 +11,33 @@ export type ActivityItemData = {
 
 export function ActivityItem({ href, label, summary, title }: ActivityItemData) {
   return (
-    <Stack spacing={0.5}>
-      {label ? <MonoLabel>{label}</MonoLabel> : null}
+    <Stack
+      spacing={0.75}
+      sx={{
+        border: "1px solid",
+        borderColor: "divider",
+        borderRadius: 1,
+        backgroundColor: "background.paper",
+        p: 2,
+        position: "relative",
+      }}
+    >
+      <Box
+        aria-hidden
+        sx={{
+          backgroundColor: label?.toLowerCase().includes("live") ? "#7BD88F" : "primary.main",
+          borderRadius: "999px",
+          boxShadow: label?.toLowerCase().includes("live")
+            ? "0 0 0 3px rgba(123, 216, 143, 0.16)"
+            : "0 0 0 3px rgba(155, 124, 255, 0.14)",
+          height: 6,
+          left: 16,
+          position: "absolute",
+          top: 17,
+          width: 6,
+        }}
+      />
+      {label ? <MonoLabel sx={{ pl: 2 }}>{label}</MonoLabel> : null}
       <Typography component="h3" variant="h3" sx={{ fontSize: "1.1rem" }}>
         {href ? <ExternalLink href={href}>{title}</ExternalLink> : title}
       </Typography>

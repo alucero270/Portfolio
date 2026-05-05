@@ -8,6 +8,8 @@ export { ProjectDetailHeader } from "./project-detail-header";
 export { ProjectGrid } from "./project-grid";
 export type { ProjectGridItem } from "./project-grid";
 export { SelectedWorkSection } from "./selected-work-section";
+export { SignalStripSection } from "./signal-strip-section";
+export type { SignalStripItem } from "./signal-strip-section";
 export { WhatWeDoSection } from "./what-we-do-section";
 export type { WhatWeDoItem } from "./what-we-do-section";
 export { WorkingNowCard } from "./working-now-card";

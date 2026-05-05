@@ -138,8 +138,9 @@ Implemented GitHub behavior:
 - muted borders
 - geometric heading font direction
 - 8px radius
+- denser technical card treatment, crisp borders, and compact mono metadata
 
-`src/app/globals.css` currently defines base reset styles, dark color-scheme behavior, and accessible focus-visible styling.
+`src/app/globals.css` currently defines base reset styles, dark color-scheme behavior, a restrained technical grid/vignette backdrop, and accessible focus-visible styling.
 
 `src/components/site-shell.tsx` owns the global header, navigation, main container, and footer. The shell now makes Alex Lucero primary and Loose Arrow Labs secondary.
 
@@ -151,6 +152,7 @@ Reusable UI now exists under:
 - `src/components/templates`
 
 The homepage uses the reusable section/template structure for hero, what-we-do, selected work, build philosophy, proof, working-now fallback, about preview, and contact CTA sections.
+The homepage now ports the Claude redesign visual direction through existing MUI components: a two-column authority hero with a curated signal panel, a compact signal strip after the hero, denser project/activity cards, and explicit live/curated signal labels backed by either GitHub data or local fallback content.
 
 The project index and detail pages use shared project cards, metadata rows, evidence link rendering, project grid, project index template, and project detail header components.
 
