@@ -1,95 +1,135 @@
 import { createTheme } from "@mui/material/styles";
 
+// Design system tokens from Loose Arrow Labs
 const brandTokens = {
-  background: "#0A0A0F",
-  surface: "#14141E",
-  surfaceRaised: "#1A1A26",
-  surfaceHover: "#202032",
-  textPrimary: "#F3F3F8",
-  textSecondary: "#C8C8D6",
-  textTertiary: "#8A8AA0",
-  border: "#2A2A39",
-  borderSubtle: "#1F1F2C",
-  borderStrong: "#3A3A4D",
-  violet: "#9A85FF",
-  violetDark: "#6B4CFF",
-  violetSoft: "rgba(107, 76, 255, 0.14)",
-  live: "#3FDB8A",
-  liveSoft: "rgba(63, 219, 138, 0.14)",
-  curated: "#D4A040",
-  curatedSoft: "rgba(212, 160, 64, 0.13)",
+  // Surfaces
+  background: "#080a0f",
+  surface0: "#080a0f",
+  surface1: "#1a1a1f",
+  surface1Hover: "#1f1f25",
+  surface2: "#2b2b33",
+  surface3: "#353540",
+
+  // Foreground
+  fgPrimary: "#f6f7fb",
+  fgSecondary: "#a5a7ae",
+  fgTertiary: "rgba(246, 247, 251, 0.55)",
+
+  // Borders
+  border1: "rgba(246, 247, 251, 0.08)",
+  border2: "rgba(246, 247, 251, 0.14)",
+  borderStrong: "rgba(246, 247, 251, 0.22)",
+
+  // Accent (brand violet)
+  accent: "#8a7cff",
+  accentHover: "#9c8fff",
+  accentPress: "#7768e6",
+  accentMuted: "rgba(138, 124, 255, 0.16)",
+  accentRing: "rgba(138, 124, 255, 0.32)",
+
+  // Semantic
+  live: "#7bd88f",
+  liveMuted: "rgba(123, 216, 143, 0.18)",
+  warn: "#f5b663",
+  error: "#ff7b7b",
 };
 
 export const theme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: brandTokens.violet,
-      dark: brandTokens.violetDark,
-      contrastText: "#080A0F",
+      main: brandTokens.accent,
+      dark: brandTokens.accentPress,
+      light: brandTokens.accentHover,
+      contrastText: "#ffffff",
     },
     secondary: {
-      main: "#77E0C6",
-      contrastText: "#080A0F",
+      main: brandTokens.live,
+      contrastText: "#ffffff",
     },
     background: {
-      default: brandTokens.background,
-      paper: brandTokens.surface,
+      default: brandTokens.surface0,
+      paper: brandTokens.surface1,
     },
     text: {
-      primary: brandTokens.textPrimary,
-      secondary: brandTokens.textSecondary,
+      primary: brandTokens.fgPrimary,
+      secondary: brandTokens.fgSecondary,
+      disabled: brandTokens.fgTertiary,
     },
-    divider: brandTokens.border,
+    divider: brandTokens.border1,
+    action: {
+      hover: brandTokens.surface1Hover,
+    },
   },
   shape: {
     borderRadius: 8,
   },
   typography: {
-    fontFamily: "var(--font-body), 'Segoe UI', sans-serif",
+    fontFamily: "var(--font-body)",
     h1: {
-      fontFamily: "var(--font-heading), 'Segoe UI', Arial, sans-serif",
+      fontFamily: "var(--font-display)",
       fontWeight: 700,
-      fontSize: "2.35rem",
-      lineHeight: 1.04,
-      "@media (min-width:900px)": {
-        fontSize: "3.5rem",
+      fontSize: "3.5rem",
+      lineHeight: 1.067,
+      letterSpacing: "-0.02em",
+      "@media (max-width:900px)": {
+        fontSize: "2.25rem",
+        lineHeight: 1.2,
       },
     },
     h2: {
-      fontFamily: "var(--font-heading), 'Segoe UI', Arial, sans-serif",
+      fontFamily: "var(--font-display)",
       fontWeight: 700,
-      fontSize: "1.8rem",
-      lineHeight: 1.2,
-      "@media (min-width:900px)": {
-        fontSize: "2.25rem",
+      fontSize: "2.25rem",
+      lineHeight: 1.222,
+      letterSpacing: "-0.01em",
+      "@media (max-width:900px)": {
+        fontSize: "1.5rem",
+        lineHeight: 1.333,
       },
     },
     h3: {
-      fontFamily: "var(--font-heading), 'Segoe UI', Arial, sans-serif",
-      fontWeight: 700,
-      fontSize: "1.35rem",
-      lineHeight: 1.3,
-      "@media (min-width:900px)": {
-        fontSize: "1.65rem",
-      },
+      fontFamily: "var(--font-display)",
+      fontWeight: 600,
+      fontSize: "1.25rem",
+      lineHeight: 1.4,
+      letterSpacing: "-0.005em",
     },
     h4: {
-      fontFamily: "var(--font-heading), 'Segoe UI', Arial, sans-serif",
-      fontWeight: 700,
-      lineHeight: 1.3,
+      fontFamily: "var(--font-display)",
+      fontWeight: 600,
+      fontSize: "1.125rem",
+      lineHeight: 1.444,
+    },
+    body1: {
+      fontSize: "1rem",
+      lineHeight: 1.625,
+      fontWeight: 400,
+    },
+    body2: {
+      fontSize: "0.875rem",
+      lineHeight: 1.429,
+      fontWeight: 400,
+    },
+    caption: {
+      fontFamily: "var(--font-mono)",
+      fontSize: "0.75rem",
+      lineHeight: 1.333,
+      fontWeight: 500,
+      textTransform: "uppercase",
+      letterSpacing: "0.06em",
     },
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: brandTokens.background,
-          color: brandTokens.textPrimary,
+          backgroundColor: brandTokens.surface0,
+          color: brandTokens.fgPrimary,
         },
         "::selection": {
-          backgroundColor: brandTokens.violetSoft,
-          color: brandTokens.textPrimary,
+          backgroundColor: brandTokens.accentMuted,
+          color: brandTokens.fgPrimary,
         },
       },
     },
@@ -106,27 +146,32 @@ export const theme = createTheme({
           fontWeight: 600,
           boxShadow: "none",
           "&.Mui-focusVisible": {
-            boxShadow: `0 0 0 3px ${brandTokens.violetSoft}`,
+            boxShadow: `0 0 0 3px ${brandTokens.accentRing}`,
           },
         },
         contained: {
-          backgroundColor: brandTokens.violet,
-          color: "#FFFFFF",
+          backgroundColor: brandTokens.accent,
+          color: "#ffffff",
           "&:hover": {
-            backgroundColor: brandTokens.violetDark,
-            boxShadow: "0 10px 30px -18px rgba(107, 76, 255, 0.9)",
+            backgroundColor: brandTokens.accentHover,
+            boxShadow: "0 8px 24px -10px rgba(138, 124, 255, 0.6)",
+          },
+          "&:active": {
+            backgroundColor: brandTokens.accentPress,
           },
         },
         outlined: {
-          borderColor: brandTokens.borderStrong,
+          borderColor: brandTokens.border2,
+          color: brandTokens.fgPrimary,
           "&:hover": {
-            borderColor: brandTokens.violet,
-            backgroundColor: brandTokens.violetSoft,
+            borderColor: brandTokens.accent,
+            backgroundColor: brandTokens.accentMuted,
           },
         },
         text: {
+          color: brandTokens.fgPrimary,
           "&:hover": {
-            backgroundColor: brandTokens.violetSoft,
+            backgroundColor: brandTokens.surface1,
           },
         },
       },
@@ -134,16 +179,19 @@ export const theme = createTheme({
     MuiLink: {
       styleOverrides: {
         root: {
-          color: brandTokens.textPrimary,
+          color: brandTokens.fgPrimary,
           textUnderlineOffset: "0.18em",
           textDecorationThickness: "0.08em",
+          textDecorationColor: brandTokens.border2,
+          transition: "text-decoration-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1), color 180ms cubic-bezier(0.2, 0.8, 0.2, 1)",
           "&:hover": {
-            color: brandTokens.violet,
+            color: brandTokens.accent,
+            textDecorationColor: brandTokens.accent,
           },
           "&:focus-visible": {
             borderRadius: 4,
-            outline: `2px solid ${brandTokens.violet}`,
-            outlineOffset: 3,
+            outline: "none",
+            boxShadow: `0 0 0 2px ${brandTokens.surface0}, 0 0 0 4px ${brandTokens.accent}`,
           },
         },
       },
@@ -152,23 +200,22 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundImage: "none",
-          borderColor: brandTokens.border,
+          backgroundColor: brandTokens.surface1,
+          borderColor: brandTokens.border1,
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          border: `1px solid ${brandTokens.border}`,
-          backgroundColor: brandTokens.surface,
-          backgroundImage:
-            "linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0))",
+          border: `1px solid ${brandTokens.border1}`,
+          backgroundColor: brandTokens.surface2,
+          backgroundImage: "linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent)",
           boxShadow: "none",
-          transition: "background-color 160ms ease, border-color 160ms ease, transform 160ms ease",
+          transition: "border-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1), background 180ms cubic-bezier(0.2, 0.8, 0.2, 1)",
           "&:hover": {
-            backgroundColor: brandTokens.surfaceHover,
-            borderColor: brandTokens.borderStrong,
-            transform: "translateY(-1px)",
+            backgroundColor: brandTokens.surface2,
+            borderColor: brandTokens.border2,
           },
         },
       },
@@ -187,26 +234,29 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 4,
-          borderColor: brandTokens.border,
-          backgroundColor: brandTokens.surfaceRaised,
-          color: brandTokens.textTertiary,
+          borderColor: brandTokens.border1,
+          backgroundColor: "transparent",
+          color: brandTokens.fgSecondary,
           fontFamily: "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace",
-          fontSize: "0.72rem",
-          fontWeight: 600,
+          fontSize: "0.75rem",
+          fontWeight: 500,
+          textTransform: "uppercase",
+          letterSpacing: "0.06em",
         },
         colorPrimary: {
-          backgroundColor: brandTokens.violetSoft,
-          color: brandTokens.textPrimary,
+          backgroundColor: brandTokens.accentMuted,
+          color: brandTokens.accent,
+          borderColor: `rgba(138, 124, 255, 0.25)`,
         },
         outlined: {
-          borderColor: brandTokens.border,
+          borderColor: brandTokens.border1,
         },
       },
     },
     MuiDivider: {
       styleOverrides: {
         root: {
-          borderColor: brandTokens.border,
+          borderColor: brandTokens.border1,
         },
       },
     },

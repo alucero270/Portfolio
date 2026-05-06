@@ -13,13 +13,12 @@ import {
   type LabNote,
   ProjectProcessSection,
   type ProjectProcessStep,
-  RecentActivitySection,
   SelectedWorkSection,
+  ServicesSection,
+  type ServiceItem,
   SignalStripSection,
   type SignalStripItem,
   ThinkingOutLoudSection,
-  WhatWeDoSection,
-  type WhatWeDoItem,
 } from "@/components/organisms";
 import { HomeTemplate } from "@/components/templates";
 import type { ActivityItemData, EvidenceLink } from "@/components/molecules";
@@ -38,23 +37,6 @@ export const metadata: Metadata = {
   description: "Alex Lucero portfolio home with bio, featured projects, and current work focus.",
 };
 
-const whatWeDoItems: WhatWeDoItem[] = [
-  {
-    title: "Embedded + systems integration",
-    description:
-      "Connect software to physical systems through explicit interfaces, telemetry, and validation steps.",
-  },
-  {
-    title: "Robotics + prototype builds",
-    description:
-      "Build and stabilize systems that move, respond, and expose behavior clearly enough to test.",
-  },
-  {
-    title: "Software + AI-assisted tools",
-    description:
-      "Use practical software and selective AI assistance for diagnostics, workflows, and system understanding.",
-  },
-];
 
 const signalStripItems: SignalStripItem[] = [
   {
@@ -72,6 +54,24 @@ const signalStripItems: SignalStripItem[] = [
   {
     label: "Inspectable proof",
     description: "Repos, notes, diagrams, validation logs, and written tradeoffs.",
+  },
+];
+
+const serviceItems: ServiceItem[] = [
+  {
+    title: "Embedded systems & integration",
+    description:
+      "Connect software to physical systems through explicit interfaces, telemetry, and validation. Sensor integration, microcontroller systems, data pipelines.",
+  },
+  {
+    title: "Robotics & automation prototypes",
+    description:
+      "Build and stabilize systems that move, respond, and operate under real conditions. Control logic, actuation, state machines, prototype iteration.",
+  },
+  {
+    title: "Software tooling & diagnostics",
+    description:
+      "Develop internal tools and AI-assisted workflows for debugging, system understanding, and operator efficiency. Analysis, introspection, practical automation.",
   },
 ];
 
@@ -266,12 +266,12 @@ export default async function HomePage() {
           ctas={[
             {
               href: "#active-systems-heading",
-              label: "Start with active systems",
+              label: "View active work",
               variant: "contained",
             },
             {
-              href: "#selected-work-heading",
-              label: "View work",
+              href: "#case-studies-heading",
+              label: "Case studies",
               variant: "outlined",
             },
           ]}
@@ -297,24 +297,24 @@ export default async function HomePage() {
           <MdxContent>{bio.content}</MdxContent>
         </AuthorityHero>,
         <SignalStripSection key="signal-strip" items={signalStripItems} />,
-        <RecentActivitySection
-          key="recent-activity"
-          headingId="recent-activity-heading"
-          items={workingNowItems}
-          summary="Pulled from GitHub when available and filtered down to recent useful work. When live data is unavailable, the section falls back to curated local project focus."
-        />,
         <ActiveSystemsSection
           key="active-systems"
           headingId="active-systems-heading"
           systems={activeSystemItems}
         />,
         <SelectedWorkSection
-          key="selected-work"
+          key="case-studies"
           allProjectsHref={toInternalHref("/projects")}
-          headingId="selected-work-heading"
+          eyebrow="Projects"
+          headingId="case-studies-heading"
           projects={featuredProjectItems}
+          title="Case Studies"
         />,
-        <WhatWeDoSection key="what-we-do" headingId="what-we-do-heading" items={whatWeDoItems} />,
+        <ServicesSection
+          key="services"
+          headingId="services-heading"
+          items={serviceItems}
+        />,
         <ProjectProcessSection
           key="project-process"
           headingId="project-process-heading"

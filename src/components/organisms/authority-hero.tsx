@@ -64,37 +64,9 @@ export function AuthorityHero({
           </Typography>
         ) : null}
         {ctas.length > 0 ? <CTAGroup actions={ctas} /> : null}
-        <Box
-          sx={{
-            display: "grid",
-            gap: { xs: 1.5, sm: 3 },
-            gridTemplateColumns: { xs: "repeat(2, minmax(0, 1fr))", sm: "repeat(4, auto)" },
-            pt: 2,
-          }}
-        >
-          {[
-            ["software", "systems"],
-            ["embedded", "integration"],
-            ["robotics", "prototypes"],
-            ["proof", "artifacts"],
-          ].map(([value, label]) => (
-            <Box key={value}>
-              <Typography
-                sx={{
-                  color: "text.primary",
-                  fontFamily: "var(--font-code)",
-                  fontSize: "1rem",
-                  fontWeight: 700,
-                }}
-              >
-                {value}
-              </Typography>
-              <MonoLabel>{label}</MonoLabel>
-            </Box>
-          ))}
-        </Box>
       </Stack>
 
+      {/* Right panel: bio + tags, only shown on md+ */}
       <Stack
         spacing={2.25}
         sx={{
@@ -107,7 +79,6 @@ export function AuthorityHero({
           p: { xs: 2.5, md: 3 },
         }}
       >
-        <MonoLabel sx={{ color: "primary.main" }}>Curated profile signal</MonoLabel>
         <Box>{children}</Box>
         {techTags.length > 0 ? (
           <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
