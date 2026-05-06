@@ -1,3 +1,15 @@
+/* Design system font imports */
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  --font-display: "Satoshi", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-code: var(--font-mono);
+  --font-heading: var(--font-display);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,11 +28,11 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: #0a0a0f;
+  background-color: #080a0f;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(107, 76, 255, 0.1), transparent 60%),
-    linear-gradient(rgba(95, 95, 122, 0.16) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(95, 95, 122, 0.16) 1px, transparent 1px);
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(138, 124, 255, 0.08), transparent 60%),
+    linear-gradient(rgba(95, 95, 122, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(95, 95, 122, 0.12) 1px, transparent 1px);
   background-position:
     center top,
     -1px -1px,
@@ -29,7 +41,8 @@ body {
     auto,
     64px 64px,
     64px 64px;
-  color: #f3f3f8;
+  color: #f6f7fb;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -40,8 +53,8 @@ body::before {
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(10, 10, 15, 0) 0%, rgba(10, 10, 15, 0.34) 58%, #0a0a0f 100%),
-    radial-gradient(circle at 20% 0%, rgba(107, 76, 255, 0.09), transparent 34%);
+    linear-gradient(180deg, rgba(8, 10, 15, 0) 0%, rgba(8, 10, 15, 0.34) 58%, #080a0f 100%),
+    radial-gradient(circle at 20% 0%, rgba(138, 124, 255, 0.07), transparent 34%);
   z-index: -1;
 }
 

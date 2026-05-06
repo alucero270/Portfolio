@@ -8,6 +8,7 @@ import { ProjectGrid, type ProjectGridItem } from "@/components/organisms/projec
 type SelectedWorkSectionProps = {
   allProjectsHref: string;
   description?: string;
+  eyebrow?: string;
   headingId: string;
   projects: ProjectGridItem[];
   title?: string;
@@ -16,6 +17,7 @@ type SelectedWorkSectionProps = {
 export function SelectedWorkSection({
   allProjectsHref,
   description = "Representative projects where the architecture, constraints, and implementation details are part of the evidence.",
+  eyebrow = "Client view",
   headingId,
   projects,
   title = "Selected Work",
@@ -33,7 +35,7 @@ export function SelectedWorkSection({
           <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
             <MonoLabel>§05</MonoLabel>
             <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
-            <SectionEyebrow sx={{ mb: 0 }}>Client view</SectionEyebrow>
+            <SectionEyebrow sx={{ mb: 0 }}>{eyebrow}</SectionEyebrow>
           </Stack>
           <SectionHeading id={headingId}>{title}</SectionHeading>
           <Typography color="text.secondary" sx={{ maxWidth: 720 }}>
