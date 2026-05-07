@@ -2,6 +2,7 @@ import { ArrowForward } from "@mui/icons-material";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 
+import { LogoMark } from "@/components/atoms/logo-mark";
 import { toInternalHref } from "@/lib/routing";
 import { siteConfig } from "@/lib/site";
 
@@ -59,25 +60,7 @@ export function SiteShell({ children }: SiteShellProps) {
               spacing={1.25}
               sx={{ alignItems: "center", color: "text.primary", textDecoration: "none" }}
             >
-              <Box
-                aria-hidden
-                sx={{
-                  alignItems: "center",
-                  background: "linear-gradient(135deg, #9A85FF, #6B4CFF)",
-                  borderRadius: 1,
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.16)",
-                  color: "#fff",
-                  display: "flex",
-                  fontFamily: "var(--font-code)",
-                  fontSize: "0.72rem",
-                  fontWeight: 800,
-                  height: 28,
-                  justifyContent: "center",
-                  width: 28,
-                }}
-              >
-                AL
-              </Box>
+              <LogoMark size={28} />
               <Stack
                 direction="row"
                 spacing={1}
@@ -85,9 +68,31 @@ export function SiteShell({ children }: SiteShellProps) {
                 flexWrap="wrap"
                 sx={{ alignItems: "baseline" }}
               >
-                <Typography component="span" sx={{ fontSize: "0.92rem", fontWeight: 700 }}>
-                  {siteConfig.ownerName}
-                </Typography>
+                <Stack direction="row" spacing={0.5} sx={{ alignItems: "baseline" }}>
+                  <Typography
+                    component="span"
+                    sx={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "0.92rem",
+                      fontWeight: 700,
+                    }}
+                  >
+                    Loose Arrow
+                  </Typography>
+                  <Typography
+                    component="span"
+                    sx={{
+                      color: "#8A7CFF",
+                      fontFamily: "var(--font-display)",
+                      fontSize: "0.52rem",
+                      fontWeight: 700,
+                      letterSpacing: "0.2em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Labs
+                  </Typography>
+                </Stack>
                 <Typography
                   component="span"
                   variant="caption"
@@ -192,25 +197,23 @@ export function SiteShell({ children }: SiteShellProps) {
             >
               <Stack spacing={1.5}>
                 <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-                  <Box
-                    aria-hidden
-                    sx={{
-                      alignItems: "center",
-                      background: "linear-gradient(135deg, #9A85FF, #6B4CFF)",
-                      borderRadius: 1,
-                      color: "#fff",
-                      display: "flex",
-                      fontFamily: "var(--font-code)",
-                      fontSize: "0.72rem",
-                      fontWeight: 800,
-                      height: 24,
-                      justifyContent: "center",
-                      width: 24,
-                    }}
-                  >
-                    AL
-                  </Box>
-                  <Typography sx={{ fontWeight: 700 }}>{siteConfig.ownerName}</Typography>
+                  <LogoMark size={24} />
+                  <Stack direction="row" spacing={0.5} sx={{ alignItems: "baseline" }}>
+                    <Typography sx={{ fontWeight: 700 }}>Loose Arrow</Typography>
+                    <Typography
+                      component="span"
+                      sx={{
+                        color: "#8A7CFF",
+                        fontFamily: "var(--font-display)",
+                        fontSize: "0.58rem",
+                        fontWeight: 700,
+                        letterSpacing: "0.2em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Labs
+                    </Typography>
+                  </Stack>
                 </Stack>
                 <Typography color="text.secondary" variant="body2" sx={{ maxWidth: 320 }}>
                   {siteConfig.studioName} is the studio identity for practical software, embedded
