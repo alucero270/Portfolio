@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 import { MonoLabel, SectionEyebrow, SectionHeading, TechTag } from "@/components/atoms";
 import { CTAGroup } from "@/components/molecules";
-import { ServicesSection, type ServiceItem } from "@/components/organisms";
+import { ServicesSection, type ServiceGroup } from "@/components/organisms";
 import { toInternalHref } from "@/lib/routing";
 
 export const dynamic = "force-static";
@@ -14,42 +14,311 @@ export const metadata: Metadata = {
     "Prototype systems engineering, embedded integration, AI infrastructure, technical software, and R&D support from Loose Arrow Labs.",
 };
 
-const serviceItems: ServiceItem[] = [
+const serviceGroups: ServiceGroup[] = [
   {
-    id: "prototype-systems",
-    title: "Prototype systems engineering",
+    id: "digital-product",
+    eyebrow: "01. Product Layer",
+    title: "Digital product",
     description:
-      "Concept-to-proof work for technical systems: architecture, subsystem boundaries, integration plans, risk mapping, and validation artifacts.",
+      "Interfaces, applications, and MVPs for technical products where the software has to explain, operate, or validate a real system.",
+    items: [
+      {
+        id: "mvp-development",
+        title: "MVP development",
+        description:
+          "Small, inspectable first versions that prove the riskiest workflow, integration boundary, or product assumption before the build grows.",
+        detail:
+          "Useful for early product bets where the important question is whether the workflow, data model, or integration boundary actually holds up.",
+        stack: ["TypeScript", "Next.js", "React", "MUI", "SQLite", "GitHub Actions"],
+      },
+      {
+        id: "web-development",
+        title: "Web development",
+        description:
+          "Static-first websites, portfolio systems, technical landing pages, internal tools, dashboards, and content-driven front ends.",
+        detail:
+          "Best fit for fast, maintainable web surfaces that need authored content, strong information architecture, and clean technical presentation.",
+        stack: ["Next.js", "MDX", "TypeScript", "Material UI", "Static export", "Vercel"],
+      },
+      {
+        id: "frontend-development",
+        title: "Front end development",
+        description:
+          "React and Next.js interfaces for technical products, operational workflows, documentation surfaces, and data-heavy views.",
+        detail:
+          "Interface work focused on clarity, state, interaction flow, and making complex technical systems easier to operate.",
+        stack: ["React", "Next.js", "TypeScript", "MUI", "Forms", "Data views"],
+      },
+      {
+        id: "backend-development",
+        title: "Back end development",
+        description:
+          "APIs, local services, integration layers, background jobs, and application logic that keep technical systems understandable.",
+        detail:
+          "Service-side work for APIs, integrations, automation, and reliable data movement between tools, devices, and users.",
+        stack: ["C# / .NET", "Python", "REST APIs", "SQLite", "Structured logging", "Workers"],
+      },
+      {
+        id: "ui-ux-design",
+        title: "UI/UX design",
+        description:
+          "Clear product flows, interface structure, technical content hierarchy, and usable controls for tools people need to operate.",
+        detail:
+          "Design work for technical interfaces where the goal is usefulness, scanability, and fewer hidden assumptions.",
+        stack: [
+          "Information architecture",
+          "Wireframes",
+          "MUI",
+          "Interaction states",
+          "Design systems",
+        ],
+      },
+    ],
   },
   {
-    id: "embedded-telemetry",
-    title: "Embedded systems & telemetry",
+    id: "systems-devices",
+    eyebrow: "02. Device Layer",
+    title: "Systems & devices",
     description:
-      "Embedded Linux services, firmware-adjacent interfaces, sensor acquisition, framed telemetry, local persistence, and field-oriented validation.",
+      "Hardware-aware software, embedded interfaces, telemetry paths, and robotic or IoT systems that need practical integration discipline.",
+    items: [
+      {
+        id: "prototype-systems",
+        title: "Prototype systems engineering",
+        description:
+          "Concept-to-proof work for technical systems: architecture, subsystem boundaries, integration plans, risk mapping, and validation artifacts.",
+        detail:
+          "Turns a fuzzy technical goal into a small, testable system with clear interfaces, constraints, and next-step evidence.",
+        stack: [
+          "System architecture",
+          "Interface mapping",
+          "Risk registers",
+          "Validation notes",
+          "Git",
+        ],
+      },
+      {
+        id: "embedded-telemetry",
+        title: "Embedded systems & telemetry",
+        description:
+          "Embedded Linux services, firmware-adjacent interfaces, sensor acquisition, framed telemetry, local persistence, and field-oriented validation.",
+        detail:
+          "Device-side data capture and transport work where signal shape, timing, persistence, and field debugging matter.",
+        stack: ["Embedded Linux", "C/C++", "Python", "UART", "I2C / SPI", "SQLite"],
+      },
+      {
+        id: "firmware-development",
+        title: "Firmware development",
+        description:
+          "Firmware-adjacent development for MCUs and embedded devices: interfaces, protocols, device behavior, and validation notes.",
+        detail:
+          "Firmware and firmware-adjacent work around observable device behavior, protocol boundaries, and testable bring-up steps.",
+        stack: ["C/C++", "STM32", "Arduino-class MCUs", "GPIO", "Serial protocols", "Bench tests"],
+      },
+      {
+        id: "iot-development",
+        title: "IoT development",
+        description:
+          "Connected-device prototypes, sensor pipelines, edge services, telemetry transport, and operational visibility for physical systems.",
+        detail:
+          "Edge-to-application workflows for devices that need to report useful data and stay understandable after deployment.",
+        stack: ["Edge services", "MQTT concepts", "REST APIs", "Telemetry", "Docker", "Linux"],
+      },
+      {
+        id: "ai-iot-systems",
+        title: "AI for IoT systems",
+        description:
+          "AI-assisted analysis, classification, retrieval, and local inference workflows around device data and field telemetry.",
+        detail:
+          "AI workflows around sensor streams, device logs, and telemetry archives where interpretability matters more than novelty.",
+        stack: ["Python", "Local LLMs", "RAG", "Vector search", "Telemetry logs", "GPU workflows"],
+      },
+      {
+        id: "robotics-automation",
+        title: "Robotics & automation platforms",
+        description:
+          "MCU/Linux runtime separation, actuator and sensor interfaces, simulation modes, observability, and control-system integration.",
+        detail:
+          "Runtime boundaries and integration work for robots or automation systems that combine physical control with Linux services.",
+        stack: [
+          "MCU + Linux",
+          "Actuators",
+          "Sensors",
+          "Runtime services",
+          "Simulation modes",
+          "Observability",
+        ],
+      },
+    ],
   },
   {
-    id: "robotics-automation",
-    title: "Robotics & automation platforms",
+    id: "ai-infrastructure-domain",
+    eyebrow: "03. Operating Layer",
+    title: "AI & infrastructure",
     description:
-      "MCU/Linux runtime separation, actuator and sensor interfaces, simulation modes, observability, and control-system integration.",
+      "The data, deployment, automation, and local infrastructure layer that lets prototypes become repeatable engineering systems.",
+    items: [
+      {
+        id: "ai-infrastructure",
+        title: "AI infrastructure & local inference",
+        description:
+          "GPU/server lab architecture, local model workflows, retrieval systems, agent tooling, and AI-assisted engineering automation.",
+        detail:
+          "Local and self-hosted AI infrastructure for inspectable workflows, retrieval, experimentation, and engineering automation.",
+        stack: [
+          "Python",
+          "GPU compute",
+          "Local LLMs",
+          "RAG pipelines",
+          "Vector indexes",
+          "Agent tooling",
+        ],
+      },
+      {
+        id: "technical-software",
+        title: "Technical software & integrations",
+        description:
+          "Backend services, APIs, engineering dashboards, internal tools, telemetry viewers, and systems that connect hardware to operations.",
+        detail:
+          "Custom software where the job is connecting real system behavior to useful operational interfaces and automation.",
+        stack: ["TypeScript", "C# / .NET", "Python", "REST APIs", "Dashboards", "Structured logs"],
+      },
+      {
+        id: "database-modeling",
+        title: "Database modeling",
+        description:
+          "Practical schema design, local persistence, telemetry storage, migration planning, and retrieval models for engineering data.",
+        detail:
+          "Data modeling for telemetry, operational state, authored content, and search/retrieval systems that need to remain explainable.",
+        stack: [
+          "SQLite",
+          "Schema design",
+          "Migrations",
+          "Full-text search",
+          "Vector indexes",
+          "Logs",
+        ],
+      },
+      {
+        id: "devops-services",
+        title: "DevOps services",
+        description:
+          "Repeatable build, deploy, validation, observability, and automation practices for small technical teams and lab systems.",
+        detail:
+          "Practical operations setup for builds, validation, deployment, monitoring, and repeatable engineering environments.",
+        stack: [
+          "GitHub Actions",
+          "Docker",
+          "Linux",
+          "CI checks",
+          "Deployment scripts",
+          "Observability",
+        ],
+      },
+      {
+        id: "cloud-software-development",
+        title: "Cloud software development",
+        description:
+          "Cloud-hosted services, deployment architecture, storage choices, and integration planning when a system needs managed infrastructure.",
+        detail:
+          "Cloud architecture and implementation when the system benefits from managed hosting, storage, and deployment boundaries.",
+        stack: ["Cloud hosting", "APIs", "Object storage", "Managed databases", "Docker", "CI/CD"],
+      },
+      {
+        id: "linux-operations",
+        title: "Linux infrastructure & operations",
+        description:
+          "Networking, Docker, storage, observability, self-hosted services, repeatable deployment, and maintainable engineering environments.",
+        detail:
+          "The practical operating layer for lab servers, self-hosted tools, networked systems, and development environments.",
+        stack: ["Linux", "Docker", "Networking", "Storage", "systemd", "Monitoring"],
+      },
+    ],
   },
   {
-    id: "ai-infrastructure",
-    title: "AI infrastructure & local inference",
+    id: "advisory-support",
+    eyebrow: "04. Decision Layer",
+    title: "Advisory & support",
     description:
-      "GPU/server lab architecture, local model workflows, retrieval systems, agent tooling, and AI-assisted engineering automation.",
-  },
-  {
-    id: "technical-software",
-    title: "Technical software & integrations",
-    description:
-      "Backend services, APIs, engineering dashboards, internal tools, telemetry viewers, and systems that connect hardware to operations.",
-  },
-  {
-    id: "linux-operations",
-    title: "Linux infrastructure & operations",
-    description:
-      "Networking, Docker, storage, observability, self-hosted services, repeatable deployment, and maintainable engineering environments.",
+      "Focused technical judgment before, during, and after a build: feasibility, roadmap decisions, handoff, and iteration support.",
+    items: [
+      {
+        id: "rnd-services",
+        title: "R&D services",
+        description:
+          "Focused research, feasibility checks, bench experiments, and technical option mapping for uncertain hardware/software work.",
+        detail:
+          "Short-cycle exploration for unknowns that need evidence before they deserve a full implementation effort.",
+        stack: [
+          "Feasibility notes",
+          "Bench tests",
+          "Architecture sketches",
+          "Risk mapping",
+          "Prototype repos",
+        ],
+      },
+      {
+        id: "iot-consulting-services",
+        title: "IoT consulting services",
+        description:
+          "Practical guidance on device architecture, edge/cloud boundaries, telemetry models, and build-vs-buy choices for IoT systems.",
+        detail:
+          "Decision support for teams sorting out device, edge, cloud, telemetry, and operational visibility boundaries.",
+        stack: [
+          "Device architecture",
+          "Edge/cloud split",
+          "Telemetry models",
+          "Security review",
+          "Roadmapping",
+        ],
+      },
+      {
+        id: "tech-advisory",
+        title: "Tech advisory",
+        description:
+          "Decision support for architecture, stack selection, system risk, technical roadmaps, and prototype-to-production tradeoffs.",
+        detail:
+          "Architecture and roadmap review for situations where technical direction, risk, or maintainability needs a second brain.",
+        stack: [
+          "Architecture review",
+          "Stack selection",
+          "Tradeoff analysis",
+          "Roadmaps",
+          "Technical briefs",
+        ],
+      },
+      {
+        id: "post-production-support",
+        title: "Post-production support",
+        description:
+          "Maintenance, debugging, instrumentation, documentation, and release support after a prototype or system is already in use.",
+        detail:
+          "Support after the first version exists: debugging, instrumentation, release notes, handoff, and maintainability work.",
+        stack: [
+          "Debugging",
+          "Instrumentation",
+          "Release notes",
+          "Docs",
+          "Monitoring",
+          "Maintenance",
+        ],
+      },
+      {
+        id: "dedicated-technical-support",
+        title: "Dedicated technical support",
+        description:
+          "Hands-on builder support for teams that need a technical partner across architecture, implementation, validation, and iteration.",
+        detail:
+          "A focused technical partner role for projects that need continuity across discovery, build, validation, and iteration.",
+        stack: [
+          "Architecture",
+          "Implementation",
+          "Validation",
+          "Documentation",
+          "Technical planning",
+        ],
+      },
+    ],
   },
 ];
 
@@ -60,96 +329,6 @@ const verticals = [
   { label: "AI infrastructure", tags: ["local inference", "GPU systems", "retrieval workflows"] },
   { label: "Engineering operations", tags: ["Linux", "observability", "repeatable ops"] },
   { label: "CAD & fabrication", tags: ["3D printing", "bench fixtures", "physical iteration"] },
-];
-
-const technologySubjects = [
-  {
-    id: "device-interfaces",
-    category: "01. Tech Stack",
-    label: "Embedded & control",
-    description:
-      "Device-side foundations for telemetry, control boundaries, and hardware bring-up.",
-    tools: [
-      "C/C++",
-      "Embedded Linux",
-      "BeagleBone Black",
-      "STM32 / Arduino-class MCUs",
-      "GPIO / I2C / SPI / UART",
-      "systemd",
-    ],
-  },
-  {
-    id: "ai-workflows",
-    category: "01. Tech Stack",
-    label: "AI infrastructure",
-    description: "Local model and retrieval workflows designed around inspectable engineering use.",
-    tools: [
-      "Python",
-      "Local LLM workflows",
-      "RAG pipelines",
-      "Vector / full-text search",
-      "GPU compute",
-      "Agent tooling",
-    ],
-  },
-  {
-    id: "application-systems",
-    category: "01. Tech Stack",
-    label: "Technical software",
-    description:
-      "Application and integration layers for tools, dashboards, APIs, and operational views.",
-    tools: [
-      "C# / .NET",
-      "TypeScript",
-      "React / Next.js",
-      "REST APIs",
-      "SQLite",
-      "Structured logging",
-    ],
-  },
-  {
-    id: "infrastructure",
-    category: "03. Infrastructure",
-    label: "Infrastructure & operations",
-    description: "The operating layer for repeatable development, local services, and lab systems.",
-    tools: [
-      "Linux",
-      "Docker",
-      "Networking / VLAN concepts",
-      "Storage systems",
-      "Observability",
-      "GitHub Actions",
-    ],
-  },
-  {
-    id: "fabrication",
-    category: "04. Physical Systems",
-    label: "Fabrication-aware workflows",
-    description: "Physical iteration and bench validation around the software/hardware boundary.",
-    tools: [
-      "CAD planning",
-      "3D printing",
-      "Bench wiring",
-      "Signal validation",
-      "Test fixtures",
-      "Mechanical packaging",
-    ],
-  },
-  {
-    id: "data-stores",
-    category: "02. Data Stores",
-    label: "Persistence & retrieval",
-    description:
-      "Storage choices for telemetry buffers, engineering notes, search, and operational state.",
-    tools: [
-      "SQLite",
-      "Markdown content",
-      "Vector indexes",
-      "Full-text search",
-      "Structured logs",
-      "Local artifacts",
-    ],
-  },
 ];
 
 const engagementSteps = [
@@ -200,154 +379,7 @@ export default function ServicesPage() {
         </Box>
       </Box>
 
-      <ServicesSection headingId="services-list-heading" items={serviceItems} />
-
-      <Box component="section" aria-labelledby="technology-heading">
-        <Box
-          component="header"
-          sx={{ borderBottom: "1px solid", borderColor: "divider", mb: 3, pb: 2 }}
-        >
-          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
-            <MonoLabel>S07</MonoLabel>
-            <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
-            <SectionEyebrow sx={{ mb: 0 }}>Technology Stack</SectionEyebrow>
-          </Stack>
-          <SectionHeading id="technology-heading">Technology used across projects</SectionHeading>
-          <Typography color="text.secondary" sx={{ maxWidth: 720, mt: 1 }}>
-            The stack is selected by system constraints, not trend fit. These are the tools and
-            platforms currently shaping Loose Arrow Labs project work.
-          </Typography>
-        </Box>
-
-        {technologySubjects.map((subject, index) => (
-          <Box
-            key={subject.id}
-            id={`${subject.id}-input`}
-            className="technology-radio"
-            component="input"
-            type="radio"
-            name="technology-subject"
-            defaultChecked={index === 0}
-            sx={{ position: "absolute" }}
-          />
-        ))}
-
-        <Card className="technology-explorer-card" sx={{ overflow: "hidden" }}>
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", md: "0.9fr 1.6fr" },
-            }}
-          >
-            <Stack
-              component="aside"
-              spacing={1.2}
-              sx={{
-                borderBottom: { xs: "1px solid", md: "none" },
-                borderColor: "divider",
-                borderRight: { md: "1px solid" },
-                p: { xs: 2.5, md: 3.5 },
-              }}
-            >
-              {technologySubjects.map((subject) => (
-                <Box
-                  key={subject.id}
-                  className={`technology-option technology-option-${subject.id}`}
-                  component="label"
-                  htmlFor={`${subject.id}-input`}
-                  sx={{
-                    borderRadius: 1,
-                    cursor: "pointer",
-                    display: "grid",
-                    gap: 0.4,
-                    px: 1.25,
-                    py: 1,
-                    transition: "background-color 160ms ease, color 160ms ease",
-                  }}
-                >
-                  <Typography
-                    component="span"
-                    sx={{
-                      color: "inherit",
-                      fontFamily: "var(--font-display)",
-                      fontSize: { xs: "1rem", md: "1.05rem" },
-                      fontWeight: 700,
-                    }}
-                  >
-                    {subject.label}
-                  </Typography>
-                  <Typography
-                    component="span"
-                    sx={{
-                      color: "text.secondary",
-                      fontFamily: "var(--font-code)",
-                      fontSize: "0.68rem",
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {subject.category}
-                  </Typography>
-                </Box>
-              ))}
-            </Stack>
-
-            <Stack
-              spacing={0}
-              sx={{
-                minHeight: { md: 360 },
-                p: { xs: 2.5, md: 3.5 },
-              }}
-            >
-              {technologySubjects.map((subject) => (
-                <Box
-                  key={subject.id}
-                  className={`technology-panel technology-panel-${subject.id}`}
-                  sx={{
-                    display: "none",
-                  }}
-                >
-                  <SectionEyebrow>{subject.category}</SectionEyebrow>
-                  <SectionHeading component="h3" sx={{ fontSize: "1.8rem", mt: 1 }}>
-                    {subject.label}
-                  </SectionHeading>
-                  <Typography color="text.secondary" sx={{ maxWidth: 620, mb: 3, mt: 1 }}>
-                    {subject.description}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "grid",
-                      gap: 1.25,
-                      gridTemplateColumns: {
-                        xs: "1fr",
-                        sm: "repeat(2, minmax(0, 1fr))",
-                        lg: "repeat(3, minmax(0, 1fr))",
-                      },
-                    }}
-                  >
-                    {subject.tools.map((tool) => (
-                      <Box
-                        key={tool}
-                        sx={{
-                          border: "1px solid",
-                          borderColor: "divider",
-                          borderRadius: 1,
-                          background:
-                            "linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012))",
-                          minHeight: 84,
-                          p: 1.75,
-                        }}
-                      >
-                        <TechTag label={tool} />
-                      </Box>
-                    ))}
-                  </Box>
-                </Box>
-              ))}
-            </Stack>
-          </Box>
-        </Card>
-      </Box>
+      <ServicesSection headingId="services-list-heading" groups={serviceGroups} />
 
       <Box component="section" aria-labelledby="verticals-heading">
         <Box
@@ -355,7 +387,7 @@ export default function ServicesPage() {
           sx={{ borderBottom: "1px solid", borderColor: "divider", mb: 3, pb: 2 }}
         >
           <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
-            <MonoLabel>S08</MonoLabel>
+            <MonoLabel>S07</MonoLabel>
             <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
             <SectionEyebrow sx={{ mb: 0 }}>Operating Domains</SectionEyebrow>
           </Stack>
@@ -412,7 +444,7 @@ export default function ServicesPage() {
           sx={{ borderBottom: "1px solid", borderColor: "divider", mb: 3, pb: 2 }}
         >
           <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
-            <MonoLabel>S09</MonoLabel>
+            <MonoLabel>S08</MonoLabel>
             <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
             <SectionEyebrow sx={{ mb: 0 }}>Engagement Model</SectionEyebrow>
           </Stack>
@@ -460,15 +492,17 @@ export default function ServicesPage() {
           Bring the constraint, the hardware, the workflow, or the messy integration boundary. The
           first useful output is often a clearer architecture and a validation plan.
         </Typography>
-        <CTAGroup
-          actions={[
-            {
-              href: toInternalHref("/contact"),
-              label: "Start with the problem",
-              variant: "contained",
-            },
-          ]}
-        />
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <CTAGroup
+            actions={[
+              {
+                href: toInternalHref("/contact"),
+                label: "Start with the problem",
+                variant: "contained",
+              },
+            ]}
+          />
+        </Box>
       </Box>
     </Stack>
   );
