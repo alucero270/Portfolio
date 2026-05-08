@@ -168,7 +168,7 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
                     mt: 3,
                   }}
                 >
-                  {group.items.map((item) => (
+                  {group.items.map((item, itemIndex) => (
                     <Box
                       key={item.title}
                       id={item.id}
@@ -178,6 +178,12 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
                         border: "1px solid",
                         borderColor: "divider",
                         borderRadius: 1,
+                        gridColumn: {
+                          md:
+                            itemIndex === group.items.length - 1 && group.items.length % 2 !== 0
+                              ? "1 / -1"
+                              : "auto",
+                        },
                         minHeight: 176,
                         outline: "none",
                         p: 2.25,
