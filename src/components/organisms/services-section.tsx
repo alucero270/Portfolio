@@ -240,7 +240,6 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
                         }}
                       >
                         <SectionEyebrow sx={{ mb: 0.75 }}>Details</SectionEyebrow>
-                        <Typography sx={{ fontWeight: 700, mb: 1 }}>{item.title}</Typography>
                         <Typography
                           color="text.secondary"
                           sx={{ fontSize: "0.88rem", lineHeight: 1.58, mb: 1.5 }}
