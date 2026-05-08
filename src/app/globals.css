@@ -248,7 +248,6 @@ a {
   margin-top: 1.25rem;
   max-height: 36rem;
   opacity: 1;
-  pointer-events: auto;
   transform: translateY(0);
 }
 

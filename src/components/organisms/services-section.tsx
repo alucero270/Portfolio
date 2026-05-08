@@ -191,7 +191,6 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
                           maxHeight: "36rem",
                           mt: 1.25,
                           opacity: 1,
-                          pointerEvents: "auto",
                           py: 2.25,
                           transform: "translateY(0)",
                         },
