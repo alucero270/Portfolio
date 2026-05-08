@@ -16,19 +16,45 @@ const navigationLinks = [
 
 const serviceMenuGroups = [
   {
-    heading: "Engineering",
+    heading: "Digital Product",
+    links: [
+      { href: "/services#mvp-development", label: "MVP Development" },
+      { href: "/services#web-development", label: "Web Development" },
+      { href: "/services#frontend-development", label: "Front End Development" },
+      { href: "/services#backend-development", label: "Back End Development" },
+      { href: "/services#ui-ux-design", label: "UI/UX Design" },
+    ],
+  },
+  {
+    heading: "Systems & Devices",
     links: [
       { href: "/services#prototype-systems", label: "Prototype Systems" },
       { href: "/services#embedded-telemetry", label: "Embedded & Telemetry" },
+      { href: "/services#firmware-development", label: "Firmware Development" },
+      { href: "/services#iot-development", label: "IoT Development" },
+      { href: "/services#ai-iot-systems", label: "AI for IoT Systems" },
       { href: "/services#robotics-automation", label: "Robotics & Automation" },
     ],
   },
   {
-    heading: "Infrastructure",
+    heading: "AI & Infrastructure",
     links: [
       { href: "/services#ai-infrastructure", label: "AI Infrastructure" },
       { href: "/services#technical-software", label: "Technical Software" },
+      { href: "/services#database-modeling", label: "Database Modeling" },
+      { href: "/services#devops-services", label: "DevOps Services" },
+      { href: "/services#cloud-software-development", label: "Cloud Software" },
       { href: "/services#linux-operations", label: "Linux Operations" },
+    ],
+  },
+  {
+    heading: "Advisory & Support",
+    links: [
+      { href: "/services#rnd-services", label: "R&D Services" },
+      { href: "/services#iot-consulting-services", label: "IoT Consulting" },
+      { href: "/services#tech-advisory", label: "Tech Advisory" },
+      { href: "/services#post-production-support", label: "Post-Production Support" },
+      { href: "/services#dedicated-technical-support", label: "Dedicated Technical Support" },
     ],
   },
 ];
@@ -146,7 +172,7 @@ export function SiteShell({ children }: SiteShellProps) {
                       "&:focus-within .services-menu, &:hover .services-menu": {
                         opacity: 1,
                         pointerEvents: "auto",
-                        transform: "translate(-50%, 0)",
+                        transform: "translate(0, 0)",
                       },
                     }}
                   >
@@ -172,18 +198,18 @@ export function SiteShell({ children }: SiteShellProps) {
                         borderRadius: 1,
                         boxShadow: "0 22px 70px rgba(0, 0, 0, 0.36)",
                         display: { xs: "none", md: "grid" },
-                        gap: 3,
-                        gridTemplateColumns: "repeat(2, minmax(190px, 1fr))",
-                        left: "50%",
-                        minWidth: 500,
+                        gap: 2.5,
+                        gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
                         opacity: 0,
                         p: 3,
                         pointerEvents: "none",
                         position: "absolute",
+                        right: 0,
                         top: "calc(100% + 12px)",
-                        transform: "translate(-50%, -6px)",
+                        transform: "translate(0, -6px)",
                         transition:
                           "opacity 160ms ease, transform 160ms ease, pointer-events 160ms ease",
+                        width: "min(920px, calc(100vw - 48px))",
                         zIndex: 20,
                         "&::before": {
                           content: '""',

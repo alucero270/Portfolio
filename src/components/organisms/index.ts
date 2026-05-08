@@ -14,7 +14,7 @@ export { ProjectGrid } from "./project-grid";
 export type { ProjectGridItem } from "./project-grid";
 export { SelectedWorkSection } from "./selected-work-section";
 export { ServicesSection } from "./services-section";
-export type { ServiceItem } from "./services-section";
+export type { ServiceGroup, ServiceItem } from "./services-section";
 export { SignalStripSection } from "./signal-strip-section";
 export type { SignalStripItem } from "./signal-strip-section";
 export { ThinkingOutLoudSection } from "./thinking-out-loud-section";

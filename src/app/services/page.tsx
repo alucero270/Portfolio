@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 import { MonoLabel, SectionEyebrow, SectionHeading, TechTag } from "@/components/atoms";
 import { CTAGroup } from "@/components/molecules";
-import { ServicesSection, type ServiceItem } from "@/components/organisms";
+import { ServicesSection, type ServiceGroup } from "@/components/organisms";
 import { toInternalHref } from "@/lib/routing";
 
 export const dynamic = "force-static";
@@ -14,42 +14,174 @@ export const metadata: Metadata = {
     "Prototype systems engineering, embedded integration, AI infrastructure, technical software, and R&D support from Loose Arrow Labs.",
 };
 
-const serviceItems: ServiceItem[] = [
+const serviceGroups: ServiceGroup[] = [
   {
-    id: "prototype-systems",
-    title: "Prototype systems engineering",
+    id: "digital-product",
+    eyebrow: "01. Product Layer",
+    title: "Digital product",
     description:
-      "Concept-to-proof work for technical systems: architecture, subsystem boundaries, integration plans, risk mapping, and validation artifacts.",
+      "Interfaces, applications, and MVPs for technical products where the software has to explain, operate, or validate a real system.",
+    items: [
+      {
+        id: "mvp-development",
+        title: "MVP development",
+        description:
+          "Small, inspectable first versions that prove the riskiest workflow, integration boundary, or product assumption before the build grows.",
+      },
+      {
+        id: "web-development",
+        title: "Web development",
+        description:
+          "Static-first websites, portfolio systems, technical landing pages, internal tools, dashboards, and content-driven front ends.",
+      },
+      {
+        id: "frontend-development",
+        title: "Front end development",
+        description:
+          "React and Next.js interfaces for technical products, operational workflows, documentation surfaces, and data-heavy views.",
+      },
+      {
+        id: "backend-development",
+        title: "Back end development",
+        description:
+          "APIs, local services, integration layers, background jobs, and application logic that keep technical systems understandable.",
+      },
+      {
+        id: "ui-ux-design",
+        title: "UI/UX design",
+        description:
+          "Clear product flows, interface structure, technical content hierarchy, and usable controls for tools people need to operate.",
+      },
+    ],
   },
   {
-    id: "embedded-telemetry",
-    title: "Embedded systems & telemetry",
+    id: "systems-devices",
+    eyebrow: "02. Device Layer",
+    title: "Systems & devices",
     description:
-      "Embedded Linux services, firmware-adjacent interfaces, sensor acquisition, framed telemetry, local persistence, and field-oriented validation.",
+      "Hardware-aware software, embedded interfaces, telemetry paths, and robotic or IoT systems that need practical integration discipline.",
+    items: [
+      {
+        id: "prototype-systems",
+        title: "Prototype systems engineering",
+        description:
+          "Concept-to-proof work for technical systems: architecture, subsystem boundaries, integration plans, risk mapping, and validation artifacts.",
+      },
+      {
+        id: "embedded-telemetry",
+        title: "Embedded systems & telemetry",
+        description:
+          "Embedded Linux services, firmware-adjacent interfaces, sensor acquisition, framed telemetry, local persistence, and field-oriented validation.",
+      },
+      {
+        id: "firmware-development",
+        title: "Firmware development",
+        description:
+          "Firmware-adjacent development for MCUs and embedded devices: interfaces, protocols, device behavior, and validation notes.",
+      },
+      {
+        id: "iot-development",
+        title: "IoT development",
+        description:
+          "Connected-device prototypes, sensor pipelines, edge services, telemetry transport, and operational visibility for physical systems.",
+      },
+      {
+        id: "ai-iot-systems",
+        title: "AI for IoT systems",
+        description:
+          "AI-assisted analysis, classification, retrieval, and local inference workflows around device data and field telemetry.",
+      },
+      {
+        id: "robotics-automation",
+        title: "Robotics & automation platforms",
+        description:
+          "MCU/Linux runtime separation, actuator and sensor interfaces, simulation modes, observability, and control-system integration.",
+      },
+    ],
   },
   {
-    id: "robotics-automation",
-    title: "Robotics & automation platforms",
+    id: "ai-infrastructure-domain",
+    eyebrow: "03. Operating Layer",
+    title: "AI & infrastructure",
     description:
-      "MCU/Linux runtime separation, actuator and sensor interfaces, simulation modes, observability, and control-system integration.",
+      "The data, deployment, automation, and local infrastructure layer that lets prototypes become repeatable engineering systems.",
+    items: [
+      {
+        id: "ai-infrastructure",
+        title: "AI infrastructure & local inference",
+        description:
+          "GPU/server lab architecture, local model workflows, retrieval systems, agent tooling, and AI-assisted engineering automation.",
+      },
+      {
+        id: "technical-software",
+        title: "Technical software & integrations",
+        description:
+          "Backend services, APIs, engineering dashboards, internal tools, telemetry viewers, and systems that connect hardware to operations.",
+      },
+      {
+        id: "database-modeling",
+        title: "Database modeling",
+        description:
+          "Practical schema design, local persistence, telemetry storage, migration planning, and retrieval models for engineering data.",
+      },
+      {
+        id: "devops-services",
+        title: "DevOps services",
+        description:
+          "Repeatable build, deploy, validation, observability, and automation practices for small technical teams and lab systems.",
+      },
+      {
+        id: "cloud-software-development",
+        title: "Cloud software development",
+        description:
+          "Cloud-hosted services, deployment architecture, storage choices, and integration planning when a system needs managed infrastructure.",
+      },
+      {
+        id: "linux-operations",
+        title: "Linux infrastructure & operations",
+        description:
+          "Networking, Docker, storage, observability, self-hosted services, repeatable deployment, and maintainable engineering environments.",
+      },
+    ],
   },
   {
-    id: "ai-infrastructure",
-    title: "AI infrastructure & local inference",
+    id: "advisory-support",
+    eyebrow: "04. Decision Layer",
+    title: "Advisory & support",
     description:
-      "GPU/server lab architecture, local model workflows, retrieval systems, agent tooling, and AI-assisted engineering automation.",
-  },
-  {
-    id: "technical-software",
-    title: "Technical software & integrations",
-    description:
-      "Backend services, APIs, engineering dashboards, internal tools, telemetry viewers, and systems that connect hardware to operations.",
-  },
-  {
-    id: "linux-operations",
-    title: "Linux infrastructure & operations",
-    description:
-      "Networking, Docker, storage, observability, self-hosted services, repeatable deployment, and maintainable engineering environments.",
+      "Focused technical judgment before, during, and after a build: feasibility, roadmap decisions, handoff, and iteration support.",
+    items: [
+      {
+        id: "rnd-services",
+        title: "R&D services",
+        description:
+          "Focused research, feasibility checks, bench experiments, and technical option mapping for uncertain hardware/software work.",
+      },
+      {
+        id: "iot-consulting-services",
+        title: "IoT consulting services",
+        description:
+          "Practical guidance on device architecture, edge/cloud boundaries, telemetry models, and build-vs-buy choices for IoT systems.",
+      },
+      {
+        id: "tech-advisory",
+        title: "Tech advisory",
+        description:
+          "Decision support for architecture, stack selection, system risk, technical roadmaps, and prototype-to-production tradeoffs.",
+      },
+      {
+        id: "post-production-support",
+        title: "Post-production support",
+        description:
+          "Maintenance, debugging, instrumentation, documentation, and release support after a prototype or system is already in use.",
+      },
+      {
+        id: "dedicated-technical-support",
+        title: "Dedicated technical support",
+        description:
+          "Hands-on builder support for teams that need a technical partner across architecture, implementation, validation, and iteration.",
+      },
+    ],
   },
 ];
 
@@ -200,7 +332,7 @@ export default function ServicesPage() {
         </Box>
       </Box>
 
-      <ServicesSection headingId="services-list-heading" items={serviceItems} />
+      <ServicesSection headingId="services-list-heading" groups={serviceGroups} />
 
       <Box component="section" aria-labelledby="technology-heading">
         <Box
