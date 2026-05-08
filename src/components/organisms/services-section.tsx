@@ -189,6 +189,11 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
                           py: 2.25,
                           transform: "translateY(0)",
                         },
+                        "&:focus-visible .capability-summary, &:hover .capability-summary": {
+                          maxHeight: 0,
+                          opacity: 0,
+                          overflow: "hidden",
+                        },
                       }}
                     >
                       <Typography
@@ -203,8 +208,14 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
                         {item.title}
                       </Typography>
                       <Typography
+                        className="capability-summary"
                         color="text.secondary"
-                        sx={{ fontSize: "0.88rem", lineHeight: 1.58 }}
+                        sx={{
+                          fontSize: "0.88rem",
+                          lineHeight: 1.58,
+                          maxHeight: "8rem",
+                          transition: "max-height 160ms ease, opacity 160ms ease",
+                        }}
                       >
                         {item.description}
                       </Typography>
