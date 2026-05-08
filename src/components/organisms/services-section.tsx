@@ -161,6 +161,7 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
 
                 <Box
                   sx={{
+                    alignItems: "start",
                     display: "grid",
                     gap: 1.25,
                     gridTemplateColumns: { xs: "1fr", md: "repeat(2, minmax(0, 1fr))" },
@@ -177,10 +178,17 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
                         border: "1px solid",
                         borderColor: "divider",
                         borderRadius: 1,
-                        minHeight: 164,
+                        minHeight: 176,
                         outline: "none",
                         p: 2.25,
-                        position: "relative",
+                        "&:focus-visible .capability-popout, &:hover .capability-popout": {
+                          maxHeight: "36rem",
+                          mt: 1.25,
+                          opacity: 1,
+                          pointerEvents: "auto",
+                          py: 2.25,
+                          transform: "translateY(0)",
+                        },
                       }}
                     >
                       <Typography
@@ -209,14 +217,15 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
                           borderColor: "primary.main",
                           borderRadius: 1,
                           boxShadow: "0 24px 80px rgba(0, 0, 0, 0.5)",
-                          inset: -1,
+                          maxHeight: 0,
                           opacity: 0,
-                          p: 2.25,
+                          overflow: "hidden",
+                          px: 2.25,
+                          py: 0,
                           pointerEvents: "none",
-                          position: "absolute",
-                          transform: "translateY(8px) scale(0.98)",
-                          transition: "opacity 160ms ease, transform 160ms ease",
-                          zIndex: 4,
+                          transform: "translateY(8px)",
+                          transition:
+                            "max-height 220ms ease, margin-top 160ms ease, opacity 160ms ease, transform 160ms ease",
                         }}
                       >
                         <SectionEyebrow sx={{ mb: 0.75 }}>Details</SectionEyebrow>

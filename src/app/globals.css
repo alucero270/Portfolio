@@ -228,8 +228,10 @@ a {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012)),
     rgba(255, 255, 255, 0.01);
+  box-shadow: none;
   transition:
     border-color 160ms ease,
+    box-shadow 160ms ease,
     transform 160ms ease,
     background-color 160ms ease;
 }
@@ -237,14 +239,17 @@ a {
 .capability-matrix-item:hover,
 .capability-matrix-item:focus-visible {
   border-color: rgba(154, 133, 255, 0.62);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.28);
   transform: translateY(-2px);
 }
 
 .capability-matrix-item:hover .capability-popout,
 .capability-matrix-item:focus-visible .capability-popout {
+  margin-top: 1.25rem;
+  max-height: 36rem;
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0) scale(1.02);
+  transform: translateY(0);
 }
 
 .mdx-content > *:first-child {
