@@ -1,10 +1,12 @@
 ---
-title: "Codex"
+title: "Codex Engineering Knowledge System"
 slug: "codex"
-summary: "Indexing and retrieval tool for LLM's"
+summary: "AI-assisted engineering knowledge system for structured document ingestion, retrieval, local workflow support, and repeatable project documentation."
 featured: true
-status: "Phase 1: Complete"
-updated: "2026-02-27"
+status: "Phase 1: retrieval workflow"
+updated: "2026-05-08"
+role: "AI infrastructure and tooling engineer"
+tech: ["Retrieval", "Local AI workflows", "C#/.NET", "React", "Docker", "Documentation systems"]
 repoOwner: "alucero270"
 repoName: "codex"
 repoPrimary: true
@@ -16,37 +18,37 @@ evidence:
 
 ## Overview
 
-Codex is a personal knowledge-search and engineering assistant system designed to index and retrieve my project documentation, procedures, and decisions quickly and reliably.
+Codex is an AI-assisted engineering knowledge system for keeping project documentation, procedures, tradeoffs, and decisions retrievable as systems grow. It is not framed as generic AI hype. It is infrastructure for engineering memory.
 
-## Why it matters
+The project supports the Loose Arrow Labs operating model: authored notes remain the source of truth, while retrieval and local AI workflows help surface the right context during design, debugging, and documentation.
 
-As projects scale, success depends on documentation quality and retrieval speed. Codex is my attempt to treat personal engineering documentation like a real org would: structured, searchable, and maintained.
+## Engineering Problem
 
-## Architecture (target)
+As technical projects multiply, the cost of lost context rises:
 
-- Document ingestion (markdown + repo content)
-- Search (FTS / vector as needed)
-- Query interface that supports "engineering workflows" (procedures, ADRs, decisions)
-- Integration with local AI tooling for guided assistance
+- Decisions need to remain connected to the constraints that produced them
+- Procedures should be easy to find during maintenance or debugging
+- Known questions should retrieve known documents reliably
+- AI assistance should improve workflow without replacing authored source material
+- Documentation should be treated as a system with regression checks, not a pile of notes
 
-## Tech
+## Architecture Direction
 
-- Linux + Docker
-- C#/.Net/React
-- Search layer (FTS / vector; implementation evolves)
-- Strong docs-first repo practices (templates, ADRs, procedures)
+- Markdown and repo-content ingestion
+- Full-text search and vector retrieval where useful
+- Query interface organized around engineering workflows: procedures, ADRs, troubleshooting notes, and project context
+- Local AI tooling for guided assistance with visible source material
+- Retrieval-quality checks for known questions and expected documents
 
-## Current status
+## Current Status
 
-- Iterating on system prompts, retrieval flow, and service structure
+- Retrieval flow and service structure are being iterated
+- Prompting and document structure are being tuned around engineering use cases
+- Documentation templates and operating procedures are being standardized
 
-## Next steps
+## Next Documentation Targets
 
-- Establish stable ingestion + retrieval MVP
-- Add regression tests for retrieval quality ("known question -> expected docs")
-- Publish a "How I use Codex" workflow guide on the site
-
-## Evidence
-
-- Repo: https://github.com/alucero270/codex
-- Screenshots: TODO
+- Ingestion and retrieval MVP notes
+- Known-question retrieval tests
+- Local AI workflow guide
+- Architecture diagram for document flow and query path

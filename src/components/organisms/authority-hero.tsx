@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 
-import { MonoLabel, SectionEyebrow, SectionHeading, TechTag } from "@/components/atoms";
+import { SectionEyebrow, SectionHeading, TechTag } from "@/components/atoms";
 import { CTAGroup } from "@/components/molecules";
 
 type HeroCTA = {

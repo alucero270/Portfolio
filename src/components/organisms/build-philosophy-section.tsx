@@ -26,13 +26,14 @@ export function BuildPhilosophySection({
     <Box component="section" aria-labelledby={headingId} sx={{ py: { xs: 2, md: 3 } }}>
       <Box sx={{ borderBottom: "1px solid", borderColor: "divider", mb: 3, pb: 2 }}>
         <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
-          <MonoLabel>§08</MonoLabel>
+          <MonoLabel>S08</MonoLabel>
           <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
-          <SectionEyebrow sx={{ mb: 0 }}>Operating system</SectionEyebrow>
+          <SectionEyebrow sx={{ mb: 0 }}>Operating Method</SectionEyebrow>
         </Stack>
         <SectionHeading id={headingId}>{title}</SectionHeading>
         <Typography color="text.secondary" sx={{ maxWidth: 640, mt: 1 }}>
-          Capabilities Alex leans into, and principles he does not compromise on.
+          The studio bias is toward clear boundaries, observable behavior, and validation before
+          scale.
         </Typography>
       </Box>
       <Box
@@ -43,7 +44,7 @@ export function BuildPhilosophySection({
         }}
       >
         <Box>
-          <SectionEyebrow>Capabilities</SectionEyebrow>
+          <SectionEyebrow>Working principles</SectionEyebrow>
           <Stack sx={{ mt: 1 }}>
             {principles.map((principle, index) => (
               <Box
@@ -72,13 +73,13 @@ export function BuildPhilosophySection({
         </Box>
         <Card>
           <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>
-            <SectionEyebrow>Principles</SectionEyebrow>
+            <SectionEyebrow>Non-negotiables</SectionEyebrow>
             <Stack spacing={1.75} sx={{ mt: 2 }}>
               {[
                 "Structure before build",
-                "Deterministic systems",
+                "Interfaces made explicit",
                 "Incremental validation",
-                "Clarity over complexity",
+                "Documentation as output",
                 "Run what you build",
               ].map((principle, index) => (
                 <Stack

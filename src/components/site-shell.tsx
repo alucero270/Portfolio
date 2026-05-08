@@ -8,10 +8,29 @@ import { siteConfig } from "@/lib/site";
 
 const navigationLinks = [
   { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
+  { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
-  { href: "/resume", label: "Resume" },
+  { href: "/projects", label: "Case Studies" },
   { href: "/contact", label: "Contact" },
+];
+
+const serviceMenuGroups = [
+  {
+    heading: "Engineering",
+    links: [
+      { href: "/services#prototype-systems", label: "Prototype Systems" },
+      { href: "/services#embedded-telemetry", label: "Embedded & Telemetry" },
+      { href: "/services#robotics-automation", label: "Robotics & Automation" },
+    ],
+  },
+  {
+    heading: "Infrastructure",
+    links: [
+      { href: "/services#ai-infrastructure", label: "AI Infrastructure" },
+      { href: "/services#technical-software", label: "Technical Software" },
+      { href: "/services#linux-operations", label: "Linux Operations" },
+    ],
+  },
 ];
 
 const githubHandle = siteConfig.github.includes("github.com/")
@@ -19,8 +38,8 @@ const githubHandle = siteConfig.github.includes("github.com/")
   : "alucero270";
 
 const footerGroups = [
-  { heading: "Work", links: ["Selected Work", "Active Systems", "Recent Activity"] },
-  { heading: "Engage", links: ["Start a Project", "Contact", "Resume"] },
+  { heading: "Work", links: ["Capabilities", "Case Studies", "Active R&D"] },
+  { heading: "Engage", links: ["Discuss a System", "Contact", "Resume"] },
   { heading: "Elsewhere", links: ["GitHub", "LinkedIn", "Email"] },
 ];
 
@@ -132,7 +151,7 @@ export function SiteShell({ children }: SiteShellProps) {
                       width: 5,
                     }}
                   />
-                  Available
+                  R&D / Consulting
                 </Typography>
               </Stack>
             </Stack>
@@ -143,22 +162,117 @@ export function SiteShell({ children }: SiteShellProps) {
               spacing={{ xs: 0.25, sm: 0.75 }}
               sx={{ flexWrap: "wrap", justifyContent: { xs: "space-between", md: "flex-end" } }}
             >
-              {navigationLinks.map((link) => (
-                <Button
-                  key={link.href}
-                  href={toInternalHref(link.href)}
-                  color="inherit"
-                  sx={{
-                    color: "text.secondary",
-                    fontSize: "0.82rem",
-                    minWidth: 0,
-                    px: { xs: 0.75, sm: 1.25 },
-                    "&:hover": { color: "text.primary" },
-                  }}
-                >
-                  {link.label}
-                </Button>
-              ))}
+              {navigationLinks.map((link) =>
+                link.href === "/services" ? (
+                  <Box
+                    key={link.href}
+                    sx={{
+                      position: "relative",
+                      "&:focus-within .services-menu, &:hover .services-menu": {
+                        opacity: 1,
+                        pointerEvents: "auto",
+                        transform: "translate(-50%, 0)",
+                      },
+                    }}
+                  >
+                    <Button
+                      href={toInternalHref(link.href)}
+                      color="inherit"
+                      sx={{
+                        color: "text.secondary",
+                        fontSize: "0.82rem",
+                        minWidth: 0,
+                        px: { xs: 0.75, sm: 1.25 },
+                        "&:hover": { color: "text.primary" },
+                      }}
+                    >
+                      {link.label}
+                    </Button>
+                    <Box
+                      className="services-menu"
+                      sx={{
+                        backgroundColor: "rgba(18, 18, 28, 0.98)",
+                        border: "1px solid",
+                        borderColor: "divider",
+                        borderRadius: 1,
+                        boxShadow: "0 22px 70px rgba(0, 0, 0, 0.36)",
+                        display: { xs: "none", md: "grid" },
+                        gap: 3,
+                        gridTemplateColumns: "repeat(2, minmax(190px, 1fr))",
+                        left: "50%",
+                        minWidth: 500,
+                        opacity: 0,
+                        p: 3,
+                        pointerEvents: "none",
+                        position: "absolute",
+                        top: "calc(100% + 12px)",
+                        transform: "translate(-50%, -6px)",
+                        transition:
+                          "opacity 160ms ease, transform 160ms ease, pointer-events 160ms ease",
+                        zIndex: 20,
+                        "&::before": {
+                          content: '""',
+                          height: 14,
+                          left: 0,
+                          position: "absolute",
+                          right: 0,
+                          top: -14,
+                        },
+                      }}
+                    >
+                      {serviceMenuGroups.map((group) => (
+                        <Stack key={group.heading} spacing={1.2}>
+                          <Typography
+                            variant="caption"
+                            sx={{
+                              borderBottom: "1px solid",
+                              borderColor: "divider",
+                              color: "primary.main",
+                              fontFamily: "var(--font-code)",
+                              fontWeight: 700,
+                              letterSpacing: "0.12em",
+                              pb: 1,
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            {group.heading}
+                          </Typography>
+                          {group.links.map((serviceLink) => (
+                            <Typography
+                              key={serviceLink.href}
+                              component="a"
+                              href={toInternalHref(serviceLink.href)}
+                              sx={{
+                                color: "text.secondary",
+                                fontSize: "0.9rem",
+                                textDecoration: "none",
+                                "&:hover": { color: "text.primary" },
+                              }}
+                            >
+                              {serviceLink.label}
+                            </Typography>
+                          ))}
+                        </Stack>
+                      ))}
+                    </Box>
+                  </Box>
+                ) : (
+                  <Button
+                    key={link.href}
+                    href={toInternalHref(link.href)}
+                    color="inherit"
+                    sx={{
+                      color: "text.secondary",
+                      fontSize: "0.82rem",
+                      minWidth: 0,
+                      px: { xs: 0.75, sm: 1.25 },
+                      "&:hover": { color: "text.primary" },
+                    }}
+                  >
+                    {link.label}
+                  </Button>
+                ),
+              )}
               <Button
                 href={toInternalHref("/contact")}
                 endIcon={<ArrowForward sx={{ fontSize: "0.9rem" }} />}
@@ -216,8 +330,8 @@ export function SiteShell({ children }: SiteShellProps) {
                   </Stack>
                 </Stack>
                 <Typography color="text.secondary" variant="body2" sx={{ maxWidth: 320 }}>
-                  {siteConfig.studioName} is the studio identity for practical software, embedded
-                  integration, automation, and tools Alex can inspect and maintain.
+                  {siteConfig.studioName} is a founder-led engineering studio for prototype systems,
+                  embedded integration, technical software, AI infrastructure, and practical R&D.
                 </Typography>
               </Stack>
               {footerGroups.map(({ heading, links }) => (
@@ -248,8 +362,8 @@ export function SiteShell({ children }: SiteShellProps) {
                 pt: 2.5,
               }}
             >
-              <span>© {new Date().getFullYear()} - built as a living system</span>
-              <span>static-first / optional GitHub signal</span>
+              <span>(c) {new Date().getFullYear()} Loose Arrow Labs</span>
+              <span>static-first / authored case studies / optional GitHub signal</span>
             </Stack>
           </Stack>
         </Container>

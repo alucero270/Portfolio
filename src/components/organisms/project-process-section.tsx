@@ -22,14 +22,14 @@ export function ProjectProcessSection({ headingId, steps }: ProjectProcessSectio
     <Box component="section" aria-labelledby={headingId} sx={{ py: { xs: 2, md: 3 } }}>
       <Box sx={{ borderBottom: "1px solid", borderColor: "divider", mb: 3, pb: 2 }}>
         <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
-          <MonoLabel>§07</MonoLabel>
+          <MonoLabel>S07</MonoLabel>
           <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
           <SectionEyebrow sx={{ mb: 0 }}>Process</SectionEyebrow>
         </Stack>
-        <SectionHeading id={headingId}>How a project runs</SectionHeading>
+        <SectionHeading id={headingId}>Design, build, validate</SectionHeading>
         <Typography color="text.secondary" sx={{ maxWidth: 640, mt: 1 }}>
-          Three phases. Deliberately predictable: clarify the boundary, build in public enough to
-          inspect, then validate the system where it will actually run.
+          A deliberately practical loop: clarify the risk, build the proof, then test the system
+          against the environment it actually has to survive.
         </Typography>
       </Box>
 

@@ -1,10 +1,12 @@
 ---
-title: "Pantheon"
+title: "Pantheon Engineering Infrastructure"
 slug: "pantheon"
-summary: "Homelab for AI, development, media, storage, etc."
+summary: "Self-hosted Linux and GPU/server infrastructure for repeatable engineering workflows, local AI systems, storage, networking, observability, and development operations."
 featured: false
-status: "An ongoing project"
-updated: "2026-02-27"
+status: "Ongoing infrastructure"
+updated: "2026-05-08"
+role: "Infrastructure systems engineer"
+tech: ["Linux", "Docker", "Networking", "Storage", "Observability", "GPU infrastructure"]
 repoOwner: "alucero270"
 repoName: "pantheon"
 repoPrimary: true
@@ -16,34 +18,38 @@ evidence:
 
 ## Overview
 
-Pantheon is my ongoing homelab infrastructure project designed to simulate production-style environments: separate compute/storage domains, controlled changes, and documented operations.
+Pantheon is the self-hosted engineering infrastructure behind my development and R&D work. It is positioned as lab infrastructure rather than hobbyist homelab content: Linux systems, networking, storage, containers, observability, GPU-capable compute, and documented operations.
 
-## Why it matters
+For Loose Arrow Labs, this matters because prototype systems increasingly need local services, model inference, device telemetry collectors, build environments, storage, and repeatable deployment workflows.
 
-This is where I practice real systems habits: fault isolation, repeatable updates, monitoring, and reliable service operations.
+## Engineering Problem
 
-## What I built
+A technical studio needs infrastructure that can support experimentation without becoming fragile:
 
-- Linux-based multi-node architecture separating compute, storage, and network domains
-- Dockerized services with repeatable configuration and controlled updates
-- Monitoring/logging/observability and validation under load
+- Services should be reproducible and documented
+- Networks should separate concerns and reduce accidental coupling
+- Storage should be deliberate, backed up, and understandable
+- AI and automation workloads need compute and operating boundaries
+- Failures should produce logs and troubleshooting paths, not guesswork
 
-## Tech
+## What It Supports
 
-- Linux, Docker
-- Network segmentation concepts and service operations
-- CI-style workflows for repeatability
+- Dockerized engineering tools and internal services
+- Local AI and retrieval workflow experimentation
+- Storage and backup patterns for project artifacts
+- Network segmentation and service isolation concepts
+- Monitoring, logging, and operational runbooks
+- Repeatable workstation/server setup patterns
 
-## Current status
+## Current Status
 
-- Actively evolving as I add more AI/dev tooling and operational discipline
+- Ongoing infrastructure used for development and experimentation
+- Documentation and topology diagrams are being built out
+- GPU/server lab architecture is part of the next iteration
 
-## Next steps
+## Next Documentation Targets
 
-- Publish architecture diagram(s)
-- Add "runbooks" and incident-style troubleshooting notes
-
-## Evidence
-
-- Repo: https://github.com/alucero270/pantheon
-- Diagrams/screens: TODO
+- Network topology diagram
+- Service inventory and operating notes
+- Backup and restore procedure
+- Local AI infrastructure diagram

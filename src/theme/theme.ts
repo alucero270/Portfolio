@@ -183,7 +183,8 @@ export const theme = createTheme({
           textUnderlineOffset: "0.18em",
           textDecorationThickness: "0.08em",
           textDecorationColor: brandTokens.border2,
-          transition: "text-decoration-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1), color 180ms cubic-bezier(0.2, 0.8, 0.2, 1)",
+          transition:
+            "text-decoration-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1), color 180ms cubic-bezier(0.2, 0.8, 0.2, 1)",
           "&:hover": {
             color: brandTokens.accent,
             textDecorationColor: brandTokens.accent,
@@ -212,7 +213,8 @@ export const theme = createTheme({
           backgroundColor: brandTokens.surface2,
           backgroundImage: "linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent)",
           boxShadow: "none",
-          transition: "border-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1), background 180ms cubic-bezier(0.2, 0.8, 0.2, 1)",
+          transition:
+            "border-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1), background 180ms cubic-bezier(0.2, 0.8, 0.2, 1)",
           "&:hover": {
             backgroundColor: brandTokens.surface2,
             borderColor: brandTokens.border2,

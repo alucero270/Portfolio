@@ -33,128 +33,143 @@ import { toInternalHref } from "@/lib/routing";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Home",
-  description: "Alex Lucero portfolio home with bio, featured projects, and current work focus.",
+  title: "Loose Arrow Labs",
+  description:
+    "Founder-led prototype systems engineering and technical R&D studio led by Alex Lucero.",
 };
-
 
 const signalStripItems: SignalStripItem[] = [
   {
-    label: "Embedded + integration",
-    description: "Sensors, controllers, and software under real constraints.",
+    label: "Prototype systems",
+    description: "Feasibility, subsystem boundaries, bench validation, and working proofs.",
   },
   {
-    label: "Robotics + automation",
-    description: "Control logic, state behavior, and physical iteration.",
+    label: "Embedded & robotics",
+    description: "MCU/Linux architecture, telemetry, control interfaces, and device bring-up.",
   },
   {
-    label: "Software tooling",
-    description: "Diagnostics, data flow, and maintainable internal utilities.",
+    label: "AI infrastructure",
+    description: "Local inference, retrieval systems, agent tooling, and deterministic workflows.",
   },
   {
-    label: "Inspectable proof",
-    description: "Repos, notes, diagrams, validation logs, and written tradeoffs.",
+    label: "Technical software",
+    description: "Operational tools, APIs, data pipelines, dashboards, and integration services.",
   },
 ];
 
 const serviceItems: ServiceItem[] = [
   {
-    title: "Embedded systems & integration",
+    title: "Prototype systems engineering",
     description:
-      "Connect software to physical systems through explicit interfaces, telemetry, and validation. Sensor integration, microcontroller systems, data pipelines.",
+      "Turn ambiguous technical ideas into scoped, buildable systems with clear interfaces, validation paths, and documentation.",
   },
   {
-    title: "Robotics & automation prototypes",
+    title: "Embedded systems & telemetry",
     description:
-      "Build and stabilize systems that move, respond, and operate under real conditions. Control logic, actuation, state machines, prototype iteration.",
+      "Embedded Linux, firmware-adjacent services, sensor acquisition, framed telemetry, control boundaries, and hardware bring-up workflows.",
   },
   {
-    title: "Software tooling & diagnostics",
+    title: "Robotics & automation platforms",
     description:
-      "Develop internal tools and AI-assisted workflows for debugging, system understanding, and operator efficiency. Analysis, introspection, practical automation.",
+      "MCU plus Linux architectures, actuator/sensor integration, runtime coordination, observability, and simulation-aware development.",
+  },
+  {
+    title: "AI infrastructure & local inference",
+    description:
+      "GPU/server lab architecture, retrieval systems, agent tooling, local model workflows, and AI-assisted engineering automation.",
+  },
+  {
+    title: "Industrial and technical software",
+    description:
+      "Backend services, engineering interfaces, internal tools, telemetry views, APIs, and integration systems for technical operations.",
+  },
+  {
+    title: "Infrastructure & systems operations",
+    description:
+      "Linux systems, networking, Docker, storage, observability, repeatable deployment, and self-hosted engineering infrastructure.",
   },
 ];
 
 const buildPrinciples: BuildPrinciple[] = [
   {
-    title: "Define the boundary",
+    title: "Start with the system boundary",
     description:
-      "Name the interfaces, ownership, failure modes, and data shapes before the implementation gets too clever.",
+      "Define interfaces, signals, ownership, constraints, and failure modes before committing to implementation details.",
   },
   {
-    title: "Validate the risky part",
+    title: "Prototype the uncertain part first",
     description:
-      "Prototype around the unknowns first, then keep the validation steps close enough that future changes can be checked.",
+      "Use focused builds to test the highest-risk assumption early, whether that is timing, signal validity, data flow, or physical fit.",
   },
   {
-    title: "Leave a trail",
+    title: "Leave evidence behind",
     description:
-      "Prefer docs, decisions, run notes, and small tests over invisible heroics. The next pass should be easier to reason about.",
+      "Document tradeoffs, validation steps, operating notes, and observed behavior so the system can be inspected and safely changed later.",
   },
 ];
 
 const processSteps: ProjectProcessStep[] = [
   {
-    title: "Define",
+    title: "Discovery & risk map",
     description:
-      "Clarify the problem, interfaces, constraints, failure modes, and what proof would make the work trustworthy.",
+      "Clarify the technical goal, constraints, subsystem boundaries, available hardware, and the failure modes that would make the effort unworkable.",
   },
   {
-    title: "Build",
+    title: "Prototype & integrate",
     description:
-      "Work in small reviewable passes with enough structure, notes, and validation that the system can be inspected.",
+      "Build the smallest useful proof across the relevant domains: hardware interfaces, services, telemetry, infrastructure, or AI workflow pieces.",
   },
   {
-    title: "Launch",
+    title: "Validate & document",
     description:
-      "Deploy, monitor, document, and refine the practical edges that only appear once the system is being used.",
+      "Test the system where it needs to operate, capture what was learned, refine the architecture, and leave behind diagrams, notes, and next-step decisions.",
   },
 ];
 
 const labNotes: LabNote[] = [
   {
     date: "Current",
-    href: toInternalHref("/projects/codex"),
+    href: toInternalHref("/projects/om606-signal-integration"),
     summary:
-      "Retrieval and documentation workflows for keeping project decisions, procedures, and notes usable.",
-    tags: ["retrieval", "docs"],
-    title: "Personal knowledge workflows",
+      "Reverse-engineering vehicle control expectations and validating signal behavior across mechanical and electronic systems.",
+    tags: ["automotive", "signals"],
+    title: "OM606 signal integration",
   },
   {
     date: "Current",
     href: toInternalHref("/projects/kittybot"),
     summary:
-      "Companion robot planning across service boundaries, physical behavior, and local model constraints.",
-    tags: ["robotics", "interfaces"],
-    title: "KittyBot planning notes",
+      "Defining robotics runtime boundaries across MCU control, Linux orchestration, telemetry, and local model constraints.",
+    tags: ["robotics", "runtime"],
+    title: "KittyBot architecture notes",
   },
   {
     date: "Current",
     href: toInternalHref("/projects/vtcn"),
     summary:
-      "Telemetry platform work around sensor input, framing, persistence, and validation loops.",
+      "Embedded Linux telemetry work around sensor input, framing, persistence, transport, and validation loops.",
     tags: ["embedded", "telemetry"],
-    title: "Signal validation loops",
+    title: "Telemetry validation loops",
   },
 ];
 
 const workingNowFallbackItems: ActivityItemData[] = [
   {
-    label: "Curated focus",
+    label: "Curated system",
     summary:
-      "Personal retrieval and documentation workflows for project decisions, procedures, and engineering notes.",
-    title: "Codex",
+      "Vehicle signal emulation, ECU compatibility, and validation notes for a diesel drivetrain integration.",
+    title: "OM606 integration",
   },
   {
     label: "Curated system",
     summary:
-      "Companion robot planning, service boundaries, and hardware/software interface contracts.",
+      "Companion robot runtime architecture, service boundaries, and hardware/software interface contracts.",
     title: "KittyBot",
   },
   {
     label: "Curated system",
     summary:
-      "Telemetry platform work around sensor input, framing, persistence, and validation loops.",
+      "Embedded Linux telemetry platform work around sensor input, framing, persistence, and validation loops.",
     title: "VTCN",
   },
 ];
@@ -203,7 +218,7 @@ export default async function HomePage() {
     getWorkingNowItems(),
   ]);
   const featuredProjectItems = featuredProjects.map((project) => ({
-    actionLabel: "View details",
+    actionLabel: "Open case study",
     evidenceCount: project.evidence?.length,
     href: toInternalHref(`/projects/${project.slug}`),
     outcome: project.outcome,
@@ -241,20 +256,22 @@ export default async function HomePage() {
   });
   const evidenceLinks: EvidenceLink[] = [
     {
-      description: "Authored project pages with summaries, status, and implementation context.",
+      description:
+        "Engineering case studies with problem framing, constraints, architecture decisions, and current status.",
       href: toInternalHref("/projects"),
-      label: "Project evidence index",
-    },
-    {
-      description: "Embedded Linux and telemetry work where interfaces and validation matter.",
-      href: toInternalHref("/projects/vtcn"),
-      label: "Embedded systems proof surface",
+      label: "Case study index",
     },
     {
       description:
-        "Homelab infrastructure work for repeatable operations and supportable services.",
-      href: toInternalHref("/projects/pantheon"),
-      label: "Infrastructure proof surface",
+        "Vehicle signal adaptation and drivetrain integration where mechanical and electrical systems meet.",
+      href: toInternalHref("/projects/om606-signal-integration"),
+      label: "Automotive integration proof",
+    },
+    {
+      description:
+        "Embedded Linux and telemetry work where interfaces, persistence, transport, and validation matter.",
+      href: toInternalHref("/projects/vtcn"),
+      label: "Embedded telemetry proof",
     },
   ];
 
@@ -265,38 +282,40 @@ export default async function HomePage() {
           key="hero"
           ctas={[
             {
-              href: "#active-systems-heading",
-              label: "View active work",
+              href: "#services-heading",
+              label: "View capabilities",
               variant: "contained",
             },
             {
               href: "#case-studies-heading",
-              label: "Case studies",
+              label: "Engineering case studies",
               variant: "outlined",
             },
           ]}
-          eyebrow="Active systems / prototype builds / engineering in progress"
+          eyebrow="Prototype systems engineering / embedded integration / AI infrastructure"
           headingId="home-bio-heading"
-          summary="Loose Arrow Labs is the studio identity for hands-on engineering across software, embedded systems, automation, and physical integration."
+          summary="Loose Arrow Labs is a founder-led technical engineering studio for prototype systems, multidisciplinary integration, and practical R&D. The work connects software, embedded systems, infrastructure, AI tooling, and physical hardware into inspectable systems."
           techTags={[
-            "Embedded systems & integration",
-            "Robotics & prototype builds",
-            "Software tooling & diagnostics",
-            "Testable system design",
+            "Systems integration",
+            "Embedded Linux & telemetry",
+            "Robotics platforms",
+            "AI infrastructure",
+            "Technical software",
           ]}
           title={
             <>
-              {bio.frontmatter.title ?? "Alex Lucero"} builds{" "}
+              Loose Arrow Labs builds{" "}
               <Box component="span" sx={{ color: "primary.main" }}>
-                software
-              </Box>
-              , embedded systems, and automation tools.
+                prototype technical systems
+              </Box>{" "}
+              across software, hardware, and infrastructure.
             </>
           }
         >
           <MdxContent>{bio.content}</MdxContent>
         </AuthorityHero>,
         <SignalStripSection key="signal-strip" items={signalStripItems} />,
+        <ServicesSection key="services" headingId="services-heading" items={serviceItems} />,
         <ActiveSystemsSection
           key="active-systems"
           headingId="active-systems-heading"
@@ -305,15 +324,11 @@ export default async function HomePage() {
         <SelectedWorkSection
           key="case-studies"
           allProjectsHref={toInternalHref("/projects")}
-          eyebrow="Projects"
+          eyebrow="Technical case studies"
           headingId="case-studies-heading"
           projects={featuredProjectItems}
-          title="Case Studies"
-        />,
-        <ServicesSection
-          key="services"
-          headingId="services-heading"
-          items={serviceItems}
+          title="Systems Under Development"
+          description="Project work framed by the engineering problem: constraints, subsystem boundaries, integration complexity, validation approach, and what is being learned."
         />,
         <ProjectProcessSection
           key="project-process"
@@ -324,13 +339,13 @@ export default async function HomePage() {
           key="build-philosophy"
           headingId="build-philosophy-heading"
           principles={buildPrinciples}
-          title="How I Work"
+          title="Engineering Method"
         />,
         <EngineeringEvidenceSection
           key="engineering-evidence"
           headingId="engineering-evidence-heading"
           links={evidenceLinks}
-          title="Show, don't tell"
+          title="Evidence Over Claims"
         />,
         <ThinkingOutLoudSection
           key="thinking-out-loud"
@@ -341,7 +356,7 @@ export default async function HomePage() {
           key="contact-cta"
           contactHref={toInternalHref("/contact")}
           headingId="contact-cta-heading"
-          summary="Send the project, system, or workflow constraint. The useful first step is usually clarifying boundaries, risks, and what would count as proof."
+          summary="Loose Arrow Labs is in an active R&D and early consulting phase. The best-fit conversations involve a technical system, an integration boundary, a prototype need, or an engineering workflow that needs to become real."
         />,
       ]}
     />
