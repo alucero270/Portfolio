@@ -40,18 +40,22 @@ export const metadata: Metadata = {
 
 const signalStripItems: SignalStripItem[] = [
   {
+    glyph: "chip",
     label: "Prototype systems",
     description: "Feasibility, subsystem boundaries, bench validation, and working proofs.",
   },
   {
+    glyph: "robot",
     label: "Embedded & robotics",
     description: "MCU/Linux architecture, telemetry, control interfaces, and device bring-up.",
   },
   {
+    glyph: "bolt",
     label: "AI infrastructure",
     description: "Local inference, retrieval systems, agent tooling, and deterministic workflows.",
   },
   {
+    glyph: "code",
     label: "Technical software",
     description: "Operational tools, APIs, data pipelines, dashboards, and integration services.",
   },

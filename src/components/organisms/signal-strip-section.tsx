@@ -1,9 +1,10 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-import { MonoLabel } from "@/components/atoms";
+import { BrandGlyph, type BrandGlyphName, MonoLabel } from "@/components/atoms";
 
 export type SignalStripItem = {
   description: string;
+  glyph?: BrandGlyphName;
   label: string;
 };
 
@@ -51,9 +52,14 @@ export function SignalStripSection({ items }: SignalStripSectionProps) {
               py: { xs: 2.25, md: 0.5 },
             }}
           >
-            <Typography component="h2" variant="h4">
-              {item.label}
-            </Typography>
+            <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
+              {item.glyph ? (
+                <BrandGlyph name={item.glyph} size={22} sx={{ color: "primary.main" }} />
+              ) : null}
+              <Typography component="h2" variant="h4">
+                {item.label}
+              </Typography>
+            </Stack>
             <MonoLabel sx={{ color: "text.secondary" }}>{item.description}</MonoLabel>
           </Stack>
         ))}

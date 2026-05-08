@@ -3,22 +3,22 @@ import { createTheme } from "@mui/material/styles";
 // Design system tokens from Loose Arrow Labs
 const brandTokens = {
   // Surfaces
-  background: "#080a0f",
-  surface0: "#080a0f",
-  surface1: "#1a1a1f",
-  surface1Hover: "#1f1f25",
-  surface2: "#2b2b33",
-  surface3: "#353540",
+  background: "#1A1A1F",
+  surface0: "#1A1A1F",
+  surface1: "#202027",
+  surface1Hover: "#24242B",
+  surface2: "#2B2B33",
+  surface3: "#34343D",
 
   // Foreground
-  fgPrimary: "#f6f7fb",
-  fgSecondary: "#a5a7ae",
-  fgTertiary: "rgba(246, 247, 251, 0.55)",
+  fgPrimary: "#FFFFFF",
+  fgSecondary: "#A5A7AE",
+  fgTertiary: "rgba(255, 255, 255, 0.55)",
 
   // Borders
-  border1: "rgba(246, 247, 251, 0.08)",
-  border2: "rgba(246, 247, 251, 0.14)",
-  borderStrong: "rgba(246, 247, 251, 0.22)",
+  border1: "rgba(255, 255, 255, 0.1)",
+  border2: "rgba(255, 255, 255, 0.18)",
+  borderStrong: "rgba(255, 255, 255, 0.28)",
 
   // Accent (brand violet)
   accent: "#8a7cff",
@@ -71,7 +71,7 @@ export const theme = createTheme({
       fontWeight: 700,
       fontSize: "3.5rem",
       lineHeight: 1.067,
-      letterSpacing: "-0.02em",
+      letterSpacing: 0,
       "@media (max-width:900px)": {
         fontSize: "2.25rem",
         lineHeight: 1.2,
@@ -82,7 +82,7 @@ export const theme = createTheme({
       fontWeight: 700,
       fontSize: "2.25rem",
       lineHeight: 1.222,
-      letterSpacing: "-0.01em",
+      letterSpacing: 0,
       "@media (max-width:900px)": {
         fontSize: "1.5rem",
         lineHeight: 1.333,
@@ -93,7 +93,7 @@ export const theme = createTheme({
       fontWeight: 600,
       fontSize: "1.25rem",
       lineHeight: 1.4,
-      letterSpacing: "-0.005em",
+      letterSpacing: 0,
     },
     h4: {
       fontFamily: "var(--font-display)",
