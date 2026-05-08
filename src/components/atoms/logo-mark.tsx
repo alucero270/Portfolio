@@ -24,56 +24,58 @@ export function LogoMark({ size = 32, className, sx }: LogoMarkProps) {
       <svg
         width={size}
         height={size}
-        viewBox="0 0 64 64"
+        viewBox="0 0 128 128"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        {/* Accent circle behind the arrow */}
-        <circle
-          cx="32"
-          cy="32"
-          r="28"
+        <path
+          d="M72 13.5A51 51 0 0 0 25.4 91.3"
+          stroke="#8A7CFF"
+          strokeWidth="7"
+          strokeLinecap="butt"
+        />
+        <path
+          d="M102.4 46.7a51.1 51.1 0 0 1-9.6 55.1 51 51 0 0 1-43.5 13.7"
+          stroke="#8A7CFF"
+          strokeWidth="7"
+          strokeLinecap="butt"
+        />
+        <path
+          d="M24 72 101 32 70 108 58 77 23 104"
+          stroke="#FFFFFF"
+          strokeWidth="9"
+          strokeLinecap="square"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M24 72 57 77"
+          stroke="#FFFFFF"
+          strokeWidth="9"
+          strokeLinecap="square"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M11 116 33 94"
+          stroke="#8A7CFF"
+          strokeWidth="3"
+          strokeLinecap="square"
+          opacity="0.58"
+        />
+        <path
+          d="M16 105 30 91"
+          stroke="#8A7CFF"
+          strokeWidth="2.5"
+          strokeLinecap="square"
+          opacity="0.42"
+        />
+        <path
+          d="M7 108 23 92"
           stroke="#8A7CFF"
           strokeWidth="2"
-          fill="none"
-          opacity="0.85"
+          strokeLinecap="square"
+          opacity="0.28"
         />
-
-        {/* Speed / brush strokes trailing lower-left */}
-        <line
-          x1="18"
-          y1="50"
-          x2="26"
-          y2="42"
-          stroke="#8A7CFF"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          opacity="0.5"
-        />
-        <line
-          x1="14"
-          y1="46"
-          x2="20"
-          y2="40"
-          stroke="#8A7CFF"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          opacity="0.35"
-        />
-        <line
-          x1="20"
-          y1="54"
-          x2="24"
-          y2="48"
-          stroke="#8A7CFF"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          opacity="0.25"
-        />
-
-        {/* Stylized arrow cursor pointing up-right */}
-        <path d="M22 46 L22 18 L42 32 L32 32 L38 46 L30 40 L28 46 Z" fill="#FFFFFF" />
       </svg>
     </Box>
   );

@@ -1,7 +1,13 @@
 import { Box, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 
-import { SectionEyebrow, SectionHeading, TechTag } from "@/components/atoms";
+import {
+  BrandGlyph,
+  LogoLockup,
+  SectionEyebrow,
+  SectionHeading,
+  TechTag,
+} from "@/components/atoms";
 import { CTAGroup } from "@/components/molecules";
 
 type HeroCTA = {
@@ -66,20 +72,79 @@ export function AuthorityHero({
         {ctas.length > 0 ? <CTAGroup actions={ctas} /> : null}
       </Stack>
 
-      {/* Right panel: bio + tags, only shown on md+ */}
       <Stack
-        spacing={2.25}
+        spacing={2.5}
         sx={{
-          border: "1px solid",
+          alignSelf: "stretch",
+          borderLeft: { md: "1px solid" },
           borderColor: "divider",
-          borderRadius: 1,
-          backgroundColor: "background.paper",
-          backgroundImage:
-            "linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0))",
-          p: { xs: 2.5, md: 3 },
+          justifyContent: "center",
+          pl: { md: 4 },
         }}
       >
-        <Box>{children}</Box>
+        <Box
+          sx={{
+            border: "1px solid",
+            borderColor: "divider",
+            borderRadius: 1,
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <Box
+            alt=""
+            aria-hidden="true"
+            component="img"
+            src="/images/ChatGPT%20Image%20Apr%2023%2C%202026%2C%2001_55_26%20AM.png"
+            sx={{
+              aspectRatio: "1 / 1",
+              display: "block",
+              height: "auto",
+              objectFit: "cover",
+              width: "100%",
+            }}
+          />
+        </Box>
+
+        <Stack
+          direction="row"
+          spacing={1.5}
+          sx={{
+            alignItems: "center",
+            color: "text.secondary",
+            justifyContent: "center",
+          }}
+        >
+          <BrandGlyph name="code" />
+          <Box
+            aria-hidden
+            sx={{ bgcolor: "primary.main", borderRadius: "50%", height: 5, width: 5 }}
+          />
+          <BrandGlyph name="chip" />
+          <Box
+            aria-hidden
+            sx={{ bgcolor: "primary.main", borderRadius: "50%", height: 5, width: 5 }}
+          />
+          <BrandGlyph name="robot" />
+          <Box
+            aria-hidden
+            sx={{ bgcolor: "primary.main", borderRadius: "50%", height: 5, width: 5 }}
+          />
+          <BrandGlyph name="bolt" />
+        </Stack>
+
+        <Stack
+          spacing={2}
+          sx={{
+            borderTop: "1px solid",
+            borderColor: "divider",
+            pt: 2.5,
+          }}
+        >
+          <LogoLockup size="md" showTagline />
+          <Box>{children}</Box>
+        </Stack>
+
         {techTags.length > 0 ? (
           <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
             {techTags.map((tag) => (

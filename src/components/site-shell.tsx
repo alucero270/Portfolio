@@ -2,7 +2,7 @@ import { ArrowForward } from "@mui/icons-material";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 
-import { LogoMark } from "@/components/atoms/logo-mark";
+import { LogoLockup } from "@/components/atoms/logo-lockup";
 import { toInternalHref } from "@/lib/routing";
 import { siteConfig } from "@/lib/site";
 
@@ -79,7 +79,7 @@ export function SiteShell({ children }: SiteShellProps) {
               spacing={1.25}
               sx={{ alignItems: "center", color: "text.primary", textDecoration: "none" }}
             >
-              <LogoMark size={28} />
+              <LogoLockup size="sm" />
               <Stack
                 direction="row"
                 spacing={1}
@@ -87,31 +87,6 @@ export function SiteShell({ children }: SiteShellProps) {
                 flexWrap="wrap"
                 sx={{ alignItems: "baseline" }}
               >
-                <Stack direction="row" spacing={0.5} sx={{ alignItems: "baseline" }}>
-                  <Typography
-                    component="span"
-                    sx={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "0.92rem",
-                      fontWeight: 700,
-                    }}
-                  >
-                    Loose Arrow
-                  </Typography>
-                  <Typography
-                    component="span"
-                    sx={{
-                      color: "#8A7CFF",
-                      fontFamily: "var(--font-display)",
-                      fontSize: "0.52rem",
-                      fontWeight: 700,
-                      letterSpacing: "0.2em",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    Labs
-                  </Typography>
-                </Stack>
                 <Typography
                   component="span"
                   variant="caption"
@@ -310,25 +285,7 @@ export function SiteShell({ children }: SiteShellProps) {
               }}
             >
               <Stack spacing={1.5}>
-                <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-                  <LogoMark size={24} />
-                  <Stack direction="row" spacing={0.5} sx={{ alignItems: "baseline" }}>
-                    <Typography sx={{ fontWeight: 700 }}>Loose Arrow</Typography>
-                    <Typography
-                      component="span"
-                      sx={{
-                        color: "#8A7CFF",
-                        fontFamily: "var(--font-display)",
-                        fontSize: "0.58rem",
-                        fontWeight: 700,
-                        letterSpacing: "0.2em",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      Labs
-                    </Typography>
-                  </Stack>
-                </Stack>
+                <LogoLockup size="sm" showTagline />
                 <Typography color="text.secondary" variant="body2" sx={{ maxWidth: 320 }}>
                   {siteConfig.studioName} is a founder-led engineering studio for prototype systems,
                   embedded integration, technical software, AI infrastructure, and practical R&D.

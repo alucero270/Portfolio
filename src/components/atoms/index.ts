@@ -1,4 +1,5 @@
 export { ExternalLink } from "./external-link";
+export { BrandGlyph, type BrandGlyphName } from "./brand-glyph";
 export { LogoLockup } from "./logo-lockup";
 export { LogoMark } from "./logo-mark";
 export { MonoLabel } from "./mono-label";

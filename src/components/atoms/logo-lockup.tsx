@@ -30,13 +30,18 @@ export function LogoLockup({ size = "md", showTagline = false, className, sx }: 
               component="span"
               sx={{
                 fontFamily: "var(--font-display)",
-                fontWeight: 700,
+                fontWeight: 500,
                 fontSize: t.name,
+                letterSpacing: "0.08em",
                 lineHeight: 1.2,
                 color: "text.primary",
               }}
             >
-              Loose Arrow
+              Loose{" "}
+              <Box component="span" sx={{ color: "primary.main", fontWeight: 700 }}>
+                A
+              </Box>
+              rrow
             </Typography>
             <Typography
               component="span"
@@ -45,7 +50,7 @@ export function LogoLockup({ size = "md", showTagline = false, className, sx }: 
                 fontFamily: "var(--font-display)",
                 fontWeight: 700,
                 fontSize: t.labs,
-                letterSpacing: "0.2em",
+                letterSpacing: "0.34em",
                 lineHeight: 1.2,
                 textTransform: "uppercase",
               }}
