@@ -27,30 +27,51 @@ const serviceGroups: ServiceGroup[] = [
         title: "MVP development",
         description:
           "Small, inspectable first versions that prove the riskiest workflow, integration boundary, or product assumption before the build grows.",
+        detail:
+          "Useful for early product bets where the important question is whether the workflow, data model, or integration boundary actually holds up.",
+        stack: ["TypeScript", "Next.js", "React", "MUI", "SQLite", "GitHub Actions"],
       },
       {
         id: "web-development",
         title: "Web development",
         description:
           "Static-first websites, portfolio systems, technical landing pages, internal tools, dashboards, and content-driven front ends.",
+        detail:
+          "Best fit for fast, maintainable web surfaces that need authored content, strong information architecture, and clean technical presentation.",
+        stack: ["Next.js", "MDX", "TypeScript", "Material UI", "Static export", "Vercel"],
       },
       {
         id: "frontend-development",
         title: "Front end development",
         description:
           "React and Next.js interfaces for technical products, operational workflows, documentation surfaces, and data-heavy views.",
+        detail:
+          "Interface work focused on clarity, state, interaction flow, and making complex technical systems easier to operate.",
+        stack: ["React", "Next.js", "TypeScript", "MUI", "Forms", "Data views"],
       },
       {
         id: "backend-development",
         title: "Back end development",
         description:
           "APIs, local services, integration layers, background jobs, and application logic that keep technical systems understandable.",
+        detail:
+          "Service-side work for APIs, integrations, automation, and reliable data movement between tools, devices, and users.",
+        stack: ["C# / .NET", "Python", "REST APIs", "SQLite", "Structured logging", "Workers"],
       },
       {
         id: "ui-ux-design",
         title: "UI/UX design",
         description:
           "Clear product flows, interface structure, technical content hierarchy, and usable controls for tools people need to operate.",
+        detail:
+          "Design work for technical interfaces where the goal is usefulness, scanability, and fewer hidden assumptions.",
+        stack: [
+          "Information architecture",
+          "Wireframes",
+          "MUI",
+          "Interaction states",
+          "Design systems",
+        ],
       },
     ],
   },
@@ -66,36 +87,67 @@ const serviceGroups: ServiceGroup[] = [
         title: "Prototype systems engineering",
         description:
           "Concept-to-proof work for technical systems: architecture, subsystem boundaries, integration plans, risk mapping, and validation artifacts.",
+        detail:
+          "Turns a fuzzy technical goal into a small, testable system with clear interfaces, constraints, and next-step evidence.",
+        stack: [
+          "System architecture",
+          "Interface mapping",
+          "Risk registers",
+          "Validation notes",
+          "Git",
+        ],
       },
       {
         id: "embedded-telemetry",
         title: "Embedded systems & telemetry",
         description:
           "Embedded Linux services, firmware-adjacent interfaces, sensor acquisition, framed telemetry, local persistence, and field-oriented validation.",
+        detail:
+          "Device-side data capture and transport work where signal shape, timing, persistence, and field debugging matter.",
+        stack: ["Embedded Linux", "C/C++", "Python", "UART", "I2C / SPI", "SQLite"],
       },
       {
         id: "firmware-development",
         title: "Firmware development",
         description:
           "Firmware-adjacent development for MCUs and embedded devices: interfaces, protocols, device behavior, and validation notes.",
+        detail:
+          "Firmware and firmware-adjacent work around observable device behavior, protocol boundaries, and testable bring-up steps.",
+        stack: ["C/C++", "STM32", "Arduino-class MCUs", "GPIO", "Serial protocols", "Bench tests"],
       },
       {
         id: "iot-development",
         title: "IoT development",
         description:
           "Connected-device prototypes, sensor pipelines, edge services, telemetry transport, and operational visibility for physical systems.",
+        detail:
+          "Edge-to-application workflows for devices that need to report useful data and stay understandable after deployment.",
+        stack: ["Edge services", "MQTT concepts", "REST APIs", "Telemetry", "Docker", "Linux"],
       },
       {
         id: "ai-iot-systems",
         title: "AI for IoT systems",
         description:
           "AI-assisted analysis, classification, retrieval, and local inference workflows around device data and field telemetry.",
+        detail:
+          "AI workflows around sensor streams, device logs, and telemetry archives where interpretability matters more than novelty.",
+        stack: ["Python", "Local LLMs", "RAG", "Vector search", "Telemetry logs", "GPU workflows"],
       },
       {
         id: "robotics-automation",
         title: "Robotics & automation platforms",
         description:
           "MCU/Linux runtime separation, actuator and sensor interfaces, simulation modes, observability, and control-system integration.",
+        detail:
+          "Runtime boundaries and integration work for robots or automation systems that combine physical control with Linux services.",
+        stack: [
+          "MCU + Linux",
+          "Actuators",
+          "Sensors",
+          "Runtime services",
+          "Simulation modes",
+          "Observability",
+        ],
       },
     ],
   },
@@ -111,36 +163,75 @@ const serviceGroups: ServiceGroup[] = [
         title: "AI infrastructure & local inference",
         description:
           "GPU/server lab architecture, local model workflows, retrieval systems, agent tooling, and AI-assisted engineering automation.",
+        detail:
+          "Local and self-hosted AI infrastructure for inspectable workflows, retrieval, experimentation, and engineering automation.",
+        stack: [
+          "Python",
+          "GPU compute",
+          "Local LLMs",
+          "RAG pipelines",
+          "Vector indexes",
+          "Agent tooling",
+        ],
       },
       {
         id: "technical-software",
         title: "Technical software & integrations",
         description:
           "Backend services, APIs, engineering dashboards, internal tools, telemetry viewers, and systems that connect hardware to operations.",
+        detail:
+          "Custom software where the job is connecting real system behavior to useful operational interfaces and automation.",
+        stack: ["TypeScript", "C# / .NET", "Python", "REST APIs", "Dashboards", "Structured logs"],
       },
       {
         id: "database-modeling",
         title: "Database modeling",
         description:
           "Practical schema design, local persistence, telemetry storage, migration planning, and retrieval models for engineering data.",
+        detail:
+          "Data modeling for telemetry, operational state, authored content, and search/retrieval systems that need to remain explainable.",
+        stack: [
+          "SQLite",
+          "Schema design",
+          "Migrations",
+          "Full-text search",
+          "Vector indexes",
+          "Logs",
+        ],
       },
       {
         id: "devops-services",
         title: "DevOps services",
         description:
           "Repeatable build, deploy, validation, observability, and automation practices for small technical teams and lab systems.",
+        detail:
+          "Practical operations setup for builds, validation, deployment, monitoring, and repeatable engineering environments.",
+        stack: [
+          "GitHub Actions",
+          "Docker",
+          "Linux",
+          "CI checks",
+          "Deployment scripts",
+          "Observability",
+        ],
       },
       {
         id: "cloud-software-development",
         title: "Cloud software development",
         description:
           "Cloud-hosted services, deployment architecture, storage choices, and integration planning when a system needs managed infrastructure.",
+        detail:
+          "Cloud architecture and implementation when the system benefits from managed hosting, storage, and deployment boundaries.",
+        stack: ["Cloud hosting", "APIs", "Object storage", "Managed databases", "Docker", "CI/CD"],
       },
       {
         id: "linux-operations",
         title: "Linux infrastructure & operations",
         description:
           "Networking, Docker, storage, observability, self-hosted services, repeatable deployment, and maintainable engineering environments.",
+        detail:
+          "The practical operating layer for lab servers, self-hosted tools, networked systems, and development environments.",
+        stack: ["Linux", "Docker", "Networking", "Storage", "systemd", "Monitoring"],
       },
     ],
   },
@@ -156,30 +247,76 @@ const serviceGroups: ServiceGroup[] = [
         title: "R&D services",
         description:
           "Focused research, feasibility checks, bench experiments, and technical option mapping for uncertain hardware/software work.",
+        detail:
+          "Short-cycle exploration for unknowns that need evidence before they deserve a full implementation effort.",
+        stack: [
+          "Feasibility notes",
+          "Bench tests",
+          "Architecture sketches",
+          "Risk mapping",
+          "Prototype repos",
+        ],
       },
       {
         id: "iot-consulting-services",
         title: "IoT consulting services",
         description:
           "Practical guidance on device architecture, edge/cloud boundaries, telemetry models, and build-vs-buy choices for IoT systems.",
+        detail:
+          "Decision support for teams sorting out device, edge, cloud, telemetry, and operational visibility boundaries.",
+        stack: [
+          "Device architecture",
+          "Edge/cloud split",
+          "Telemetry models",
+          "Security review",
+          "Roadmapping",
+        ],
       },
       {
         id: "tech-advisory",
         title: "Tech advisory",
         description:
           "Decision support for architecture, stack selection, system risk, technical roadmaps, and prototype-to-production tradeoffs.",
+        detail:
+          "Architecture and roadmap review for situations where technical direction, risk, or maintainability needs a second brain.",
+        stack: [
+          "Architecture review",
+          "Stack selection",
+          "Tradeoff analysis",
+          "Roadmaps",
+          "Technical briefs",
+        ],
       },
       {
         id: "post-production-support",
         title: "Post-production support",
         description:
           "Maintenance, debugging, instrumentation, documentation, and release support after a prototype or system is already in use.",
+        detail:
+          "Support after the first version exists: debugging, instrumentation, release notes, handoff, and maintainability work.",
+        stack: [
+          "Debugging",
+          "Instrumentation",
+          "Release notes",
+          "Docs",
+          "Monitoring",
+          "Maintenance",
+        ],
       },
       {
         id: "dedicated-technical-support",
         title: "Dedicated technical support",
         description:
           "Hands-on builder support for teams that need a technical partner across architecture, implementation, validation, and iteration.",
+        detail:
+          "A focused technical partner role for projects that need continuity across discovery, build, validation, and iteration.",
+        stack: [
+          "Architecture",
+          "Implementation",
+          "Validation",
+          "Documentation",
+          "Technical planning",
+        ],
       },
     ],
   },
