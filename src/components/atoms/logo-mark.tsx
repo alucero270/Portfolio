@@ -73,10 +73,7 @@ export function LogoMark({ size = 32, className, sx }: LogoMarkProps) {
         />
 
         {/* Stylized arrow cursor pointing up-right */}
-        <path
-          d="M22 46 L22 18 L42 32 L32 32 L38 46 L30 40 L28 46 Z"
-          fill="#FFFFFF"
-        />
+        <path d="M22 46 L22 18 L42 32 L32 32 L38 46 L30 40 L28 46 Z" fill="#FFFFFF" />
       </svg>
     </Box>
   );

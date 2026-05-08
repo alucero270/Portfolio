@@ -70,14 +70,14 @@ export function ActiveSystemsSection({ headingId, systems }: ActiveSystemsSectio
         }}
       >
         <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
-          <MonoLabel>§04</MonoLabel>
+          <MonoLabel>S04</MonoLabel>
           <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
-          <SectionEyebrow sx={{ mb: 0 }}>Core · What I&apos;m Working On</SectionEyebrow>
+          <SectionEyebrow sx={{ mb: 0 }}>Engineering / In Active Development</SectionEyebrow>
         </Stack>
-        <SectionHeading id={headingId}>Active systems</SectionHeading>
+        <SectionHeading id={headingId}>Active R&D systems</SectionHeading>
         <Typography color="text.secondary" sx={{ maxWidth: 680, mt: 1 }}>
-          Systems Alex is actively building or refining. Each card keeps the authored project
-          context visible beside the freshest engineering signal available.
+          Current builds that make the studio direction concrete: the engineering problem, current
+          technical focus, and visible development activity.
         </Typography>
       </Box>
 
@@ -129,8 +129,8 @@ export function ActiveSystemsSection({ headingId, systems }: ActiveSystemsSectio
               }}
             >
               {[
-                ["Business context", system.context ?? system.summary],
-                ["Current focus", system.focus ?? system.summary],
+                ["Engineering problem", system.context ?? system.summary],
+                ["Technical focus", system.focus ?? system.summary],
               ].map(([label, value]) => (
                 <Box
                   key={label}

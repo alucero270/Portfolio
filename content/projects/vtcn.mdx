@@ -1,10 +1,12 @@
 ---
-title: "VTCN (BeagleBone Black)"
+title: "VTCN Embedded Telemetry Platform"
 slug: "vtcn"
-summary: "Telemetry project to receive sensor signals for data logging."
+summary: "Embedded Linux telemetry platform on BeagleBone Black for sensor acquisition, framed data transport, local persistence, and validation-oriented device services."
 featured: true
-status: "Phase 1"
-updated: "2026-02-27"
+status: "Phase 1: platform foundation"
+updated: "2026-05-08"
+role: "Embedded Linux systems engineer"
+tech: ["Embedded Linux", "C/C++", "Telemetry", "Systemd", "SQLite", "Sockets", "Validation"]
 repoOwner: "alucero270"
 repoName: "Vehicle-Telemetry-and-Control-Node-VTCN-"
 repoPrimary: true
@@ -16,36 +18,39 @@ evidence:
 
 ## Overview
 
-VTCN is a production-style embedded Linux platform project built on a BeagleBone Black. The goal is to gain demonstrable experience with embedded Linux workflows: hardware interface validation, cross-compilation, service reliability, and system debugging.
+VTCN is an embedded Linux telemetry platform built around the BeagleBone Black. The project exists to make device-side engineering visible: interface bring-up, sensor acquisition, framed telemetry, local buffering, network transport, service reliability, and validation notes.
 
-## Why it matters
+It is the embedded proof surface for Loose Arrow Labs: a small system where hardware interfaces, Linux services, data contracts, and operating procedures have to work together.
 
-This is my "embedded proof-of-work" project: GPIO/I2C/SPI/UART + daemon/service design + testable interfaces + documentation.
+## Engineering Problem
 
-## Architecture (initial)
+Telemetry systems are easy to describe and easy to make brittle. Useful telemetry needs more than a sensor read:
 
-- User-space service (C/C++) that reads sensors and emits framed telemetry (CRC, timestamps)
-- Local persistence (SQLite) for buffered offline operation
-- Network transport (TCP/UDP) to a collector
-- Bring-up + validation checklists per interface
+- Interfaces need bring-up and repeatable validation
+- Data needs framing, timestamps, and integrity checks
+- Offline behavior needs local persistence
+- Network transport needs clear retry and failure behavior
+- Services need logs, systemd configuration, and recovery behavior
+- Development needs simulator paths when hardware is not connected
 
-## Tech
+## Architecture Direction
 
-- BeagleBone Black (ARM Cortex-A8)
-- C/C++, Linux tooling, systemd
-- SQLite, sockets, structured logging
+- User-space C/C++ service for GPIO/I2C/SPI/UART interaction
+- Framed telemetry records with timestamps and CRC/checksum behavior
+- SQLite buffering for intermittent network availability
+- TCP/UDP transport to a collector or dashboard
+- Structured logs for diagnostics and operating notes
+- Bring-up checklists for each hardware interface
 
-## Current status
+## Current Status
 
 - Phase 1 platform foundation and repo structure in progress
+- Interface and telemetry contracts being defined
+- Simulator mode and first loopback validation path planned
 
-## Next steps
+## Next Documentation Targets
 
-- Hardware bring-up checklist (GPIO + I2C)
-- First end-to-end frame generator + loopback tests
-- Add a simulator mode to develop without hardware
-
-## Evidence
-
-- Repo: https://github.com/alucero270/Vehicle-Telemetry-and-Control-Node-VTCN-
-- Diagrams/screens: TODO
+- GPIO and I2C bring-up notes
+- First end-to-end frame generator and loopback test
+- Telemetry frame schema
+- Systemd service and operating runbook

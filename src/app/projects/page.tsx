@@ -9,9 +9,9 @@ import { toInternalHref } from "@/lib/routing";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: "Case Studies",
   description:
-    "Project index for VTCN, KittyBot, Codex, Pantheon, and OM606 signal integration work.",
+    "Engineering case studies across automotive integration, robotics, embedded telemetry, AI infrastructure, and technical software.",
 };
 
 export default async function ProjectsPage() {
@@ -38,8 +38,8 @@ export default async function ProjectsPage() {
 
   return (
     <ProjectIndexTemplate
-      description="Project pages are treated as proof surfaces: authored context first, with metadata and evidence links where they are available."
-      title="Projects"
+      description="Applied engineering work framed by the problem being solved: system constraints, integration boundaries, technical reasoning, validation paths, and evidence links where available."
+      title="Engineering Case Studies"
     >
       <ProjectGrid projects={projectItems} />
     </ProjectIndexTemplate>

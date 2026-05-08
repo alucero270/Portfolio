@@ -3,6 +3,7 @@ import { Box, Card, Stack, Typography } from "@mui/material";
 import { MonoLabel, SectionEyebrow, SectionHeading } from "@/components/atoms";
 
 export type ServiceItem = {
+  id?: string;
   title: string;
   description: string;
 };
@@ -29,13 +30,14 @@ export function ServicesSection({ headingId, items }: ServicesSectionProps) {
         }}
       >
         <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
-          <MonoLabel>§06</MonoLabel>
+          <MonoLabel>S06</MonoLabel>
           <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
-          <SectionEyebrow sx={{ mb: 0 }}>Services</SectionEyebrow>
+          <SectionEyebrow sx={{ mb: 0 }}>Capabilities</SectionEyebrow>
         </Stack>
-        <SectionHeading id={headingId}>What I take on</SectionHeading>
+        <SectionHeading id={headingId}>Engineering capabilities</SectionHeading>
         <Typography color="text.secondary" sx={{ maxWidth: 680, mt: 1 }}>
-          Three focuses. Outcome-led. No agency menu.
+          Practical R&D and integration support across embedded systems, AI infrastructure,
+          technical software, hardware-aware prototyping, and systems operations.
         </Typography>
       </Box>
 
@@ -53,6 +55,7 @@ export function ServicesSection({ headingId, items }: ServicesSectionProps) {
         {items.map((item, index) => (
           <Card
             key={item.title}
+            id={item.id}
             sx={{
               borderRadius: 0,
               border: "none",

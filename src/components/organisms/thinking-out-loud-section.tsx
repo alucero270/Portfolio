@@ -27,12 +27,12 @@ export function ThinkingOutLoudSection({ headingId, notes }: ThinkingOutLoudSect
         <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
           <MonoLabel>§10</MonoLabel>
           <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
-          <SectionEyebrow sx={{ mb: 0 }}>Lab · R&D</SectionEyebrow>
+          <SectionEyebrow sx={{ mb: 0 }}>Engineering · Notes & Experiments</SectionEyebrow>
         </Stack>
-        <SectionHeading id={headingId}>Thinking out loud</SectionHeading>
+        <SectionHeading id={headingId}>Work in progress</SectionHeading>
         <Typography color="text.secondary" sx={{ maxWidth: 680, mt: 1 }}>
-          Experiments, notes, and small proof artifacts that show how the work is being reasoned
-          through before it becomes a polished case study.
+          Engineering notes, validation experiments, and technical decisions from active projects.
+          How the work is reasoned through before becoming a published case study.
         </Typography>
       </Box>
 

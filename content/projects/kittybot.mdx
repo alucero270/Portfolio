@@ -1,10 +1,20 @@
 ---
-title: "KittyBot"
+title: "KittyBot Robotics Platform"
 slug: "kittybot"
-summary: "A fun project for my kids. A companion robot connected to our local LLM's."
+summary: "Modular robotics and telemetry platform in modern C++ with MCU/Linux runtime separation, communication contracts, observability, and local AI workflow planning."
 featured: true
-status: "Phase 1"
-updated: "2026-02-27"
+status: "Phase 1: architecture and interfaces"
+updated: "2026-05-08"
+role: "Robotics systems engineer"
+tech:
+  [
+    "Modern C++",
+    "Robotics runtime",
+    "MCU/Linux integration",
+    "Telemetry",
+    "IPC architecture",
+    "Local inference planning",
+  ]
 repoOwner: "alucero270"
 repoName: "kittybot"
 repoPrimary: true
@@ -16,36 +26,71 @@ evidence:
 
 ## Overview
 
-KittyBot is a companion robot project focused on system integration: compute node + sensors + actuator control + a repeatable software stack. The intention is to develop robotics-adjacent skills (interfaces, control surfaces, reliability, and operational workflows).
+KittyBot is a modular robotics and telemetry platform being built to explore the systems architecture behind useful small robots: deterministic control, Linux orchestration, communication contracts, simulation support, observability, and local AI-assisted behavior.
 
-## Why it matters
+The project is intentionally framed as robotics infrastructure rather than a novelty robot. The core question is how to make a robot runtime understandable, testable, and maintainable while it spans hardware, services, state, telemetry, and behavior logic.
 
-Robotics roles reward engineers who can ship across boundaries: software, hardware interfaces, debugging, and repeatable system behavior. KittyBot is built to make those skills visible.
+## Engineering Problem
 
-## Architecture (target)
+Small robotics projects often fail at the boundaries:
 
-- High-level compute (Linux) for orchestration and behavior
-- A microcontroller layer for deterministic servo/actuator control (timing-sensitive)
-- Clear IPC boundary: telemetry + command messages
-- Reproducible dev environment using containers
+- Hardware interfaces are brought up informally and become difficult to reproduce
+- Behavior logic outruns the quality of telemetry and diagnostics
+- MCU and Linux responsibilities blur until timing bugs are hard to isolate
+- Simulation, bench testing, and hardware operation drift apart
+- Failures are difficult to explain because state and messages are not observable
 
-## Tech
+KittyBot is designed around those boundaries from the beginning.
 
-- Linux, containers, structured services
-- MCU integration (planned): STM32/Arduino-class controller (as appropriate)
-- Sensor/actuator integration patterns, validation-first bring-up
+## Architecture Direction
 
-## Current status
+### Control Layer
 
-- Phase 1 planning + repo scaffolding; architecture and interface contracts being defined
+The MCU side owns timing-sensitive behavior:
 
-## Next steps
+- Servo and actuator timing
+- Sensor acquisition
+- Local safety constraints
+- Position limits, timeout behavior, and low-level feedback loops
 
-- Define actuator/sensor MVP set
-- Bring-up and validate control loop timing and safety constraints
-- Add "sim mode" for behavior development without hardware
+### Orchestration Layer
 
-## Evidence
+The Linux side owns flexible runtime behavior:
 
-- Repo: https://github.com/alucero270/kittybot
-- Diagrams/screens: TODO
+- State management and behavior orchestration
+- Local service coordination
+- Telemetry collection and persistence
+- Local model or agent integration where useful
+- Networked tools and diagnostics
+
+### Communication Layer
+
+The boundary between control and orchestration is treated as an engineering contract:
+
+- Structured command messages for motion primitives and behavior directives
+- Structured telemetry messages for sensor data, actuator feedback, and system state
+- Timeout handling and range validation at message boundaries
+- Simulation-compatible message flows for development without full hardware availability
+
+## Technical Focus
+
+- Modern C++ runtime organization
+- Clear MCU/Linux responsibility separation
+- Telemetry-first debugging and observability
+- Simulation and bench-test paths before full physical behavior
+- Hardware bring-up checklists for sensors and actuators
+- Local AI workflows constrained by deterministic system boundaries
+
+## Current Status
+
+- Phase 1 architecture and interface definition
+- Runtime/service boundaries being defined
+- Initial hardware MVP and actuator/sensor path being scoped
+
+## Next Documentation Targets
+
+- Runtime topology diagram
+- Message contract examples
+- Telemetry schema and logging flow
+- Simulation mode plan
+- Hardware bring-up checklist

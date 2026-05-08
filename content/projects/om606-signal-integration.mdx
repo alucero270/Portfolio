@@ -1,10 +1,19 @@
 ---
-title: "OM606 Signal Integration"
+title: "OM606 F-150 Systems Integration"
 slug: "om606-signal-integration"
-summary: "A motor swap experiment."
-featured: false
-status: "TODO: Add current status"
-updated: "2026-02-27"
+summary: "Vehicle systems integration and signal emulation for adapting a mechanically injected Mercedes OM606 diesel into an ECU-dependent Ford F-150 platform."
+featured: true
+status: "Active: iterative refinement"
+updated: "2026-05-08"
+role: "Systems integration engineer"
+tech:
+  [
+    "Signal emulation",
+    "ECU compatibility",
+    "Drivetrain integration",
+    "Real-time validation",
+    "Mechanical/electrical integration",
+  ]
 repoOwner: "alucero270"
 repoName: "Vehicle-Telemetry-and-Control-Node-VTCN-"
 repoPath: "om606-signal-integration"
@@ -13,38 +22,66 @@ evidence:
   - label: "Repository"
     href: "https://github.com/alucero270/Vehicle-Telemetry-and-Control-Node-VTCN-"
     type: "repo"
+  - label: "Documentation"
+    href: "#"
+    type: "docs"
 ---
 
 ## Overview
 
-A hands-on systems integration project adapting a mechanically injected OM606 diesel engine into a modern vehicle platform, requiring signal emulation/validation to interface with factory ECUs and transmission controllers.
+This project is a real-world drivetrain and control-system integration effort: fitting a mechanically injected Mercedes OM606 diesel engine into a Ford F-150 platform whose transmission, cluster, diagnostics, and vehicle behavior still expected ECU-managed gasoline-engine signals.
 
-## Why it matters
+The engineering problem was not simply mechanical fitment. The vehicle needed believable electronic state after the original engine-management assumptions were removed. That required reverse-engineering signal expectations, adapting sensor behavior, validating timing relationships, and debugging across mechanical, electrical, and controller behavior.
 
-It's real-world embedded-style debugging: timing, fault states, signal integrity, and iterative validation with live feedback.
+## System Problem
 
-## What I did
+The OM606 uses a mechanical injection pump. Once installed, the Ford PCM no longer had normal control over fuel delivery, ignition, crank/cam synchronization, or expected load signals. The rest of the truck still depended on those signals.
 
-- Reverse-engineered and emulated sensor signals (crank, cam, throttle position) to interface with factory ECUs/controllers
-- Iteratively validated signals using live system feedback to eliminate fault conditions and stabilize ECU/trans behavior under real-time constraints
-- Documented system architecture, signal flows, and validation steps for repeatability
+Key dependencies included:
 
-## Architecture notes (high level)
+- Transmission behavior tied to crankshaft position, RPM, and throttle/load information
+- Instrument cluster tachometer behavior tied to valid engine-speed references
+- PCM fault-state behavior tied to expected timing and synchronization relationships
+- Drivability dependent on stable signal paths during startup, idle, load change, and road use
 
-- Sensors/signals as contracts
-- Validation loops: change -> test -> observe -> refine
-- Fault-state driven debugging
+Without valid adapted signals, the vehicle could lose shift behavior, generate diagnostic faults, lose cluster functionality, or become unreliable to drive.
 
-## Current status
+## Integration Work
 
-- Ongoing; the approach continues to evolve as I refine the long-term controller strategy
+### Signal Emulation Layer
 
-## Next steps
+Built and refined signal adaptation for:
 
-- Publish a clear signal map diagram
-- Add a bench-test emulator mode and test plan
+- **Crankshaft position** - analyzed timing expectations and produced a PCM-compatible engine-speed signal
+- **Camshaft synchronization** - provided synchronization behavior to reduce fault states from missing OEM references
+- **Throttle/load behavior** - adapted throttle-position behavior so the transmission could infer operating state
+- **Tachometer signal** - produced stable RPM output from a mechanically governed engine system
 
-## Evidence
+### Debugging and Validation
 
-- Repo: https://github.com/alucero270/Vehicle-Telemetry-and-Control-Node-VTCN-
-- Photos/diagrams: TODO
+The validation process followed the actual system behavior instead of assuming bench behavior was enough:
+
+- Observe startup, idle, and road behavior under real conditions
+- Check controller fault states after each signal change
+- Validate transmission response to throttle/load adaptation
+- Trace symptoms from mechanical behavior through wiring and signal interpretation
+- Iterate signal timing and routing until stable operation was achieved
+
+### Engineering Framing
+
+This project demonstrates the kind of problem Loose Arrow Labs is being built around: a physical system whose success depends on software-adjacent reasoning, electrical signal behavior, mechanical constraints, and disciplined validation.
+
+The important work is at the boundary: translating one subsystem's reality into another subsystem's expectations without pretending either side is simpler than it is.
+
+## Current Status
+
+- Signal emulation is achieving usable real-world operation
+- Transmission behavior and ECU fault states remain part of the refinement loop
+- Long-term controller strategy and documentation are being developed
+
+## Next Documentation Targets
+
+- Signal map and timing diagrams
+- Wiring and subsystem boundary notes
+- Validation checklist for startup, idle, load change, and road testing
+- Troubleshooting notes for fault states and intermittent synchronization behavior

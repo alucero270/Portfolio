@@ -11,7 +11,7 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contact details for Alex Lucero.",
+  description: "Contact Loose Arrow Labs about prototype systems engineering and technical R&D.",
 };
 
 export default async function ContactPage() {
@@ -21,11 +21,11 @@ export default async function ContactPage() {
   const github = resume.frontmatter.github ?? siteConfig.github;
 
   return (
-    <ContentPageTemplate title="Contact">
+    <ContentPageTemplate title="Contact Loose Arrow Labs">
       <Card component="section" aria-labelledby="contact-links-heading">
         <CardContent>
           <SectionHeading id="contact-links-heading" sx={{ mb: 2 }}>
-            Reach Out
+            Discuss a technical system
           </SectionHeading>
 
           <ContactLinkList

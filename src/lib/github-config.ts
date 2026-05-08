@@ -9,7 +9,7 @@ export type GitHubRepoConfig = {
 export const githubRepoAllowlist = [
   {
     projectSlugs: ["codex"],
-    repoName: "codex",
+    repoName: "memora",
     repoOwner: "alucero270",
     repoPrimary: true,
   },
@@ -35,6 +35,12 @@ export const githubRepoAllowlist = [
   {
     projectSlugs: ["pantheon"],
     repoName: "pantheon",
+    repoOwner: "alucero270",
+    repoPrimary: true,
+  },
+  {
+    projectSlugs: ["strata"],
+    repoName: "strata",
     repoOwner: "alucero270",
     repoPrimary: true,
   },
