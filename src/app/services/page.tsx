@@ -331,96 +331,6 @@ const verticals = [
   { label: "CAD & fabrication", tags: ["3D printing", "bench fixtures", "physical iteration"] },
 ];
 
-const technologySubjects = [
-  {
-    id: "device-interfaces",
-    category: "01. Tech Stack",
-    label: "Embedded & control",
-    description:
-      "Device-side foundations for telemetry, control boundaries, and hardware bring-up.",
-    tools: [
-      "C/C++",
-      "Embedded Linux",
-      "BeagleBone Black",
-      "STM32 / Arduino-class MCUs",
-      "GPIO / I2C / SPI / UART",
-      "systemd",
-    ],
-  },
-  {
-    id: "ai-workflows",
-    category: "01. Tech Stack",
-    label: "AI infrastructure",
-    description: "Local model and retrieval workflows designed around inspectable engineering use.",
-    tools: [
-      "Python",
-      "Local LLM workflows",
-      "RAG pipelines",
-      "Vector / full-text search",
-      "GPU compute",
-      "Agent tooling",
-    ],
-  },
-  {
-    id: "application-systems",
-    category: "01. Tech Stack",
-    label: "Technical software",
-    description:
-      "Application and integration layers for tools, dashboards, APIs, and operational views.",
-    tools: [
-      "C# / .NET",
-      "TypeScript",
-      "React / Next.js",
-      "REST APIs",
-      "SQLite",
-      "Structured logging",
-    ],
-  },
-  {
-    id: "infrastructure",
-    category: "03. Infrastructure",
-    label: "Infrastructure & operations",
-    description: "The operating layer for repeatable development, local services, and lab systems.",
-    tools: [
-      "Linux",
-      "Docker",
-      "Networking / VLAN concepts",
-      "Storage systems",
-      "Observability",
-      "GitHub Actions",
-    ],
-  },
-  {
-    id: "fabrication",
-    category: "04. Physical Systems",
-    label: "Fabrication-aware workflows",
-    description: "Physical iteration and bench validation around the software/hardware boundary.",
-    tools: [
-      "CAD planning",
-      "3D printing",
-      "Bench wiring",
-      "Signal validation",
-      "Test fixtures",
-      "Mechanical packaging",
-    ],
-  },
-  {
-    id: "data-stores",
-    category: "02. Data Stores",
-    label: "Persistence & retrieval",
-    description:
-      "Storage choices for telemetry buffers, engineering notes, search, and operational state.",
-    tools: [
-      "SQLite",
-      "Markdown content",
-      "Vector indexes",
-      "Full-text search",
-      "Structured logs",
-      "Local artifacts",
-    ],
-  },
-];
-
 const engagementSteps = [
   {
     step: "01",
@@ -471,160 +381,13 @@ export default function ServicesPage() {
 
       <ServicesSection headingId="services-list-heading" groups={serviceGroups} />
 
-      <Box component="section" aria-labelledby="technology-heading">
-        <Box
-          component="header"
-          sx={{ borderBottom: "1px solid", borderColor: "divider", mb: 3, pb: 2 }}
-        >
-          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
-            <MonoLabel>S07</MonoLabel>
-            <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
-            <SectionEyebrow sx={{ mb: 0 }}>Technology Stack</SectionEyebrow>
-          </Stack>
-          <SectionHeading id="technology-heading">Technology used across projects</SectionHeading>
-          <Typography color="text.secondary" sx={{ maxWidth: 720, mt: 1 }}>
-            The stack is selected by system constraints, not trend fit. These are the tools and
-            platforms currently shaping Loose Arrow Labs project work.
-          </Typography>
-        </Box>
-
-        {technologySubjects.map((subject, index) => (
-          <Box
-            key={subject.id}
-            id={`${subject.id}-input`}
-            className="technology-radio"
-            component="input"
-            type="radio"
-            name="technology-subject"
-            defaultChecked={index === 0}
-            sx={{ position: "absolute" }}
-          />
-        ))}
-
-        <Card className="technology-explorer-card" sx={{ overflow: "hidden" }}>
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", md: "0.9fr 1.6fr" },
-            }}
-          >
-            <Stack
-              component="aside"
-              spacing={1.2}
-              sx={{
-                borderBottom: { xs: "1px solid", md: "none" },
-                borderColor: "divider",
-                borderRight: { md: "1px solid" },
-                p: { xs: 2.5, md: 3.5 },
-              }}
-            >
-              {technologySubjects.map((subject) => (
-                <Box
-                  key={subject.id}
-                  className={`technology-option technology-option-${subject.id}`}
-                  component="label"
-                  htmlFor={`${subject.id}-input`}
-                  sx={{
-                    borderRadius: 1,
-                    cursor: "pointer",
-                    display: "grid",
-                    gap: 0.4,
-                    px: 1.25,
-                    py: 1,
-                    transition: "background-color 160ms ease, color 160ms ease",
-                  }}
-                >
-                  <Typography
-                    component="span"
-                    sx={{
-                      color: "inherit",
-                      fontFamily: "var(--font-display)",
-                      fontSize: { xs: "1rem", md: "1.05rem" },
-                      fontWeight: 700,
-                    }}
-                  >
-                    {subject.label}
-                  </Typography>
-                  <Typography
-                    component="span"
-                    sx={{
-                      color: "text.secondary",
-                      fontFamily: "var(--font-code)",
-                      fontSize: "0.68rem",
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {subject.category}
-                  </Typography>
-                </Box>
-              ))}
-            </Stack>
-
-            <Stack
-              spacing={0}
-              sx={{
-                minHeight: { md: 360 },
-                p: { xs: 2.5, md: 3.5 },
-              }}
-            >
-              {technologySubjects.map((subject) => (
-                <Box
-                  key={subject.id}
-                  className={`technology-panel technology-panel-${subject.id}`}
-                  sx={{
-                    display: "none",
-                  }}
-                >
-                  <SectionEyebrow>{subject.category}</SectionEyebrow>
-                  <SectionHeading component="h3" sx={{ fontSize: "1.8rem", mt: 1 }}>
-                    {subject.label}
-                  </SectionHeading>
-                  <Typography color="text.secondary" sx={{ maxWidth: 620, mb: 3, mt: 1 }}>
-                    {subject.description}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "grid",
-                      gap: 1.25,
-                      gridTemplateColumns: {
-                        xs: "1fr",
-                        sm: "repeat(2, minmax(0, 1fr))",
-                        lg: "repeat(3, minmax(0, 1fr))",
-                      },
-                    }}
-                  >
-                    {subject.tools.map((tool) => (
-                      <Box
-                        key={tool}
-                        sx={{
-                          border: "1px solid",
-                          borderColor: "divider",
-                          borderRadius: 1,
-                          background:
-                            "linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012))",
-                          minHeight: 84,
-                          p: 1.75,
-                        }}
-                      >
-                        <TechTag label={tool} />
-                      </Box>
-                    ))}
-                  </Box>
-                </Box>
-              ))}
-            </Stack>
-          </Box>
-        </Card>
-      </Box>
-
       <Box component="section" aria-labelledby="verticals-heading">
         <Box
           component="header"
           sx={{ borderBottom: "1px solid", borderColor: "divider", mb: 3, pb: 2 }}
         >
           <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
-            <MonoLabel>S08</MonoLabel>
+            <MonoLabel>S07</MonoLabel>
             <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
             <SectionEyebrow sx={{ mb: 0 }}>Operating Domains</SectionEyebrow>
           </Stack>
@@ -681,7 +444,7 @@ export default function ServicesPage() {
           sx={{ borderBottom: "1px solid", borderColor: "divider", mb: 3, pb: 2 }}
         >
           <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
-            <MonoLabel>S09</MonoLabel>
+            <MonoLabel>S08</MonoLabel>
             <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
             <SectionEyebrow sx={{ mb: 0 }}>Engagement Model</SectionEyebrow>
           </Stack>
@@ -729,15 +492,17 @@ export default function ServicesPage() {
           Bring the constraint, the hardware, the workflow, or the messy integration boundary. The
           first useful output is often a clearer architecture and a validation plan.
         </Typography>
-        <CTAGroup
-          actions={[
-            {
-              href: toInternalHref("/contact"),
-              label: "Start with the problem",
-              variant: "contained",
-            },
-          ]}
-        />
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <CTAGroup
+            actions={[
+              {
+                href: toInternalHref("/contact"),
+                label: "Start with the problem",
+                variant: "contained",
+              },
+            ]}
+          />
+        </Box>
       </Box>
     </Stack>
   );

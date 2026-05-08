@@ -73,80 +73,6 @@ a {
   outline-offset: 2px;
 }
 
-.technology-radio {
-  height: 1px;
-  left: -9999px;
-  opacity: 0;
-  overflow: hidden;
-  width: 1px;
-}
-
-.technology-explorer-card .technology-option {
-  color: #f6f7fb;
-}
-
-.technology-explorer-card .technology-option:hover {
-  background-color: rgba(255, 255, 255, 0.04);
-}
-
-.technology-explorer-card .technology-option::before {
-  align-self: center;
-  border: 1px solid rgba(154, 133, 255, 0.42);
-  border-radius: 999px;
-  content: "";
-  grid-column: 1;
-  height: 0.68rem;
-  justify-self: end;
-  opacity: 0.72;
-  width: 0.68rem;
-}
-
-.technology-explorer-card .technology-option {
-  grid-template-columns: 1fr auto;
-}
-
-.technology-explorer-card .technology-option > * {
-  grid-column: 1;
-}
-
-#device-interfaces-input:checked ~ .technology-explorer-card .technology-option-device-interfaces,
-#ai-workflows-input:checked ~ .technology-explorer-card .technology-option-ai-workflows,
-#application-systems-input:checked
-  ~ .technology-explorer-card
-  .technology-option-application-systems,
-#infrastructure-input:checked ~ .technology-explorer-card .technology-option-infrastructure,
-#fabrication-input:checked ~ .technology-explorer-card .technology-option-fabrication,
-#data-stores-input:checked ~ .technology-explorer-card .technology-option-data-stores {
-  background-color: rgba(138, 124, 255, 0.12);
-  color: #9b7cff;
-}
-
-#device-interfaces-input:checked
-  ~ .technology-explorer-card
-  .technology-option-device-interfaces::before,
-#ai-workflows-input:checked ~ .technology-explorer-card .technology-option-ai-workflows::before,
-#application-systems-input:checked
-  ~ .technology-explorer-card
-  .technology-option-application-systems::before,
-#infrastructure-input:checked ~ .technology-explorer-card .technology-option-infrastructure::before,
-#fabrication-input:checked ~ .technology-explorer-card .technology-option-fabrication::before,
-#data-stores-input:checked ~ .technology-explorer-card .technology-option-data-stores::before {
-  background-color: #9b7cff;
-  box-shadow: 0 0 0 4px rgba(154, 133, 255, 0.16);
-  opacity: 1;
-}
-
-#device-interfaces-input:checked ~ .technology-explorer-card .technology-panel-device-interfaces,
-#ai-workflows-input:checked ~ .technology-explorer-card .technology-panel-ai-workflows,
-#application-systems-input:checked
-  ~ .technology-explorer-card
-  .technology-panel-application-systems,
-#infrastructure-input:checked ~ .technology-explorer-card .technology-panel-infrastructure,
-#fabrication-input:checked ~ .technology-explorer-card .technology-panel-fabrication,
-#data-stores-input:checked ~ .technology-explorer-card .technology-panel-data-stores {
-  display: block;
-}
-
 .capability-radio {
   height: 1px;
   left: -9999px;
@@ -181,6 +107,44 @@ a {
 
 .capability-explorer-card .capability-option > * {
   grid-column: 1;
+}
+
+.capability-mobile-summary {
+  list-style: none;
+}
+
+.capability-mobile-summary::-webkit-details-marker {
+  display: none;
+}
+
+.capability-mobile-summary::before {
+  align-self: center;
+  border: 1px solid rgba(154, 133, 255, 0.42);
+  border-radius: 999px;
+  content: "";
+  grid-column: 1;
+  height: 0.68rem;
+  justify-self: end;
+  opacity: 0.72;
+  width: 0.68rem;
+}
+
+.capability-mobile-summary {
+  grid-template-columns: 1fr auto;
+}
+
+.capability-mobile-summary > * {
+  grid-column: 1;
+}
+
+.capability-mobile-details[open] > .capability-mobile-summary {
+  background-color: rgba(138, 124, 255, 0.12);
+}
+
+.capability-mobile-details[open] > .capability-mobile-summary::before {
+  background-color: #9b7cff;
+  box-shadow: 0 0 0 4px rgba(154, 133, 255, 0.16);
+  opacity: 1;
 }
 
 #digital-product-input:checked ~ .capability-explorer-card .capability-option-digital-product,
