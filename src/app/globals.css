@@ -147,6 +147,111 @@ a {
   display: block;
 }
 
+.capability-radio {
+  height: 1px;
+  left: -9999px;
+  opacity: 0;
+  overflow: hidden;
+  width: 1px;
+}
+
+.capability-explorer-card .capability-option {
+  color: #f6f7fb;
+}
+
+.capability-explorer-card .capability-option:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.capability-explorer-card .capability-option::before {
+  align-self: center;
+  border: 1px solid rgba(154, 133, 255, 0.42);
+  border-radius: 999px;
+  content: "";
+  grid-column: 1;
+  height: 0.68rem;
+  justify-self: end;
+  opacity: 0.72;
+  width: 0.68rem;
+}
+
+.capability-explorer-card .capability-option {
+  grid-template-columns: 1fr auto;
+}
+
+.capability-explorer-card .capability-option > * {
+  grid-column: 1;
+}
+
+#digital-product-input:checked ~ .capability-explorer-card .capability-option-digital-product,
+#systems-devices-input:checked ~ .capability-explorer-card .capability-option-systems-devices,
+#ai-infrastructure-domain-input:checked
+  ~ .capability-explorer-card
+  .capability-option-ai-infrastructure-domain,
+#advisory-support-input:checked ~ .capability-explorer-card .capability-option-advisory-support,
+#core-capabilities-input:checked ~ .capability-explorer-card .capability-option-core-capabilities {
+  background-color: rgba(138, 124, 255, 0.12);
+  color: #9b7cff;
+}
+
+#digital-product-input:checked
+  ~ .capability-explorer-card
+  .capability-option-digital-product::before,
+#systems-devices-input:checked
+  ~ .capability-explorer-card
+  .capability-option-systems-devices::before,
+#ai-infrastructure-domain-input:checked
+  ~ .capability-explorer-card
+  .capability-option-ai-infrastructure-domain::before,
+#advisory-support-input:checked
+  ~ .capability-explorer-card
+  .capability-option-advisory-support::before,
+#core-capabilities-input:checked
+  ~ .capability-explorer-card
+  .capability-option-core-capabilities::before {
+  background-color: #9b7cff;
+  box-shadow: 0 0 0 4px rgba(154, 133, 255, 0.16);
+  opacity: 1;
+}
+
+#digital-product-input:checked ~ .capability-explorer-card .capability-panel-digital-product,
+#systems-devices-input:checked ~ .capability-explorer-card .capability-panel-systems-devices,
+#ai-infrastructure-domain-input:checked
+  ~ .capability-explorer-card
+  .capability-panel-ai-infrastructure-domain,
+#advisory-support-input:checked ~ .capability-explorer-card .capability-panel-advisory-support,
+#core-capabilities-input:checked ~ .capability-explorer-card .capability-panel-core-capabilities {
+  display: block;
+}
+
+.capability-matrix-item {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012)),
+    rgba(255, 255, 255, 0.01);
+  box-shadow: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.capability-matrix-item:hover,
+.capability-matrix-item:focus-visible {
+  border-color: rgba(154, 133, 255, 0.62);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.28);
+  transform: translateY(-2px);
+}
+
+.capability-matrix-item:hover .capability-popout,
+.capability-matrix-item:focus-visible .capability-popout {
+  margin-top: 1.25rem;
+  max-height: 36rem;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
 .mdx-content > *:first-child {
   margin-top: 0;
 }

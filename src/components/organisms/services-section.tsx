@@ -6,6 +6,8 @@ export type ServiceItem = {
   id?: string;
   title: string;
   description: string;
+  detail?: string;
+  stack?: string[];
 };
 
 export type ServiceGroup = {
@@ -65,97 +67,235 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
       </Box>
 
       <Card sx={{ overflow: "hidden" }}>
-        <Stack spacing={0}>
-          {renderedGroups.map((group, groupIndex) => (
-            <Box
-              key={group.id}
-              component="section"
-              aria-labelledby={`${group.id}-heading`}
-              sx={{
-                borderBottom: groupIndex < renderedGroups.length - 1 ? "1px solid" : "none",
-                borderColor: "divider",
-                display: "grid",
-                gridTemplateColumns: { xs: "1fr", lg: "0.86fr 1.7fr" },
-              }}
-            >
-              <Stack
-                spacing={1.5}
+        {renderedGroups.map((group, index) => (
+          <Box
+            key={group.id}
+            id={`${group.id}-input`}
+            className="capability-radio"
+            component="input"
+            type="radio"
+            name={`${headingId}-capability-group`}
+            defaultChecked={index === 0}
+            sx={{ position: "absolute" }}
+          />
+        ))}
+
+        <Box
+          className="capability-explorer-card"
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", lg: "0.82fr 1.8fr" },
+          }}
+        >
+          <Stack
+            component="aside"
+            spacing={1.2}
+            sx={{
+              borderBottom: { xs: "1px solid", lg: "none" },
+              borderColor: "divider",
+              borderRight: { lg: "1px solid" },
+              p: { xs: 2.5, md: 3.5 },
+            }}
+          >
+            {renderedGroups.map((group) => (
+              <Box
+                key={group.id}
+                className={`capability-option capability-option-${group.id}`}
+                component="label"
+                htmlFor={`${group.id}-input`}
                 sx={{
-                  borderBottom: { xs: "1px solid", lg: "none" },
-                  borderColor: "divider",
-                  borderRight: { lg: "1px solid" },
-                  p: { xs: 2.5, md: 3.5 },
+                  borderRadius: 1,
+                  cursor: "pointer",
+                  display: "grid",
+                  gap: 0.45,
+                  px: 1.25,
+                  py: 1.1,
+                  transition: "background-color 160ms ease, color 160ms ease",
                 }}
               >
-                <MonoLabel sx={{ color: "primary.main" }}>{group.eyebrow}</MonoLabel>
+                <Typography
+                  component="span"
+                  sx={{
+                    color: "inherit",
+                    fontFamily: "var(--font-display)",
+                    fontSize: { xs: "1rem", md: "1.08rem" },
+                    fontWeight: 700,
+                  }}
+                >
+                  {group.title}
+                </Typography>
+                <Typography
+                  component="span"
+                  sx={{
+                    color: "text.secondary",
+                    fontFamily: "var(--font-code)",
+                    fontSize: "0.68rem",
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {group.eyebrow}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+
+          <Box sx={{ minHeight: { lg: 520 }, p: { xs: 2.5, md: 3.5 } }}>
+            {renderedGroups.map((group) => (
+              <Box
+                key={group.id}
+                className={`capability-panel capability-panel-${group.id}`}
+                sx={{ display: "none" }}
+              >
+                <SectionEyebrow>{group.eyebrow}</SectionEyebrow>
                 <SectionHeading
                   component="h3"
                   id={`${group.id}-heading`}
-                  sx={{ fontSize: { xs: "1.45rem", md: "1.7rem" } }}
+                  sx={{ fontSize: { xs: "1.55rem", md: "1.9rem" }, mt: 1 }}
                 >
                   {group.title}
                 </SectionHeading>
-                <Typography color="text.secondary" sx={{ fontSize: "0.94rem", lineHeight: 1.6 }}>
+                <Typography color="text.secondary" sx={{ maxWidth: 700, mt: 1.2 }}>
                   {group.description}
                 </Typography>
-              </Stack>
 
-              <Box
-                sx={{
-                  display: "grid",
-                  gridTemplateColumns: { xs: "1fr", md: "repeat(2, minmax(0, 1fr))" },
-                }}
-              >
-                {group.items.map((item, itemIndex) => (
-                  <Box
-                    key={item.title}
-                    id={item.id}
-                    sx={{
-                      borderBottom: {
-                        xs: itemIndex < group.items.length - 1 ? "1px solid" : "none",
-                        md:
-                          itemIndex < group.items.length - (group.items.length % 2 || 2)
-                            ? "1px solid"
-                            : "none",
-                      },
-                      borderColor: "divider",
-                      borderRight: {
-                        xs: "none",
-                        md:
-                          (itemIndex + 1) % 2 !== 0 && itemIndex < group.items.length - 1
-                            ? "1px solid"
-                            : "none",
-                      },
-                      gridColumn: {
-                        md:
-                          itemIndex === group.items.length - 1 && group.items.length % 2 !== 0
-                            ? "1 / -1"
-                            : "auto",
-                      },
-                      minHeight: 150,
-                      p: { xs: 2.5, md: 3 },
-                    }}
-                  >
-                    <Typography
-                      component="h4"
+                <Box
+                  sx={{
+                    alignItems: "start",
+                    display: "grid",
+                    gap: 1.25,
+                    gridTemplateColumns: { xs: "1fr", md: "repeat(2, minmax(0, 1fr))" },
+                    mt: 3,
+                  }}
+                >
+                  {group.items.map((item, itemIndex) => (
+                    <Box
+                      key={item.title}
+                      id={item.id}
+                      className="capability-matrix-item"
+                      tabIndex={0}
                       sx={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: "1.06rem",
-                        fontWeight: 700,
-                        mb: 1,
+                        border: "1px solid",
+                        borderColor: "divider",
+                        borderRadius: 1,
+                        gridColumn: {
+                          md:
+                            itemIndex === group.items.length - 1 && group.items.length % 2 !== 0
+                              ? "1 / -1"
+                              : "auto",
+                        },
+                        minHeight: 176,
+                        outline: "none",
+                        p: 2.25,
+                        "&:focus-visible .capability-popout, &:hover .capability-popout": {
+                          maxHeight: "36rem",
+                          mt: 1.25,
+                          opacity: 1,
+                          pointerEvents: "auto",
+                          py: 2.25,
+                          transform: "translateY(0)",
+                        },
+                        "&:focus-visible .capability-summary, &:hover .capability-summary": {
+                          maxHeight: 0,
+                          opacity: 0,
+                          overflow: "hidden",
+                        },
                       }}
                     >
-                      {item.title}
-                    </Typography>
-                    <Typography color="text.secondary" sx={{ fontSize: "0.9rem", lineHeight: 1.6 }}>
-                      {item.description}
-                    </Typography>
-                  </Box>
-                ))}
+                      <Typography
+                        component="h4"
+                        sx={{
+                          fontFamily: "var(--font-display)",
+                          fontSize: "1.05rem",
+                          fontWeight: 700,
+                          mb: 1,
+                        }}
+                      >
+                        {item.title}
+                      </Typography>
+                      <Typography
+                        className="capability-summary"
+                        color="text.secondary"
+                        sx={{
+                          fontSize: "0.88rem",
+                          lineHeight: 1.58,
+                          maxHeight: "8rem",
+                          transition: "max-height 160ms ease, opacity 160ms ease",
+                        }}
+                      >
+                        {item.description}
+                      </Typography>
+
+                      <Box
+                        className="capability-popout"
+                        sx={{
+                          backgroundColor: "rgba(18, 18, 28, 0.98)",
+                          border: "1px solid",
+                          borderColor: "primary.main",
+                          borderRadius: 1,
+                          boxShadow: "0 24px 80px rgba(0, 0, 0, 0.5)",
+                          maxHeight: 0,
+                          opacity: 0,
+                          overflow: "hidden",
+                          px: 2.25,
+                          py: 0,
+                          pointerEvents: "none",
+                          transform: "translateY(8px)",
+                          transition:
+                            "max-height 220ms ease, margin-top 160ms ease, opacity 160ms ease, transform 160ms ease",
+                        }}
+                      >
+                        <SectionEyebrow sx={{ mb: 0.75 }}>Details</SectionEyebrow>
+                        <Typography
+                          color="text.secondary"
+                          sx={{ fontSize: "0.88rem", lineHeight: 1.58, mb: 1.5 }}
+                        >
+                          {item.detail ?? item.description}
+                        </Typography>
+                        {item.stack && item.stack.length > 0 ? (
+                          <Stack spacing={1}>
+                            <Typography
+                              sx={{
+                                color: "primary.main",
+                                fontFamily: "var(--font-code)",
+                                fontSize: "0.68rem",
+                                fontWeight: 700,
+                                letterSpacing: "0.1em",
+                                textTransform: "uppercase",
+                              }}
+                            >
+                              Tech stack
+                            </Typography>
+                            <Stack direction="row" spacing={0.75} useFlexGap flexWrap="wrap">
+                              {item.stack.map((tool) => (
+                                <Typography
+                                  key={tool}
+                                  component="span"
+                                  sx={{
+                                    border: "1px solid",
+                                    borderColor: "divider",
+                                    borderRadius: 1,
+                                    color: "text.secondary",
+                                    fontFamily: "var(--font-code)",
+                                    fontSize: "0.68rem",
+                                    px: 0.85,
+                                    py: 0.45,
+                                  }}
+                                >
+                                  {tool}
+                                </Typography>
+                              ))}
+                            </Stack>
+                          </Stack>
+                        ) : null}
+                      </Box>
+                    </Box>
+                  ))}
+                </Box>
               </Box>
-            </Box>
-          ))}
-        </Stack>
+            ))}
+          </Box>
+        </Box>
       </Card>
     </Box>
   );
