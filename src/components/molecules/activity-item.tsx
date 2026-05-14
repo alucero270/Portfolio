@@ -3,8 +3,11 @@ import { Box, Stack, Typography } from "@mui/material";
 import { ExternalLink, MonoLabel } from "@/components/atoms";
 
 export type ActivityItemData = {
+  hash?: string;
   href?: string;
   label?: string;
+  occurredAt?: string;
+  repoName?: string;
   summary?: string;
   title: string;
 };

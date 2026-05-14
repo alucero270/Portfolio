@@ -2,66 +2,16 @@ import { ArrowForward } from "@mui/icons-material";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 
-import { LogoLockup } from "@/components/atoms/logo-lockup";
+import { LogoLockup, StatusChip } from "@/components/atoms";
 import { toInternalHref } from "@/lib/routing";
 import { siteConfig } from "@/lib/site";
 
 const navigationLinks = [
-  { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
+  { href: "/projects", label: "Work" },
+  { href: "/#active-systems-heading", label: "Systems" },
+  { href: "/#thinking-out-loud-heading", label: "Lab" },
   { href: "/about", label: "About" },
-  { href: "/projects", label: "Case Studies" },
-  { href: "/contact", label: "Contact" },
 ];
-
-const serviceMenuGroups = [
-  {
-    heading: "Digital Product",
-    links: [
-      { href: "/services#mvp-development", label: "MVP Development" },
-      { href: "/services#web-development", label: "Web Development" },
-      { href: "/services#frontend-development", label: "Front End Development" },
-      { href: "/services#backend-development", label: "Back End Development" },
-      { href: "/services#ui-ux-design", label: "UI/UX Design" },
-    ],
-  },
-  {
-    heading: "Systems & Devices",
-    links: [
-      { href: "/services#prototype-systems", label: "Prototype Systems" },
-      { href: "/services#embedded-telemetry", label: "Embedded & Telemetry" },
-      { href: "/services#firmware-development", label: "Firmware Development" },
-      { href: "/services#iot-development", label: "IoT Development" },
-      { href: "/services#ai-iot-systems", label: "AI for IoT Systems" },
-      { href: "/services#robotics-automation", label: "Robotics & Automation" },
-    ],
-  },
-  {
-    heading: "AI & Infrastructure",
-    links: [
-      { href: "/services#ai-infrastructure", label: "AI Infrastructure" },
-      { href: "/services#technical-software", label: "Technical Software" },
-      { href: "/services#database-modeling", label: "Database Modeling" },
-      { href: "/services#devops-services", label: "DevOps Services" },
-      { href: "/services#cloud-software-development", label: "Cloud Software" },
-      { href: "/services#linux-operations", label: "Linux Operations" },
-    ],
-  },
-  {
-    heading: "Advisory & Support",
-    links: [
-      { href: "/services#rnd-services", label: "R&D Services" },
-      { href: "/services#iot-consulting-services", label: "IoT Consulting" },
-      { href: "/services#tech-advisory", label: "Tech Advisory" },
-      { href: "/services#post-production-support", label: "Post-Production Support" },
-      { href: "/services#dedicated-technical-support", label: "Dedicated Technical Support" },
-    ],
-  },
-];
-
-const githubHandle = siteConfig.github.includes("github.com/")
-  ? siteConfig.github.replace(/^https?:\/\/github.com\//, "")
-  : "alucero270";
 
 const footerGroups = [
   { heading: "Work", links: ["Capabilities", "Case Studies", "Active R&D"] },
@@ -75,7 +25,14 @@ type SiteShellProps = {
 
 export function SiteShell({ children }: SiteShellProps) {
   return (
-    <Box sx={{ minHeight: "100vh", display: "grid", gridTemplateRows: "auto 1fr auto" }}>
+    <Box
+      sx={{
+        display: "grid",
+        gridTemplateRows: "auto 1fr auto",
+        minHeight: "100vh",
+        overflowX: "clip",
+      }}
+    >
       <Box
         component="header"
         sx={{
@@ -93,7 +50,7 @@ export function SiteShell({ children }: SiteShellProps) {
             direction={{ xs: "column", md: "row" }}
             spacing={{ xs: 1.5, md: 3 }}
             sx={{
-              alignItems: { xs: "stretch", md: "center" },
+              alignItems: { xs: "center", md: "center" },
               justifyContent: "space-between",
               py: 1.75,
             }}
@@ -106,55 +63,7 @@ export function SiteShell({ children }: SiteShellProps) {
               sx={{ alignItems: "center", color: "text.primary", textDecoration: "none" }}
             >
               <LogoLockup size="sm" />
-              <Stack
-                direction="row"
-                spacing={1}
-                useFlexGap
-                flexWrap="wrap"
-                sx={{ alignItems: "baseline" }}
-              >
-                <Typography
-                  component="span"
-                  variant="caption"
-                  sx={{
-                    color: "text.secondary",
-                    fontFamily: "var(--font-code)",
-                    fontSize: "0.68rem",
-                  }}
-                >
-                  / {githubHandle}
-                </Typography>
-                <Typography
-                  component="span"
-                  variant="caption"
-                  sx={{
-                    alignItems: "center",
-                    border: "1px solid rgba(63, 219, 138, 0.28)",
-                    borderRadius: 1,
-                    color: "#3FDB8A",
-                    display: { xs: "none", sm: "inline-flex" },
-                    fontFamily: "var(--font-code)",
-                    fontSize: "0.64rem",
-                    gap: 0.75,
-                    px: 1,
-                    py: 0.25,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  <Box
-                    aria-hidden
-                    component="span"
-                    sx={{
-                      backgroundColor: "#3FDB8A",
-                      borderRadius: "50%",
-                      boxShadow: "0 0 0 3px rgba(63, 219, 138, 0.14)",
-                      height: 5,
-                      width: 5,
-                    }}
-                  />
-                  R&D / Consulting
-                </Typography>
-              </Stack>
+              <StatusChip label="available" />
             </Stack>
             <Stack
               component="nav"
@@ -163,117 +72,23 @@ export function SiteShell({ children }: SiteShellProps) {
               spacing={{ xs: 0.25, sm: 0.75 }}
               sx={{ flexWrap: "wrap", justifyContent: { xs: "space-between", md: "flex-end" } }}
             >
-              {navigationLinks.map((link) =>
-                link.href === "/services" ? (
-                  <Box
-                    key={link.href}
-                    sx={{
-                      position: "relative",
-                      "&:focus-within .services-menu, &:hover .services-menu": {
-                        opacity: 1,
-                        pointerEvents: "auto",
-                        transform: "translate(0, 0)",
-                      },
-                    }}
-                  >
-                    <Button
-                      href={toInternalHref(link.href)}
-                      color="inherit"
-                      sx={{
-                        color: "text.secondary",
-                        fontSize: "0.82rem",
-                        minWidth: 0,
-                        px: { xs: 0.75, sm: 1.25 },
-                        "&:hover": { color: "text.primary" },
-                      }}
-                    >
-                      {link.label}
-                    </Button>
-                    <Box
-                      className="services-menu"
-                      sx={{
-                        backgroundColor: "rgba(18, 18, 28, 0.98)",
-                        border: "1px solid",
-                        borderColor: "divider",
-                        borderRadius: 1,
-                        boxShadow: "0 22px 70px rgba(0, 0, 0, 0.36)",
-                        display: { xs: "none", md: "grid" },
-                        gap: 2.5,
-                        gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-                        opacity: 0,
-                        p: 3,
-                        pointerEvents: "none",
-                        position: "absolute",
-                        right: 0,
-                        top: "calc(100% + 12px)",
-                        transform: "translate(0, -6px)",
-                        transition:
-                          "opacity 160ms ease, transform 160ms ease, pointer-events 160ms ease",
-                        width: "min(920px, calc(100vw - 48px))",
-                        zIndex: 20,
-                        "&::before": {
-                          content: '""',
-                          height: 14,
-                          left: 0,
-                          position: "absolute",
-                          right: 0,
-                          top: -14,
-                        },
-                      }}
-                    >
-                      {serviceMenuGroups.map((group) => (
-                        <Stack key={group.heading} spacing={1.2}>
-                          <Typography
-                            variant="caption"
-                            sx={{
-                              borderBottom: "1px solid",
-                              borderColor: "divider",
-                              color: "primary.main",
-                              fontFamily: "var(--font-code)",
-                              fontWeight: 700,
-                              letterSpacing: "0.12em",
-                              pb: 1,
-                              textTransform: "uppercase",
-                            }}
-                          >
-                            {group.heading}
-                          </Typography>
-                          {group.links.map((serviceLink) => (
-                            <Typography
-                              key={serviceLink.href}
-                              component="a"
-                              href={toInternalHref(serviceLink.href)}
-                              sx={{
-                                color: "text.secondary",
-                                fontSize: "0.9rem",
-                                textDecoration: "none",
-                                "&:hover": { color: "text.primary" },
-                              }}
-                            >
-                              {serviceLink.label}
-                            </Typography>
-                          ))}
-                        </Stack>
-                      ))}
-                    </Box>
-                  </Box>
-                ) : (
-                  <Button
-                    key={link.href}
-                    href={toInternalHref(link.href)}
-                    color="inherit"
-                    sx={{
-                      color: "text.secondary",
-                      fontSize: "0.82rem",
-                      minWidth: 0,
-                      px: { xs: 0.75, sm: 1.25 },
-                      "&:hover": { color: "text.primary" },
-                    }}
-                  >
-                    {link.label}
-                  </Button>
-                ),
-              )}
+              {navigationLinks.map((link) => (
+                <Button
+                  key={link.href}
+                  href={toInternalHref(link.href)}
+                  color="inherit"
+                  sx={{
+                    color: "text.secondary",
+                    display: { xs: "none", sm: "inline-flex" },
+                    fontSize: "0.82rem",
+                    minWidth: 0,
+                    px: { xs: 0.75, sm: 1.25 },
+                    "&:hover": { color: "text.primary" },
+                  }}
+                >
+                  {link.label}
+                </Button>
+              ))}
               <Button
                 href={toInternalHref("/contact")}
                 endIcon={<ArrowForward sx={{ fontSize: "0.9rem" }} />}
@@ -287,7 +102,7 @@ export function SiteShell({ children }: SiteShellProps) {
         </Container>
       </Box>
 
-      <Container component="main" maxWidth="lg" sx={{ py: { xs: 5, md: 8 } }}>
+      <Container component="main" maxWidth="lg" sx={{ overflowX: "clip", py: { xs: 5, md: 8 } }}>
         {children}
       </Container>
 
@@ -313,8 +128,8 @@ export function SiteShell({ children }: SiteShellProps) {
               <Stack spacing={1.5}>
                 <LogoLockup size="sm" showTagline />
                 <Typography color="text.secondary" variant="body2" sx={{ maxWidth: 320 }}>
-                  {siteConfig.studioName} is a founder-led engineering studio for prototype systems,
-                  embedded integration, technical software, AI infrastructure, and practical R&D.
+                  The studio identity for {siteConfig.ownerName}&apos;s freelance engineering work:
+                  SaaS, AI systems, internal tools, and prototype technical systems for small teams.
                 </Typography>
               </Stack>
               {footerGroups.map(({ heading, links }) => (
