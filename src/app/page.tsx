@@ -3,22 +3,19 @@ import type { Metadata } from "next";
 
 import { MdxContent } from "@/components/mdx-content";
 import {
-  ActiveSystemsSection,
-  type ActiveSystemItem,
   AuthorityHero,
   BuildPhilosophySection,
   type BuildPrinciple,
   ContactCTASection,
   EngineeringEvidenceSection,
-  type LabNote,
   ProjectProcessSection,
   type ProjectProcessStep,
+  RecentActivitySection,
   SelectedWorkSection,
   ServicesSection,
   type ServiceItem,
   SignalStripSection,
   type SignalStripItem,
-  ThinkingOutLoudSection,
 } from "@/components/organisms";
 import { HomeTemplate } from "@/components/templates";
 import type { ActivityItemData, EvidenceLink } from "@/components/molecules";
@@ -66,31 +63,43 @@ const serviceItems: ServiceItem[] = [
     title: "Prototype systems engineering",
     description:
       "Turn ambiguous technical ideas into scoped, buildable systems with clear interfaces, validation paths, and documentation.",
+    glyph: "code",
+    image: "/images/placeholders/wiring-testing.jpg",
   },
   {
     title: "Embedded systems & telemetry",
     description:
       "Embedded Linux, firmware-adjacent services, sensor acquisition, framed telemetry, control boundaries, and hardware bring-up workflows.",
+    glyph: "chip",
+    image: "/images/placeholders/osciliscope-bench.jpg",
   },
   {
     title: "Robotics & automation platforms",
     description:
       "MCU plus Linux architectures, actuator/sensor integration, runtime coordination, observability, and simulation-aware development.",
+    glyph: "robot",
+    image: "/images/placeholders/stepper-motor.jpg",
   },
   {
     title: "AI infrastructure & local inference",
     description:
       "GPU/server lab architecture, retrieval systems, agent tooling, local model workflows, and AI-assisted engineering automation.",
+    glyph: "bolt",
+    image: "/images/placeholders/server-rack-2.jpg",
   },
   {
     title: "Industrial and technical software",
     description:
       "Backend services, engineering interfaces, internal tools, telemetry views, APIs, and integration systems for technical operations.",
+    glyph: "code",
+    image: "/images/placeholders/dashboard-components.jpg",
   },
   {
     title: "Infrastructure & systems operations",
     description:
       "Linux systems, networking, Docker, storage, observability, repeatable deployment, and self-hosted engineering infrastructure.",
+    glyph: "chip",
+    image: "/images/placeholders/linux-terminal.jpg",
   },
 ];
 
@@ -117,61 +126,51 @@ const processSteps: ProjectProcessStep[] = [
     title: "Discovery & risk map",
     description:
       "Clarify the technical goal, constraints, subsystem boundaries, available hardware, and the failure modes that would make the effort unworkable.",
+    image: "/images/placeholders/cad-sketch.jpg",
   },
   {
     title: "Prototype & integrate",
     description:
       "Build the smallest useful proof across the relevant domains: hardware interfaces, services, telemetry, infrastructure, or AI workflow pieces.",
+    image: "/images/placeholders/bread-board-dark.jpg",
   },
   {
     title: "Validate & document",
     description:
       "Test the system where it needs to operate, capture what was learned, refine the architecture, and leave behind diagrams, notes, and next-step decisions.",
+    image: "/images/placeholders/osciliscope.jpg",
   },
 ];
 
-const labNotes: LabNote[] = [
-  {
-    date: "Current",
-    href: toInternalHref("/projects/om606-signal-integration"),
-    summary:
-      "Reverse-engineering vehicle control expectations and validating signal behavior across mechanical and electronic systems.",
-    tags: ["automotive", "signals"],
-    title: "OM606 signal integration",
-  },
-  {
-    date: "Current",
-    href: toInternalHref("/projects/kittybot"),
-    summary:
-      "Defining robotics runtime boundaries across MCU control, Linux orchestration, telemetry, and local model constraints.",
-    tags: ["robotics", "runtime"],
-    title: "KittyBot architecture notes",
-  },
-  {
-    date: "Current",
-    href: toInternalHref("/projects/vtcn"),
-    summary:
-      "Embedded Linux telemetry work around sensor input, framing, persistence, transport, and validation loops.",
-    tags: ["embedded", "telemetry"],
-    title: "Telemetry validation loops",
-  },
-];
+const projectImageBySlug: Record<string, string> = {
+  codex: "/images/placeholders/python-code.jpg",
+  kittybot: "/images/placeholders/stepper-motor.jpg",
+  "om606-signal-integration": "/images/placeholders/wiring-testing.jpg",
+  pantheon: "/images/placeholders/server-rack.jpg",
+  vtcn: "/images/placeholders/electronics-workbench.jpg",
+};
 
 const workingNowFallbackItems: ActivityItemData[] = [
   {
+    hash: "local",
     label: "Curated system",
+    repoName: "om606-signal-integration",
     summary:
       "Vehicle signal emulation, ECU compatibility, and validation notes for a diesel drivetrain integration.",
     title: "OM606 integration",
   },
   {
+    hash: "local",
     label: "Curated system",
+    repoName: "kittybot",
     summary:
       "Companion robot runtime architecture, service boundaries, and hardware/software interface contracts.",
     title: "KittyBot",
   },
   {
+    hash: "local",
     label: "Curated system",
+    repoName: "vtcn",
     summary:
       "Embedded Linux telemetry platform work around sensor input, framing, persistence, and validation loops.",
     title: "VTCN",
@@ -180,8 +179,11 @@ const workingNowFallbackItems: ActivityItemData[] = [
 
 function toWorkingNowActivityItem(activityItem: GitHubActivityItem): ActivityItemData {
   return {
+    hash: activityItem.hash,
     href: activityItem.url,
     label: `Live signal / ${activityItem.label}`,
+    occurredAt: activityItem.occurredAt,
+    repoName: activityItem.repoName,
     summary: activityItem.summary,
     title: activityItem.title,
   };
@@ -204,17 +206,6 @@ async function getWorkingNowItems(): Promise<ActivityItemData[]> {
   }
 }
 
-function getActivityForRepo(
-  items: ActivityItemData[],
-  repoLabel?: string,
-): ActivityItemData | undefined {
-  if (!repoLabel) {
-    return undefined;
-  }
-
-  return items.find((item) => item.label?.toLowerCase().includes(repoLabel.toLowerCase()));
-}
-
 export default async function HomePage() {
   const [bio, featuredProjects, workingNowItems] = await Promise.all([
     getBio(),
@@ -225,6 +216,7 @@ export default async function HomePage() {
     actionLabel: "Open case study",
     evidenceCount: project.evidence?.length,
     href: toInternalHref(`/projects/${project.slug}`),
+    image: projectImageBySlug[project.slug],
     outcome: project.outcome,
     repoLabel:
       project.repoOwner && project.repoName
@@ -237,27 +229,6 @@ export default async function HomePage() {
     title: project.title,
     updated: project.updated,
   }));
-  const activeSystemItems: ActiveSystemItem[] = featuredProjects.map((project) => {
-    const repoLabel =
-      project.repoOwner && project.repoName
-        ? `${project.repoOwner}/${project.repoName}`
-        : undefined;
-
-    return {
-      activity: getActivityForRepo(workingNowItems, repoLabel),
-      context:
-        project.outcome ??
-        "Authored project context keeps the system constraints, role, and evidence visible.",
-      evidenceCount: project.evidence?.length,
-      focus: project.summary,
-      href: toInternalHref(`/projects/${project.slug}`),
-      repoLabel,
-      status: project.status,
-      summary: project.summary,
-      tech: project.tech,
-      title: project.title,
-    };
-  });
   const evidenceLinks: EvidenceLink[] = [
     {
       description:
@@ -298,6 +269,12 @@ export default async function HomePage() {
           ]}
           eyebrow="Prototype systems engineering / embedded integration / AI infrastructure"
           headingId="home-bio-heading"
+          stats={[
+            { value: "3", label: "featured systems" },
+            { value: "5", label: "case studies" },
+            { value: "static", label: "export-ready" },
+            { value: "live", label: "optional GitHub signal" },
+          ]}
           summary="Loose Arrow Labs is a founder-led technical engineering studio for prototype systems, multidisciplinary integration, and practical R&D. The work connects software, embedded systems, infrastructure, AI tooling, and physical hardware into inspectable systems."
           techTags={[
             "Systems integration",
@@ -319,12 +296,13 @@ export default async function HomePage() {
           <MdxContent>{bio.content}</MdxContent>
         </AuthorityHero>,
         <SignalStripSection key="signal-strip" items={signalStripItems} />,
-        <ServicesSection key="services" headingId="services-heading" items={serviceItems} />,
-        <ActiveSystemsSection
-          key="active-systems"
-          headingId="active-systems-heading"
-          systems={activeSystemItems}
+        <RecentActivitySection
+          key="recent-activity"
+          headingId="recent-activity-heading"
+          items={workingNowItems}
+          summary="Pulled from allowlisted GitHub repositories when available, with local authored context as the static-first fallback."
         />,
+        <ServicesSection key="services" headingId="services-heading" items={serviceItems} />,
         <SelectedWorkSection
           key="case-studies"
           allProjectsHref={toInternalHref("/projects")}
@@ -350,11 +328,6 @@ export default async function HomePage() {
           headingId="engineering-evidence-heading"
           links={evidenceLinks}
           title="Evidence Over Claims"
-        />,
-        <ThinkingOutLoudSection
-          key="thinking-out-loud"
-          headingId="thinking-out-loud-heading"
-          notes={labNotes}
         />,
         <ContactCTASection
           key="contact-cta"

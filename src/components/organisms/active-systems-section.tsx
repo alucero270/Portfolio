@@ -10,6 +10,7 @@ export type ActiveSystemItem = {
   evidenceCount?: number;
   focus?: string;
   href: string;
+  image?: string;
   repoLabel?: string;
   status?: string;
   summary: string;
@@ -83,10 +84,16 @@ export function ActiveSystemsSection({ headingId, systems }: ActiveSystemsSectio
 
       <Stack spacing={2.5}>
         {systems.map((system) => (
-          <Card key={system.href} component="article" sx={{ overflow: "hidden" }}>
+          <Card
+            key={system.href}
+            component="article"
+            sx={{
+              overflow: "hidden",
+            }}
+          >
             <Box
               sx={{
-                background: "linear-gradient(180deg, rgba(255,255,255,0.025), transparent)",
+                background: "linear-gradient(180deg, rgba(255,255,255,0.04), transparent)",
                 borderBottom: "1px solid",
                 borderColor: "divider",
                 display: "grid",
@@ -112,7 +119,12 @@ export function ActiveSystemsSection({ headingId, systems }: ActiveSystemsSectio
                   {system.summary}
                 </Typography>
               </Box>
-              <Stack sx={{ alignItems: { xs: "flex-start", md: "flex-end" } }} spacing={1}>
+              <Stack
+                sx={{
+                  alignItems: { xs: "flex-start", md: "flex-end" },
+                }}
+                spacing={1}
+              >
                 <StatusBadge status={system.status} />
                 {system.evidenceCount ? (
                   <MonoLabel>
@@ -124,6 +136,11 @@ export function ActiveSystemsSection({ headingId, systems }: ActiveSystemsSectio
 
             <Box
               sx={{
+                backgroundImage: system.image
+                  ? `linear-gradient(90deg, rgba(26,26,31,0.94), rgba(26,26,31,0.78)), url(${system.image})`
+                  : undefined,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
                 display: "grid",
                 gridTemplateColumns: { xs: "1fr", md: "1fr 1fr 1.15fr" },
               }}

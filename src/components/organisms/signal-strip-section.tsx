@@ -25,16 +25,25 @@ export function SignalStripSection({ items }: SignalStripSectionProps) {
         borderBlock: "1px solid",
         borderColor: "divider",
         backgroundColor: "rgba(15, 15, 23, 0.42)",
-        mx: { xs: -2, sm: 0 },
-        px: { xs: 2.5, sm: 0 },
+        left: "50%",
+        maxWidth: "100vw",
+        px: { xs: 2.25, md: 4 },
+        position: "relative",
         py: { xs: 3.5, md: 2.5 },
+        transform: "translateX(-50%)",
+        width: "100vw",
       }}
     >
       <Box
         sx={{
           display: "grid",
           gap: 0,
-          gridTemplateColumns: { xs: "1fr", md: `repeat(${items.length}, minmax(0, 1fr))` },
+          gridTemplateColumns: {
+            xs: "repeat(2, minmax(0, 1fr))",
+            lg: `repeat(${items.length}, minmax(0, 1fr))`,
+          },
+          maxWidth: 1240,
+          mx: "auto",
         }}
       >
         {items.map((item, index) => (
@@ -43,16 +52,25 @@ export function SignalStripSection({ items }: SignalStripSectionProps) {
             spacing={0.75}
             sx={{
               borderBottom: {
-                xs: index < items.length - 1 ? "1px solid" : "none",
-                md: "none",
+                xs: index < 2 ? "1px solid" : "none",
+                lg: "none",
               },
-              borderLeft: { md: index > 0 ? "1px solid" : "none" },
+              borderLeft: {
+                xs: index % 2 === 1 ? "1px solid" : "none",
+                lg: index > 0 ? "1px solid" : "none",
+              },
               borderColor: "divider",
-              px: { xs: 0, md: 2.5 },
+              minWidth: 0,
+              px: { xs: 1.5, md: 2.5 },
               py: { xs: 2.25, md: 0.5 },
+              textAlign: { xs: "center", sm: "left" },
             }}
           >
-            <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
+            <Stack
+              direction="row"
+              spacing={1.25}
+              sx={{ alignItems: "center", justifyContent: { xs: "center", sm: "flex-start" } }}
+            >
               {item.glyph ? (
                 <BrandGlyph name={item.glyph} size={22} sx={{ color: "primary.main" }} />
               ) : null}
