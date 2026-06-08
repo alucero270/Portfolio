@@ -5,7 +5,7 @@ export const siteConfig = {
   siteTitle: "Loose Arrow Labs | Prototype Systems Engineering",
   siteDescription:
     "Founder-led technical engineering studio for prototype systems, embedded integration, AI infrastructure, technical software, and practical R&D.",
-  email: "TODO_ADD_EMAIL",
-  github: "TODO_ADD_GITHUB_URL",
-  linkedin: "TODO_ADD_LINKEDIN_URL",
+  email: "a.lucero2892@gmail.com",
+  github: "https://github.com/alucero270",
+  linkedin: "https://linkedin.com/in/alex-lucero-480a24239/",
 };
