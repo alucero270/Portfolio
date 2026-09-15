@@ -128,8 +128,8 @@ export function SiteShell({ children }: SiteShellProps) {
               <Stack spacing={1.5}>
                 <LogoLockup size="sm" showTagline />
                 <Typography color="text.secondary" variant="body2" sx={{ maxWidth: 320 }}>
-                  The studio identity for {siteConfig.ownerName}&apos;s freelance engineering work:
-                  SaaS, AI systems, internal tools, and prototype technical systems for small teams.
+                  AI systems, local inference infrastructure, AI developer tooling, and applied
+                  engineering. Documentation-driven and built to last.
                 </Typography>
               </Stack>
               {footerGroups.map(({ heading, links }) => (

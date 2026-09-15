@@ -30,76 +30,76 @@ import { toInternalHref } from "@/lib/routing";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Loose Arrow Labs",
+  title: "Loose Arrow Labs | AI Systems & Applied Engineering",
   description:
-    "Founder-led prototype systems engineering and technical R&D studio led by Alex Lucero.",
+    "Technical studio building AI infrastructure, local inference systems, AI developer tooling, and applied engineering systems.",
 };
 
 const signalStripItems: SignalStripItem[] = [
   {
-    glyph: "chip",
-    label: "Prototype systems",
-    description: "Feasibility, subsystem boundaries, bench validation, and working proofs.",
-  },
-  {
-    glyph: "robot",
-    label: "Embedded & robotics",
-    description: "MCU/Linux architecture, telemetry, control interfaces, and device bring-up.",
-  },
-  {
     glyph: "bolt",
     label: "AI infrastructure",
-    description: "Local inference, retrieval systems, agent tooling, and deterministic workflows.",
+    description: "Local inference stacks, multi-model routing, voice agents, and GPU compute management.",
   },
   {
     glyph: "code",
-    label: "Technical software",
-    description: "Operational tools, APIs, data pipelines, dashboards, and integration services.",
+    label: "AI tooling",
+    description: "Developer tooling, MCP-native systems, deterministic context, and agent infrastructure.",
+  },
+  {
+    glyph: "chip",
+    label: "Systems & infrastructure",
+    description: "Linux systems, Docker, networking, storage, and documentation-driven operations.",
+  },
+  {
+    glyph: "robot",
+    label: "Applied engineering",
+    description: "Embedded Linux, telemetry, prototype systems, and hardware integration.",
   },
 ];
 
 const serviceItems: ServiceItem[] = [
   {
-    title: "Prototype systems engineering",
-    description:
-      "Turn ambiguous technical ideas into scoped, buildable systems with clear interfaces, validation paths, and documentation.",
-    glyph: "code",
-    image: "/images/placeholders/wiring-testing.jpg",
-  },
-  {
-    title: "Embedded systems & telemetry",
-    description:
-      "Embedded Linux, firmware-adjacent services, sensor acquisition, framed telemetry, control boundaries, and hardware bring-up workflows.",
-    glyph: "chip",
-    image: "/images/placeholders/osciliscope-bench.jpg",
-  },
-  {
-    title: "Robotics & automation platforms",
-    description:
-      "MCU plus Linux architectures, actuator/sensor integration, runtime coordination, observability, and simulation-aware development.",
-    glyph: "robot",
-    image: "/images/placeholders/stepper-motor.jpg",
-  },
-  {
     title: "AI infrastructure & local inference",
     description:
-      "GPU/server lab architecture, retrieval systems, agent tooling, local model workflows, and AI-assisted engineering automation.",
+      "Local inference stack design and operation: multi-model routing, GPU compute management, VRAM tradeoff analysis, voice agent pipelines, and self-hosted AI with explicit data sovereignty.",
     glyph: "bolt",
-    image: "/images/placeholders/server-rack-2.jpg",
+    image: "/images/placeholders/server-rack.jpg",
   },
   {
-    title: "Industrial and technical software",
+    title: "AI application development",
     description:
-      "Backend services, engineering interfaces, internal tools, telemetry views, APIs, and integration systems for technical operations.",
+      "AI-native applications and developer tooling: MCP-integrated systems, governed project memory, deterministic context layers, agent infrastructure, and retrieval systems with auditable behavior.",
     glyph: "code",
+    image: "/images/placeholders/python-code.jpg",
+  },
+  {
+    title: "AI systems consulting",
+    description:
+      "Architecture review, stack selection, and operational guidance for AI systems. From local inference tradeoffs to agent workflow design — grounded in real operational experience, not vendor documentation.",
+    glyph: "bolt",
     image: "/images/placeholders/dashboard-components.jpg",
   },
   {
     title: "Infrastructure & systems operations",
     description:
-      "Linux systems, networking, Docker, storage, observability, repeatable deployment, and self-hosted engineering infrastructure.",
+      "Linux systems, networking, Docker, storage, observability, and documentation-driven repeatable infrastructure. Systems designed to be recoverable, not just functional.",
     glyph: "chip",
     image: "/images/placeholders/linux-terminal.jpg",
+  },
+  {
+    title: "Technical software & integration",
+    description:
+      "Backend services, engineering interfaces, internal tools, APIs, and integration systems for technical operations. Built to be maintainable and observable.",
+    glyph: "code",
+    image: "/images/placeholders/osciliscope-bench.jpg",
+  },
+  {
+    title: "Prototype systems & embedded engineering",
+    description:
+      "Embedded Linux, firmware-adjacent services, sensor acquisition, MCU/Linux architectures, and physical prototype systems. Active R&D — work in progress.",
+    glyph: "robot",
+    image: "/images/placeholders/electronics-workbench.jpg",
   },
 ];
 
@@ -110,28 +110,28 @@ const buildPrinciples: BuildPrinciple[] = [
       "Define interfaces, signals, ownership, constraints, and failure modes before committing to implementation details.",
   },
   {
-    title: "Prototype the uncertain part first",
+    title: "Make it inspectable before making it fast",
     description:
-      "Use focused builds to test the highest-risk assumption early, whether that is timing, signal validity, data flow, or physical fit.",
+      "Systems that can be observed, validated, and reasoned about are easier to improve than systems that are simply fast at first.",
   },
   {
     title: "Leave evidence behind",
     description:
-      "Document tradeoffs, validation steps, operating notes, and observed behavior so the system can be inspected and safely changed later.",
+      "Document tradeoffs, validation steps, operating notes, and observed behavior so the system can be safely changed later.",
   },
 ];
 
 const processSteps: ProjectProcessStep[] = [
   {
-    title: "Discovery & risk map",
+    title: "Understand the system",
     description:
-      "Clarify the technical goal, constraints, subsystem boundaries, available hardware, and the failure modes that would make the effort unworkable.",
+      "Clarify the technical goal, constraints, subsystem boundaries, available hardware or infrastructure, and the failure modes that would make the effort unworkable.",
     image: "/images/placeholders/cad-sketch.jpg",
   },
   {
-    title: "Prototype & integrate",
+    title: "Build or integrate",
     description:
-      "Build the smallest useful proof across the relevant domains: hardware interfaces, services, telemetry, infrastructure, or AI workflow pieces.",
+      "Build the smallest useful proof across the relevant domains: AI infrastructure, application logic, hardware interfaces, or operational systems.",
     image: "/images/placeholders/bread-board-dark.jpg",
   },
   {
@@ -143,10 +143,12 @@ const processSteps: ProjectProcessStep[] = [
 ];
 
 const projectImageBySlug: Record<string, string> = {
-  codex: "/images/placeholders/python-code.jpg",
+  canonis: "/images/placeholders/python-code.jpg",
+  anemoi: "/images/placeholders/server-rack-2.jpg",
+  pantheon: "/images/placeholders/server-rack.jpg",
+  codex: "/images/placeholders/dashboard-components.jpg",
   kittybot: "/images/placeholders/stepper-motor.jpg",
   "om606-signal-integration": "/images/placeholders/wiring-testing.jpg",
-  pantheon: "/images/placeholders/server-rack.jpg",
   vtcn: "/images/placeholders/electronics-workbench.jpg",
 };
 
@@ -154,26 +156,26 @@ const workingNowFallbackItems: ActivityItemData[] = [
   {
     hash: "local",
     label: "Curated system",
-    repoName: "om606-signal-integration",
+    repoName: "pantheon",
     summary:
-      "Vehicle signal emulation, ECU compatibility, and validation notes for a diesel drivetrain integration.",
-    title: "OM606 integration",
+      "Self-hosted AI infrastructure: local inference stack, voice agent with measured latency, multi-model routing, and documentation-driven operations.",
+    title: "Pantheon",
   },
   {
     hash: "local",
     label: "Curated system",
-    repoName: "kittybot",
+    repoName: "canonis",
     summary:
-      "Companion robot runtime architecture, service boundaries, and hardware/software interface contracts.",
-    title: "KittyBot",
+      "Governed project memory for AI-assisted development: lifecycle-managed artifacts, deterministic context assembly, and MCP server for agent integration.",
+    title: "Canonis",
   },
   {
     hash: "local",
     label: "Curated system",
-    repoName: "vtcn",
+    repoName: "anemoi",
     summary:
-      "Embedded Linux telemetry platform work around sensor input, framing, persistence, and validation loops.",
-    title: "VTCN",
+      "Local AI router presenting a stable OpenAI-compatible endpoint across Ollama and llama.cpp backends with deterministic alias routing.",
+    title: "Anemoi",
   },
 ];
 
@@ -238,15 +240,15 @@ export default async function HomePage() {
     },
     {
       description:
-        "Vehicle signal adaptation and drivetrain integration where mechanical and electrical systems meet.",
-      href: toInternalHref("/projects/om606-signal-integration"),
-      label: "Automotive integration proof",
+        "Governed project memory for AI agents: deterministic context, lifecycle-managed artifacts, and MCP integration built in Rust.",
+      href: toInternalHref("/projects/canonis"),
+      label: "AI tooling proof — Canonis",
     },
     {
       description:
-        "Embedded Linux and telemetry work where interfaces, persistence, transport, and validation matter.",
-      href: toInternalHref("/projects/vtcn"),
-      label: "Embedded telemetry proof",
+        "Self-hosted AI stack with local inference, voice agent latency profiling, and documentation-driven infrastructure operations.",
+      href: toInternalHref("/projects/pantheon"),
+      label: "AI infrastructure proof — Pantheon",
     },
   ];
 
@@ -267,29 +269,29 @@ export default async function HomePage() {
               variant: "outlined",
             },
           ]}
-          eyebrow="Prototype systems engineering / embedded integration / AI infrastructure"
+          eyebrow="AI systems & infrastructure / AI developer tooling / applied engineering"
           headingId="home-bio-heading"
           stats={[
-            { value: "3", label: "featured systems" },
-            { value: "5", label: "case studies" },
-            { value: "static", label: "export-ready" },
-            { value: "live", label: "optional GitHub signal" },
+            { value: "7", label: "case studies" },
+            { value: "local", label: "AI inference" },
+            { value: "live", label: "GitHub signal" },
+            { value: "open", label: "source work" },
           ]}
-          summary="Loose Arrow Labs is a founder-led technical engineering studio for prototype systems, multidisciplinary integration, and practical R&D. The work connects software, embedded systems, infrastructure, AI tooling, and physical hardware into inspectable systems."
+          summary="Loose Arrow Labs is a technical studio building AI infrastructure, AI developer tooling, and applied engineering systems. Work spans local inference stacks, MCP-native developer tooling, documentation-driven operations, and prototype engineering systems."
           techTags={[
-            "Systems integration",
-            "Embedded Linux & telemetry",
-            "Robotics platforms",
             "AI infrastructure",
-            "Technical software",
+            "Local inference",
+            "AI developer tooling",
+            "Systems integration",
+            "Applied engineering",
           ]}
           title={
             <>
               Loose Arrow Labs builds{" "}
               <Box component="span" sx={{ color: "primary.main" }}>
-                prototype technical systems
+                AI systems and applied engineering tools
               </Box>{" "}
-              across software, hardware, and infrastructure.
+              grounded in real operational constraints.
             </>
           }
         >
@@ -309,7 +311,7 @@ export default async function HomePage() {
           eyebrow="Technical case studies"
           headingId="case-studies-heading"
           projects={featuredProjectItems}
-          title="Systems Under Development"
+          title="Active Systems"
           description="Project work framed by the engineering problem: constraints, subsystem boundaries, integration complexity, validation approach, and what is being learned."
         />,
         <ProjectProcessSection
@@ -333,7 +335,7 @@ export default async function HomePage() {
           key="contact-cta"
           contactHref={toInternalHref("/contact")}
           headingId="contact-cta-heading"
-          summary="Loose Arrow Labs is in an active R&D and early consulting phase. The best-fit conversations involve a technical system, an integration boundary, a prototype need, or an engineering workflow that needs to become real."
+          summary="Loose Arrow Labs is taking on early consulting engagements in AI infrastructure, local inference, and AI application development. Good-fit conversations involve an AI system that needs to be built, operated, or made more reliable — and a technical team that values depth over demos."
         />,
       ]}
     />

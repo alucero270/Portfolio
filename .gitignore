@@ -43,3 +43,7 @@ next-env.d.ts
 # editor
 /.idea/
 /.vscode/
+
+# Local pre-edit snapshots; git history already preserves these versions
+/archive/
+/content/archive/

@@ -8,9 +8,27 @@ export type GitHubRepoConfig = {
 
 export const githubRepoAllowlist = [
   {
+    projectSlugs: ["canonis"],
+    repoName: "canonis",
+    repoOwner: "Loose-Arrow-Labs",
+    repoPrimary: true,
+  },
+  {
+    projectSlugs: ["anemoi"],
+    repoName: "anemoi",
+    repoOwner: "Loose-Arrow-Labs",
+    repoPrimary: true,
+  },
+  {
+    projectSlugs: ["pantheon"],
+    repoName: "pantheon",
+    repoOwner: "alucero270",
+    repoPrimary: true,
+  },
+  {
     projectSlugs: ["codex"],
     repoName: "memora",
-    repoOwner: "alucero270",
+    repoOwner: "Loose-Arrow-Labs",
     repoPrimary: true,
   },
   {
@@ -31,12 +49,6 @@ export const githubRepoAllowlist = [
     repoOwner: "alucero270",
     repoPath: "om606-signal-integration",
     repoPrimary: false,
-  },
-  {
-    projectSlugs: ["pantheon"],
-    repoName: "pantheon",
-    repoOwner: "alucero270",
-    repoPrimary: true,
   },
   {
     projectSlugs: ["strata"],
