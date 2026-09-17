@@ -39,12 +39,14 @@ const signalStripItems: SignalStripItem[] = [
   {
     glyph: "bolt",
     label: "AI infrastructure",
-    description: "Local inference stacks, multi-model routing, voice agents, and GPU compute management.",
+    description:
+      "Local inference stacks, multi-model routing, voice agents, and GPU compute management.",
   },
   {
     glyph: "code",
     label: "AI tooling",
-    description: "Developer tooling, MCP-native systems, deterministic context, and agent infrastructure.",
+    description:
+      "Developer tooling, MCP-native systems, deterministic context, and agent infrastructure.",
   },
   {
     glyph: "chip",

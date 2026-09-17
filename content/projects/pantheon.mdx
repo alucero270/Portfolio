@@ -44,10 +44,10 @@ A local real-time voice conversation loop validated and tuned on Prometheus:
 
 **Measured latency after optimization:**
 
-| Path | Latency |
-|---|---|
-| Qwen3-TTS stock baseline | 8–10 seconds per short response |
-| Hybrid backend (triton) | 0.38s short / 1.07s sentence / 2.67s 105-char response |
+| Path                     | Latency                                                |
+| ------------------------ | ------------------------------------------------------ |
+| Qwen3-TTS stock baseline | 8–10 seconds per short response                        |
+| Hybrid backend (triton)  | 0.38s short / 1.07s sentence / 2.67s 105-char response |
 
 Key constraint: Qwen3-TTS and large GPU models cannot coexist on the RTX 4000 Ada. Granite 4.1 8B fits alongside Qwen3-TTS and is the validated production candidate.
 
