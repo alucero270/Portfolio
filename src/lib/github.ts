@@ -2,6 +2,7 @@ import {
   getGitHubReposForProject,
   getGitHubRepoAllowlist,
   isGitHubRepoAllowed,
+  isGitHubRepoPrivate,
   toGitHubRepoKey,
   type GitHubRepoConfig,
 } from "@/lib/github-config";
@@ -52,6 +53,7 @@ export type NormalizedGitHubRepo = {
   repoName: string;
   repoOwner: string;
   repoPrimary?: boolean;
+  repoPrivate?: boolean;
   topics: string[];
   updatedAt?: string;
   url: string;
@@ -71,10 +73,11 @@ export type GitHubActivityItem = {
 
 export type GitHubRepoFreshness = {
   label: string;
-  occurredAt: string;
+  occurredAt?: string;
   primaryLanguage?: string;
   repoName: string;
   repoOwner: string;
+  repoPrivate?: boolean;
   url: string;
 };
 
@@ -156,8 +159,12 @@ function normalizeRepo(
     return null;
   }
 
+  const repoPrivate = isGitHubRepoPrivate(repoOwner, repoName) || config.repoPrivate === true;
+
   return {
-    description: rawRepo.description ?? undefined,
+    // A private repo's description is author-written prose about unreleased
+    // work, same class of disclosure as a commit subject, so it is withheld.
+    description: repoPrivate ? undefined : (rawRepo.description ?? undefined),
     latestCommits,
     primaryLanguage: rawRepo.language ?? undefined,
     projectSlugs: config.projectSlugs ?? [],
@@ -165,7 +172,8 @@ function normalizeRepo(
     repoName,
     repoOwner,
     repoPrimary: config.repoPrimary,
-    topics: rawRepo.topics ?? [],
+    repoPrivate,
+    topics: repoPrivate ? [] : (rawRepo.topics ?? []),
     updatedAt: rawRepo.updated_at ?? undefined,
     url,
   };
@@ -197,22 +205,30 @@ export async function fetchGitHubRepo(
     return null;
   }
 
+  const repoPrivate =
+    isGitHubRepoPrivate(config.repoOwner, config.repoName) || config.repoPrivate === true;
   const commitLimit = options.commitLimit ?? DEFAULT_COMMIT_LIMIT;
   const repoUrl = `${GITHUB_API_BASE}/repos/${config.repoOwner}/${config.repoName}`;
+
+  // Private repos never have their commits requested. Withholding at the
+  // fetch boundary means commit subjects, SHAs, authors, and commit URLs
+  // cannot reach a render path even if a later change forgets to filter.
   const commitsUrl = `${repoUrl}/commits?per_page=${commitLimit}`;
 
   const [rawRepo, rawCommits] = await Promise.all([
     fetchJson<RawGitHubRepo>(repoUrl),
-    fetchJson<RawGitHubCommit[]>(commitsUrl),
+    repoPrivate ? Promise.resolve(null) : fetchJson<RawGitHubCommit[]>(commitsUrl),
   ]);
 
   if (!rawRepo) {
     return null;
   }
 
-  const latestCommits = (rawCommits ?? [])
-    .map((commit) => normalizeCommit(commit))
-    .filter((commit): commit is NormalizedGitHubCommit => Boolean(commit));
+  const latestCommits = repoPrivate
+    ? []
+    : (rawCommits ?? [])
+        .map((commit) => normalizeCommit(commit))
+        .filter((commit): commit is NormalizedGitHubCommit => Boolean(commit));
 
   return normalizeRepo(config, rawRepo, latestCommits);
 }
@@ -282,6 +298,12 @@ export function getFilteredGitHubActivity(
   const limit = options.limit ?? DEFAULT_ACTIVITY_LIMIT;
 
   const activityItems = repos.map((repo): GitHubActivityItem | null => {
+    // Private repos carry no commits by construction; this guard keeps the
+    // feed correct even if one is ever populated from another source.
+    if (repo.repoPrivate) {
+      return null;
+    }
+
     const latestCommit = getLatestUsefulCommit(repo);
 
     if (!latestCommit) {
@@ -330,12 +352,42 @@ export function getGitHubRepoFreshness(repo: NormalizedGitHubRepo): GitHubRepoFr
   }
 
   return {
-    label: `${repo.pushedAt ? "Repo pushed" : "Repo updated"} ${formattedDate}`,
+    label: repo.repoPrivate
+      ? `Active ${formattedDate}`
+      : `${repo.pushedAt ? "Repo pushed" : "Repo updated"} ${formattedDate}`,
     occurredAt,
     primaryLanguage: repo.primaryLanguage,
     repoName: repo.repoName,
     repoOwner: repo.repoOwner,
+    repoPrivate: repo.repoPrivate,
     url: repo.url,
+  };
+}
+
+/**
+ * Freshness state for a private repo whose metadata could not be read.
+ *
+ * Without a token the GitHub API returns 404 for a private repo, which is
+ * indistinguishable from a network failure. Deriving this state from config
+ * rather than from the response means a private project renders a deliberate
+ * label instead of silently looking inactive.
+ */
+function buildPrivateRepoFallback(configs: GitHubRepoConfig[]): GitHubRepoFreshness | null {
+  const privateConfig = configs.find(
+    (config) =>
+      isGitHubRepoPrivate(config.repoOwner, config.repoName) || config.repoPrivate === true,
+  );
+
+  if (!privateConfig) {
+    return null;
+  }
+
+  return {
+    label: "Private repository",
+    repoName: privateConfig.repoName,
+    repoOwner: privateConfig.repoOwner,
+    repoPrivate: true,
+    url: `https://github.com/${privateConfig.repoOwner}/${privateConfig.repoName}`,
   };
 }
 
@@ -376,9 +428,9 @@ export async function fetchProjectGitHubFreshness(
   try {
     const repos = await fetchAllowlistedGitHubRepos(configs, { commitLimit: 1 });
 
-    return selectGitHubRepoFreshness(repos);
+    return selectGitHubRepoFreshness(repos) ?? buildPrivateRepoFallback(configs);
   } catch {
-    return null;
+    return buildPrivateRepoFallback(configs);
   }
 }
 
@@ -409,7 +461,22 @@ export async function fetchGitHubFreshnessByProjectSlug(
       }
     }
   } catch {
-    return freshnessBySlug;
+    // fall through to the private-repo fallback below
+  }
+
+  // Any private project with no live signal still gets a deliberate state.
+  for (const config of configs) {
+    for (const projectSlug of config.projectSlugs ?? []) {
+      if (freshnessBySlug.has(projectSlug)) {
+        continue;
+      }
+
+      const fallback = buildPrivateRepoFallback([config]);
+
+      if (fallback) {
+        freshnessBySlug.set(projectSlug, fallback);
+      }
+    }
   }
 
   return freshnessBySlug;

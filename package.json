@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "validate:github-fallback": "node scripts/validate-github-fallback.mjs"
+    "validate:github-fallback": "node scripts/validate-github-fallback.mjs",
+    "validate:private-repos": "node scripts/validate-private-repo-privacy.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

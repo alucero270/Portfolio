@@ -23,6 +23,7 @@ npm run lint
 npm run format:check
 npm run build
 npm run validate:github-fallback
+npm run validate:private-repos
 ```
 
 Format files with:
@@ -145,3 +146,19 @@ The CI job runs:
 - `npm run lint`
 - `npm run format:check`
 - `npm run build`
+
+## Private repositories
+
+Some allowlisted repos are private (`canonis`, `memora`, `pantheon`). They are
+marked with `repoPrivate: true` in `src/lib/github-config.ts`, and the site
+publishes only their last-active date and primary language.
+
+Commit messages, SHAs, authors, commit links, repo descriptions, and topics are
+never fetched for a private repo, so nothing about unreleased work can reach the
+public site whether or not `GITHUB_TOKEN` is set. A private project renders a
+deliberate "Private repo" state rather than silently appearing inactive.
+
+`npm run validate:private-repos` enforces this: it serves commit data for every
+repo from a fake GitHub API, builds the site, and fails if any private repo's
+content appears in the output. It also asserts a public repo's commit _does_
+appear, so the check cannot pass by rendering nothing.
