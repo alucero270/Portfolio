@@ -1,0 +1,67 @@
+---
+title: "Anemoi"
+slug: "anemoi"
+summary: "Local AI router presenting a stable OpenAI-compatible endpoint while routing requests across Ollama and llama.cpp backends. Built in C#/ASP.NET Core with deterministic alias routing, streaming support, and backend health checks."
+featured: true
+status: "Active development"
+updated: "2026-05-27"
+role: "Systems engineer"
+tech: ["C#", "ASP.NET Core", "Ollama", "llama.cpp", "OpenAI API", "Docker"]
+repoOwner: "alucero270"
+repoName: "anemoi"
+repoPrimary: true
+evidence:
+  - label: "Repository"
+    href: "https://github.com/alucero270/anemoi"
+    type: "repo"
+---
+
+## Overview
+
+Anemoi is a local AI router that presents a stable OpenAI-compatible endpoint to clients while routing requests across local inference backends. Tools like OpenWebUI, IDE plugins, and custom scripts connect to one endpoint. The backend — Ollama, llama.cpp, or future adapters — can be swapped or extended without reconfiguring every client.
+
+## Engineering Problem
+
+Local AI tooling sprawl creates friction:
+
+- Each inference backend has its own endpoint, port, and model naming convention
+- Every client needs its own configuration for each backend
+- Swapping a backend means updating every consumer
+- Adding a new backend means a new configuration round-trip across all clients
+- Health and availability differ per backend with no unified view
+
+Anemoi solves this with a stable proxy surface. Configure one endpoint, configure routing once, and all clients follow. Routing rules are explicit and auditable, not probabilistic.
+
+## Architecture
+
+Built in C#/ASP.NET Core with a clean separation between routing logic and backend adapters:
+
+- `Anemoi.Api` — ASP.NET Core host, controllers, middleware, startup
+- `Anemoi.Core` — canonical router models, routing rules, fallback policy, health, and typed configuration
+- `Anemoi.Backends.Ollama` — Ollama adapter behind a canonical interface
+- `Anemoi.Backends.LlamaCpp` — llama.cpp adapter
+- `Anemoi.Tests` — unit, adapter, and integration tests
+- `deploy/docker` — container assets
+- `deploy/config` — example configuration
+
+## What Is Working
+
+- OpenAI-style `POST /v1/chat/completions` with streaming and non-streaming support
+- `GET /v1/models` backed by configured UI-visible model aliases
+- `GET /health` and `GET /health/backends` for observability
+- Deterministic alias selection: explicit alias match, keyword rule match, then default alias fallback
+- Typed configuration with startup validation — misconfiguration fails fast with a clear error
+- Serilog console and rolling file logging
+- Ollama and llama.cpp backend adapters behind canonical interfaces
+
+## Design Decisions
+
+**Stable OpenAI-compatible surface.** Clients configure once; routing and backend changes happen beneath them. The goal is a surface stable enough to commit to in tooling and workflows.
+
+**Deterministic alias routing.** No probabilistic load balancing in core. Alias rules are explicit and auditable — the same input produces the same routing decision.
+
+**Typed configuration with startup validation.** Bad configuration produces a clear startup error, not a silent runtime failure.
+
+**Adapters behind canonical interfaces.** New backends implement the same contract. The router does not change when a new backend is added.
+
+**Designed for the local-first AI workflow.** Anemoi assumes models run locally on hardware the operator controls. Provider-backed cloud endpoints are not the target.

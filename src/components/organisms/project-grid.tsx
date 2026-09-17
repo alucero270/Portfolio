@@ -16,11 +16,15 @@ export function ProjectGrid({ headingComponent = "h2", projects }: ProjectGridPr
 
   return (
     <Grid container spacing={2.5}>
-      {projects.map((project) => (
-        <Grid key={project.href} size={{ xs: 12, md: 6, lg: 4 }}>
-          <ProjectCard {...project} headingComponent={headingComponent} />
-        </Grid>
-      ))}
+      {projects.map((project, index) => {
+        const isOddLast = projects.length % 2 === 1 && index === projects.length - 1;
+
+        return (
+          <Grid key={project.href} size={{ xs: 12, md: isOddLast ? 12 : 6 }}>
+            <ProjectCard {...project} headingComponent={headingComponent} />
+          </Grid>
+        );
+      })}
     </Grid>
   );
 }

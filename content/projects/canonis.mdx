@@ -1,0 +1,76 @@
+---
+title: "Canonis"
+slug: "canonis"
+summary: "Governed project memory for AI-assisted software development. Deterministic, lifecycle-aware context delivered via MCP so agents stop re-deriving decisions the project already made."
+featured: true
+status: "Active development"
+updated: "2026-05-27"
+role: "Architect and systems engineer"
+tech: ["Rust", "MCP", "SQLite", "Local-first", "AI tooling"]
+repoOwner: "Loose-Arrow-Labs"
+repoName: "canonis"
+repoPrimary: true
+evidence:
+  - label: "Repository"
+    href: "https://github.com/Loose-Arrow-Labs/canonis"
+    type: "repo"
+---
+
+## Overview
+
+Canonis is a governance harness for AI-assisted software development. It preserves approved project decisions, constraints, and facts as structured artifacts and exposes deterministic context via MCP — so agents across sessions and clients stop re-deriving what the project already decided.
+
+## Engineering Problem
+
+AI agents can read repositories, draft patches, and run tools. What they do not reliably own is durable, governed project truth across sessions.
+
+A team decides on Monday: bearer tokens, no JWT. On Wednesday a new agent session re-derives the decision and proposes cookies instead. Friday code review catches the drift. Multiply across three agents, five clients, and six months of approved decisions living nowhere durable.
+
+The problem is not the agents. The problem is that project truth is undurable.
+
+Canonis makes project decisions, constraints, and facts explicit, lifecycle-governed, and deterministically accessible. Agents propose changes; humans approve through the CLI. No client writes canonical artifacts directly.
+
+## Architecture
+
+Built as a Rust workspace with strict crate boundaries:
+
+- `canonis-core` — typed artifact model with lifecycle, validation, and temporal and scope semantics
+- `canonis-store` — filesystem parsing and persistence with id sanitization and size limits
+- `canonis-index` — SQLite rebuild-from-files indexing
+- `canonis-context` — deterministic context assembly with explicit inclusion reasons
+- `canonis-harness` — composition of domain crates; no cross-layer I/O in domain crates
+- `canonis-cli` — operator surface: init, propose, promote, approve, reject, rebuild-index, context
+- `canonis-mcp` — local MCP HTTP server with loopback default and bearer-token auth
+
+Canonical truth lives on the filesystem. SQLite is a derived index and is fully rebuildable. Only approved artifacts are current truth candidates.
+
+## Artifact Lifecycle
+
+```
+proposed (non-canonical) → draft (non-canonical) → approved (canonical truth)
+approved → superseded (canonical historical state)
+approved → deprecated (canonical historical state)
+```
+
+Only active `approved` artifacts are current truth candidates. `superseded` and `deprecated` artifacts remain canonical historical state.
+
+## What Is Working
+
+- Strongly typed artifact lifecycle with validation and temporal and scope semantics
+- Filesystem parsing and persistence
+- SQLite rebuild-from-files indexing
+- Deterministic context assembly with explicit inclusion reasons
+- CLI operator commands across the full artifact lifecycle
+- Local MCP HTTP server: agents call `get_context`, `propose_artifact`, `propose_update`, `record_outcome`, `list_review_items`
+
+## Design Decisions
+
+**Filesystem as canonical truth.** SQLite is derived and rebuildable. The filesystem is the authority — not a database that can drift or become inaccessible.
+
+**Proposals are non-canonical until human approval.** Agents propose; they do not commit. This keeps humans in the loop for decisions that matter.
+
+**Deterministic and explainable context.** No ranking, no embedding similarity as the primary retrieval mechanism. Context assembly returns artifacts with explicit inclusion reasons so the agent and the developer can both understand what was included and why.
+
+**Strict crate boundaries.** Domain crates do not perform I/O across layers. Each crate owns a single responsibility.
+
+**Loopback-default MCP server.** Non-loopback binding requires an explicit opt-in. Security boundaries are conservative by default.

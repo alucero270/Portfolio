@@ -58,6 +58,7 @@ export type NormalizedGitHubRepo = {
 };
 
 export type GitHubActivityItem = {
+  hash?: string;
   label: string;
   occurredAt?: string;
   repoName: string;
@@ -293,6 +294,7 @@ export function getFilteredGitHubActivity(
 
     return {
       label: repoLabel,
+      hash: latestCommit.sha.slice(0, 7),
       occurredAt: latestCommit.committedAt ?? repo.pushedAt ?? repo.updatedAt,
       repoName: repo.repoName,
       repoOwner: repo.repoOwner,

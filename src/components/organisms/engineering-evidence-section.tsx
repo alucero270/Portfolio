@@ -21,14 +21,26 @@ export function EngineeringEvidenceSection({
 
   return (
     <Box component="section" aria-labelledby={headingId} sx={{ py: { xs: 2, md: 3 } }}>
-      <Box sx={{ borderBottom: "1px solid", borderColor: "divider", mb: 3, pb: 2 }}>
-        <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
+      <Box
+        sx={{
+          borderBottom: "1px solid",
+          borderColor: "divider",
+          mb: 3,
+          pb: 2,
+          textAlign: { xs: "center", md: "left" },
+        }}
+      >
+        <Stack
+          direction="row"
+          spacing={1.5}
+          sx={{ alignItems: "center", justifyContent: { xs: "center", md: "flex-start" }, mb: 1.5 }}
+        >
           <MonoLabel>§09</MonoLabel>
           <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
           <SectionEyebrow sx={{ mb: 0 }}>Proof</SectionEyebrow>
         </Stack>
         <SectionHeading id={headingId}>{title}</SectionHeading>
-        <Typography color="text.secondary" sx={{ maxWidth: 640, mt: 1 }}>
+        <Typography color="text.secondary" sx={{ maxWidth: 640, mx: { xs: "auto", md: 0 }, mt: 1 }}>
           Repos, project notes, and written evidence. The useful artifacts stay visible without
           turning the page into a metrics board.
         </Typography>

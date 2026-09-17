@@ -11,6 +11,7 @@ export type ProjectCardData = {
   actionLabel?: string;
   evidenceCount?: number;
   href: string;
+  image?: string;
   outcome?: string;
   repoLabel?: string;
   repoFreshness?: RepoFreshnessData;
@@ -27,10 +28,12 @@ type ProjectCardProps = ProjectCardData & {
 };
 
 function ProjectVisualMock({
+  image,
   repoLabel,
   tech,
   title,
 }: {
+  image?: string;
   repoLabel?: string;
   tech: string[];
   title: string;
@@ -48,8 +51,11 @@ function ProjectVisualMock({
     <Box
       aria-hidden
       sx={{
-        background:
-          "radial-gradient(circle at 20% 20%, rgba(107,76,255,0.18), transparent 34%), #0F0F17",
+        background: image
+          ? `linear-gradient(180deg, rgba(26,26,31,0.06), rgba(26,26,31,0.82)), url(${image})`
+          : "radial-gradient(circle at 20% 20%, rgba(107,76,255,0.18), transparent 34%), #0F0F17",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
         borderBottom: "1px solid",
         borderColor: "divider",
         height: { xs: 156, md: 172 },
@@ -57,7 +63,16 @@ function ProjectVisualMock({
         position: "relative",
       }}
     >
-      {kind === "telemetry" ? (
+      {image ? (
+        <Box
+          sx={{
+            background: "linear-gradient(135deg, rgba(138,124,255,0.18), transparent 62%)",
+            inset: 0,
+            mixBlendMode: "screen",
+            position: "absolute",
+          }}
+        />
+      ) : kind === "telemetry" ? (
         <Box sx={{ inset: 0, p: 2, position: "absolute" }}>
           <Stack direction="row" spacing={1} sx={{ height: "100%", alignItems: "end" }}>
             {[36, 68, 44, 88, 58, 112, 74, 98].map((height, index) => (
@@ -202,6 +217,7 @@ export function ProjectCard({
   evidenceCount,
   headingComponent = "h2",
   href,
+  image,
   outcome,
   repoFreshness,
   repoLabel,
@@ -216,30 +232,50 @@ export function ProjectCard({
     evidenceCount && evidenceCount > 1 ? `${evidenceCount} evidence links` : "1 evidence link";
 
   return (
-    <Card component="article" sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <ProjectVisualMock repoLabel={repoLabel} tech={tech} title={title} />
+    <Card
+      component="article"
+      sx={{ display: "flex", flexDirection: "column", height: "100%", minWidth: 0 }}
+    >
+      <ProjectVisualMock image={image} repoLabel={repoLabel} tech={tech} title={title} />
       <Box
         sx={{
           borderBottom: "1px solid",
           borderColor: "divider",
           display: "flex",
+          gap: 1,
           justifyContent: "space-between",
+          minWidth: 0,
           px: 2.5,
           py: 1.25,
         }}
       >
-        <MonoLabel sx={{ color: "primary.main" }}>Curated project</MonoLabel>
-        {status ? <MonoLabel>{status}</MonoLabel> : null}
+        <MonoLabel sx={{ color: "primary.main", minWidth: 0 }}>Curated project</MonoLabel>
+        {status ? (
+          <MonoLabel
+            sx={{
+              minWidth: 0,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {status}
+          </MonoLabel>
+        ) : null}
       </Box>
       <CardContent sx={{ flexGrow: 1 }}>
         <Typography
           component={headingComponent}
           variant="h3"
-          sx={{ fontSize: headingComponent === "h2" ? "1.45rem" : "1.35rem", mb: 1 }}
+          sx={{
+            fontSize: headingComponent === "h2" ? "1.45rem" : "1.35rem",
+            mb: 1,
+            overflowWrap: "anywhere",
+          }}
         >
           {title}
         </Typography>
-        <Typography color="text.secondary" sx={{ mb: 2 }}>
+        <Typography color="text.secondary" sx={{ mb: 2, overflowWrap: "anywhere" }}>
           {summary}
         </Typography>
         <Stack spacing={1.25}>
@@ -253,7 +289,11 @@ export function ProjectCard({
               ))}
             </Stack>
           ) : null}
-          {repoLabel ? <MonoLabel>{repoLabel}</MonoLabel> : null}
+          {repoLabel ? (
+            <MonoLabel sx={{ overflowWrap: "anywhere", whiteSpace: "normal" }}>
+              {repoLabel}
+            </MonoLabel>
+          ) : null}
           <RepoFreshnessBadge freshness={repoFreshness} />
           {evidenceCount ? <MonoLabel>{evidenceLabel}</MonoLabel> : null}
         </Stack>

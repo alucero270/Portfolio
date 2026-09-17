@@ -27,18 +27,32 @@ export function SelectedWorkSection({
       <Stack
         direction={{ xs: "column", md: "row" }}
         justifyContent="space-between"
-        alignItems={{ xs: "flex-start", md: "flex-end" }}
+        alignItems={{ xs: "center", md: "flex-end" }}
         spacing={2}
-        sx={{ borderBottom: "1px solid", borderColor: "divider", mb: 3, pb: 2 }}
+        sx={{
+          borderBottom: "1px solid",
+          borderColor: "divider",
+          mb: 3,
+          pb: 2,
+          textAlign: { xs: "center", md: "left" },
+        }}
       >
         <Box>
-          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
-            <MonoLabel>§05</MonoLabel>
+          <Stack
+            direction="row"
+            spacing={1.5}
+            sx={{
+              alignItems: "center",
+              justifyContent: { xs: "center", md: "flex-start" },
+              mb: 1.5,
+            }}
+          >
+            <MonoLabel>S05</MonoLabel>
             <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
             <SectionEyebrow sx={{ mb: 0 }}>{eyebrow}</SectionEyebrow>
           </Stack>
           <SectionHeading id={headingId}>{title}</SectionHeading>
-          <Typography color="text.secondary" sx={{ maxWidth: 720 }}>
+          <Typography color="text.secondary" sx={{ maxWidth: 720, mx: { xs: "auto", md: 0 } }}>
             {description}
           </Typography>
         </Box>

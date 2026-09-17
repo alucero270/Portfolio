@@ -1,12 +1,20 @@
-import { Box, Card, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
-import { MonoLabel, SectionEyebrow, SectionHeading } from "@/components/atoms";
+import {
+  BrandGlyph,
+  type BrandGlyphName,
+  MonoLabel,
+  SectionEyebrow,
+  SectionHeading,
+} from "@/components/atoms";
 
 export type ServiceItem = {
   id?: string;
   title: string;
   description: string;
   detail?: string;
+  glyph?: BrandGlyphName;
+  image?: string;
   stack?: string[];
 };
 
@@ -51,6 +59,7 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
         gap: 1.25,
         gridTemplateColumns: { xs: "1fr", md: "repeat(2, minmax(0, 1fr))" },
         mt: 3,
+        minWidth: 0,
       }}
     >
       {group.items.map((item, itemIndex) => (
@@ -70,8 +79,10 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
                   : "auto",
             },
             minHeight: 176,
+            minWidth: 0,
             outline: "none",
-            p: 2.25,
+            p: { xs: 1.75, sm: 2.25 },
+            position: "relative",
             "&:focus-visible .capability-popout, &:hover .capability-popout": {
               maxHeight: "36rem",
               mt: 1.25,
@@ -86,17 +97,49 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
             },
           }}
         >
-          <Typography
-            component="h4"
+          {item.image ? (
+            <Box
+              aria-hidden="true"
+              sx={{
+                backgroundImage: `linear-gradient(180deg, rgba(18, 18, 28, 0.08), rgba(18, 18, 28, 0.92)), url(${item.image})`,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+                border: "1px solid",
+                borderColor: "divider",
+                borderRadius: 1,
+                height: "auto",
+                minHeight: { xs: 132, sm: 156, md: 92 },
+                mb: 1.5,
+                aspectRatio: { xs: "16 / 7", sm: "16 / 6", md: "16 / 5" },
+              }}
+            />
+          ) : null}
+          <Stack
+            direction="row"
             sx={{
-              fontFamily: "var(--font-display)",
-              fontSize: "1.05rem",
-              fontWeight: 700,
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              gap: 1.25,
               mb: 1,
+              minWidth: 0,
             }}
           >
-            {item.title}
-          </Typography>
+            <Typography
+              component="h4"
+              sx={{
+                fontFamily: "var(--font-display)",
+                fontSize: "1.05rem",
+                fontWeight: 600,
+                minWidth: 0,
+                overflowWrap: "anywhere",
+              }}
+            >
+              {item.title}
+            </Typography>
+            {item.glyph ? (
+              <BrandGlyph name={item.glyph} size={18} sx={{ color: "primary.main", mt: 0.25 }} />
+            ) : null}
+          </Stack>
           <Typography
             className="capability-summary"
             color="text.secondary"
@@ -104,6 +147,7 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
               fontSize: "0.88rem",
               lineHeight: 1.58,
               maxHeight: "8rem",
+              overflowWrap: "anywhere",
               transition: "max-height 160ms ease, opacity 160ms ease",
             }}
           >
@@ -187,184 +231,36 @@ export function ServicesSection({ headingId, groups, items }: ServicesSectionPro
           borderColor: "divider",
           mb: 3,
           pb: 2,
+          textAlign: { xs: "center", md: "left" },
         }}
       >
-        <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1.5 }}>
+        <Stack
+          direction="row"
+          spacing={1.5}
+          sx={{ alignItems: "center", justifyContent: { xs: "center", md: "flex-start" }, mb: 1.5 }}
+        >
           <MonoLabel>S06</MonoLabel>
           <Box aria-hidden sx={{ bgcolor: "divider", height: 1, width: 24 }} />
           <SectionEyebrow sx={{ mb: 0 }}>Capabilities</SectionEyebrow>
         </Stack>
         <SectionHeading id={headingId}>Engineering capabilities</SectionHeading>
-        <Typography color="text.secondary" sx={{ maxWidth: 680, mt: 1 }}>
+        <Typography color="text.secondary" sx={{ maxWidth: 680, mx: { xs: "auto", md: 0 }, mt: 1 }}>
           Practical R&D and integration support across embedded systems, AI infrastructure,
           technical software, hardware-aware prototyping, and systems operations.
         </Typography>
       </Box>
 
-      <Card sx={{ overflow: "hidden" }}>
-        <Stack
-          className="capability-mobile-list"
-          spacing={0}
-          sx={{ display: { xs: "flex", lg: "none" } }}
-        >
-          {renderedGroups.map((group, index) => (
-            <Box
-              key={group.id}
-              className="capability-mobile-details"
-              component="details"
-              open={index === 0}
-              sx={{
-                borderBottom: index < renderedGroups.length - 1 ? "1px solid" : "none",
-                borderColor: "divider",
-              }}
-            >
-              <Box
-                className="capability-mobile-summary"
-                component="summary"
-                sx={{
-                  cursor: "pointer",
-                  display: "grid",
-                  gap: 0.45,
-                  p: 2.5,
-                }}
-              >
-                <Typography
-                  component="span"
-                  sx={{
-                    color: "text.primary",
-                    fontFamily: "var(--font-display)",
-                    fontSize: "1.08rem",
-                    fontWeight: 700,
-                  }}
-                >
-                  {group.title}
-                </Typography>
-                <Typography
-                  component="span"
-                  sx={{
-                    color: "text.secondary",
-                    fontFamily: "var(--font-code)",
-                    fontSize: "0.68rem",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {group.eyebrow}
-                </Typography>
-              </Box>
-
-              <Box sx={{ borderTop: "1px solid", borderColor: "divider", p: 2.5, pt: 3 }}>
-                <SectionEyebrow>{group.eyebrow}</SectionEyebrow>
-                <SectionHeading component="h3" sx={{ fontSize: "1.5rem", mt: 1 }}>
-                  {group.title}
-                </SectionHeading>
-                <Typography color="text.secondary" sx={{ mt: 1.2 }}>
-                  {group.description}
-                </Typography>
-                {renderCapabilityMatrix(group)}
-              </Box>
-            </Box>
-          ))}
-        </Stack>
-
-        {renderedGroups.map((group, index) => (
-          <Box
-            key={group.id}
-            id={`${group.id}-input`}
-            className="capability-radio"
-            component="input"
-            type="radio"
-            name={`${headingId}-capability-group`}
-            defaultChecked={index === 0}
-            sx={{ position: "absolute" }}
-          />
-        ))}
-
-        <Box
-          className="capability-explorer-card"
-          sx={{
-            display: { xs: "none", lg: "grid" },
-            gridTemplateColumns: { xs: "1fr", lg: "0.82fr 1.8fr" },
-          }}
-        >
-          <Stack
-            component="aside"
-            spacing={1.2}
-            sx={{
-              borderBottom: { xs: "1px solid", lg: "none" },
-              borderColor: "divider",
-              borderRight: { lg: "1px solid" },
-              p: { xs: 2.5, md: 3.5 },
-            }}
-          >
-            {renderedGroups.map((group) => (
-              <Box
-                key={group.id}
-                className={`capability-option capability-option-${group.id}`}
-                component="label"
-                htmlFor={`${group.id}-input`}
-                sx={{
-                  borderRadius: 1,
-                  cursor: "pointer",
-                  display: "grid",
-                  gap: 0.45,
-                  px: 1.25,
-                  py: 1.1,
-                  transition: "background-color 160ms ease, color 160ms ease",
-                }}
-              >
-                <Typography
-                  component="span"
-                  sx={{
-                    color: "inherit",
-                    fontFamily: "var(--font-display)",
-                    fontSize: { xs: "1rem", md: "1.08rem" },
-                    fontWeight: 700,
-                  }}
-                >
-                  {group.title}
-                </Typography>
-                <Typography
-                  component="span"
-                  sx={{
-                    color: "text.secondary",
-                    fontFamily: "var(--font-code)",
-                    fontSize: "0.68rem",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {group.eyebrow}
-                </Typography>
-              </Box>
-            ))}
-          </Stack>
-
-          <Box sx={{ minHeight: { lg: 520 }, p: { xs: 2.5, md: 3.5 } }}>
-            {renderedGroups.map((group) => (
-              <Box
-                key={group.id}
-                className={`capability-panel capability-panel-${group.id}`}
-                sx={{ display: "none" }}
-              >
-                <SectionEyebrow>{group.eyebrow}</SectionEyebrow>
-                <SectionHeading
-                  component="h3"
-                  id={`${group.id}-heading`}
-                  sx={{ fontSize: { xs: "1.55rem", md: "1.9rem" }, mt: 1 }}
-                >
-                  {group.title}
-                </SectionHeading>
-                <Typography color="text.secondary" sx={{ maxWidth: 700, mt: 1.2 }}>
-                  {group.description}
-                </Typography>
-
-                {renderCapabilityMatrix(group)}
-              </Box>
-            ))}
+      <Stack spacing={3}>
+        {renderedGroups.map((group) => (
+          <Box key={group.id} sx={{ minWidth: 0 }}>
+            <SectionEyebrow>{group.eyebrow}</SectionEyebrow>
+            <Typography color="text.secondary" sx={{ maxWidth: 700, mt: 1 }}>
+              {group.description}
+            </Typography>
+            {renderCapabilityMatrix(group)}
           </Box>
-        </Box>
-      </Card>
+        ))}
+      </Stack>
     </Box>
   );
 }
