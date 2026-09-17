@@ -1,5 +1,9 @@
 # Autonomous Execution Rules
 
+## Business Operating Context
+
+Read `Context.md` at the repo root before any session involving content, positioning, or project priorities. It defines the Loose Arrow Labs operating model, engineering philosophy, current project priorities, and how agents should operate.
+
 ## What This Repo Is
 
 This repo is a Next.js App Router portfolio site being refactored into a founder-led technical authority site for Alex Lucero, with Loose Arrow Labs as the studio and builder identity.
